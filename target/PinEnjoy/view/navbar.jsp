@@ -88,7 +88,7 @@
             </c:when>
             <c:otherwise>
             <li style="margin-right:15px;"><button type="button" class="btn btn-default navbar-btn" onclick="location.href='login'"> 登录</button></li>
-            <li><button type="button" class="btn btn-default navbar-btn" onclick="location.href='register'"> 注册</button>
+            <li><button type="button" class="btn btn-default navbar-btn" onclick="location.href='account/register'"> 注册</button>
               </c:otherwise>
               </c:choose>
           </ul>

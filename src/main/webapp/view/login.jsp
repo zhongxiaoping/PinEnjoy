@@ -9,47 +9,56 @@
     <base href="<%=basePath%>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/x-icon" href="static/image/sys/thumb.png"/>
-    <link href="static/css/login.css" rel='stylesheet' type='text/css'/>
-    <link href="static/css/reset.css" rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" href="static/css/bootstrap.css"/>
+    <script type="text/javascript" src="static/js/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript" src="static/js/bootstrap.js"></script>
     <title>登录页</title>
+    <style type="text/css">
+        .main {
+            width:40%;
+            margin-top: 90px;
+            margin-bottom: 70px;
+            margin-left: 400px;
+        }
+        .main ._content {
+            text-align: center;
+            padding-bottom: 30px;
+        }
+    </style>
 </head>
 <body>
 
-    <div class="content">
-      <div class="main">
-        <div class="user">
-          <img src="static/image/sys/portrait.png">
+    <jsp:include page="navbar.jsp"/>
+
+    <div class="main">
+        <div class="_content">
+            <h2>登陆PinEnjoy</h2>
+            <p>东半球最好的图片社交网站！</p>
         </div>
-        <div class="login">
-          <div class="inset">
-            <form action="login" method="post">
-              <c:if test="${errorMsg }">
-                <div>
-                  <p>${errorMsg }</p>
+        <div>
+            <form id="signup" class="form-horizontal" method="post" action="/login">
+                <div class="form-group">
+                    <label for="id" class="col-sm-2 control-label">用户名</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="id" placeholder="用户名">
+                    </div>
                 </div>
-              </c:if>
-              <div>
-                <span><label>用户ID</label></span>
-                <span><input type="text" class="textbox" placeholder="用户名或邮箱" name="id"></span>
-              </div>
-              <div>
-                <span><label>密码</label></span>
-                <span><input type="password" class="password" placeholder="密码" name="password"></span>
-              </div>
-              <div class="sign">
-                <div class="submit">
-                  <input type="submit" value="提交">
+                <div class="form-group">
+                    <label for="password" class="col-sm-2 control-label">密码</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" id="password" placeholder="密码">
+                    </div>
                 </div>
-				<span class="forget-pass">
-				  <a href="register">还未注册？</a>
-				</span>
-                <div class="clear"></div>
-              </div>
+                <div class="form-group" style="text-align: center;">
+                    <button type="submit" class="btn btn-primary">
+                        登陆
+                    </button>
+                </div>
             </form>
-          </div>
         </div>
-      </div>
     </div>
+
+    <jsp:include page="bottom.jsp"/>
 
 </body>
 </html>

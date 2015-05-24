@@ -7,15 +7,19 @@ import com.tianex.pinenjoy.service.AccountService;
 import com.tianex.pinenjoy.service.EmailCheckService;
 import com.tianex.pinenjoy.util.DateUtils;
 import com.tianex.pinenjoy.util.NumberUtils;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.Session;
 import javax.servlet.http.HttpServletRequest;
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
@@ -23,10 +27,12 @@ import java.sql.Date;
  * @author TianEx
  */
 @Controller
+@RequestMapping("/account")
 public class RegisterController {
 
     private AccountService accountService;
     private EmailCheckService emailCheckService;
+    private JmsTemplate jmsTemplate;
 
     @ModelAttribute("account")
     public Account initAccount() {
@@ -46,7 +52,21 @@ public class RegisterController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String register(@ModelAttribute("account") Account account, HttpServletRequest request) {
+    public String register(@ModelAttribute("account") Account account,
+                           @RequestParam("thumbFile") final MultipartFile thumbFile, HttpServletRequest request) {
+        if (thumbFile.isEmpty()) {
+            return "register";
+        }
+
+        String location = Constant.USER_IMAGE_LOCATION + "/" + thumbFile.getOriginalFilename();
+
+        jmsTemplate.send("pp.uploadImage.queue", new MessageCreator() {
+            public Message createMessage(Session session) throws JMSException {
+                return session.createObjectMessage((Serializable) thumbFile);
+            }
+        });
+
+        account.setAccountThumb(location);
         accountService.createAccount(account);
 
         return "redirect:/login";
@@ -85,5 +105,10 @@ public class RegisterController {
     @Resource
     public void setEmailCheckService(EmailCheckService emailCheckService) {
         this.emailCheckService = emailCheckService;
+    }
+
+    @Resource
+    public void setJmsTemplate(JmsTemplate jmsTemplate) {
+        this.jmsTemplate = jmsTemplate;
     }
 }

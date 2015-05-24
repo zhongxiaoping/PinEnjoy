@@ -32,11 +32,16 @@ public abstract class SolrUtils {
         parameters.set("q", queryArgs);
         parameters.addSort("image_id", SolrQuery.ORDER.asc);
         parameters.setHighlight(true);
-        parameters.addHighlightField("image_username");
+        parameters.addHighlightField("image_accountNickname");
         parameters.setHighlightSimplePre("<font color='red'>");
         parameters.setHighlightSimplePost("</font>");
+
         parameters.setHighlightSnippets(1);// 结果分片数，默认为1
         parameters.setHighlightFragsize(1000);// 每个分片的最大长度，默认为100
+
+        parameters.setFacet(true).setFacetMinCount(1)
+                .setFacetLimit(5)
+                .addFacetField("image_id");
 
         QueryResponse response = solr.query(parameters);
         SolrDocumentList solrDocumentList = response.getResults();
