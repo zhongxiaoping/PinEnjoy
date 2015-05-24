@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+       <context:component-scan base-package="com.tianex.pinenjoy.service.impl"/>
+
+       <bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager"
+             p:sessionFactory-ref="sessionFactory"/>
+
+       <aop:config>
+              <aop:pointcut expression="execution(* com.tianex.pinenjoy.service.impl.*Impl.*(..))" id="serviceMethod"/>
+              <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethod"/>
+       </aop:config>
+
+       <tx:advice id="txAdvice" transaction-manager="txManager">
+              <tx:attributes>
+                     <tx:method name="**" propagation="REQUIRED" read-only="false"/>
+              </tx:attributes>
+       </tx:advice>
+
+
+
+</beans>

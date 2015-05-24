@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p" xmlns:jms="http://www.springframework.org/schema/jms"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+       <bean id="connectionFactory" class="org.apache.activemq.spring.ActiveMQConnectionFactory">
+              <property name="brokerURL" value="tcp://localhost:61616"/>
+       </bean>
+
+       <bean id="queue" class="org.apache.activemq.command.ActiveMQQueue">
+              <constructor-arg value="pp.uploadImage.queue"/>
+       </bean>
+
+       <!-- <bean id="topic" class="org.apache.activemq.command.ActiveMQTopic">
+           <constructor-arg value="pp.topic"/>
+       </bean> -->
+
+       <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate"
+             p:defaultDestinationName="pp.uploadImage.queue"
+             p:connectionFactory-ref="connectionFactory">
+       </bean>
+
+       <bean id="MDBean" class="com.tianex.pinenjoy.bean.MDBean"/>
+
+       <jms:listener-container connection-factory="connectionFactory">
+              <jms:listener destination="pp.uploadImage.queue" ref="MDBean" method="uploadImageSuccess"/>
+       </jms:listener-container>
+
+       <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl"
+             p:host="localhost"
+             p:port="25"
+             p:username="system"
+             p:password="system"/>
+
+       <bean id="completeRegisterCheck" class="org.springframework.mail.SimpleMailMessage"
+             p:from="system@tianym.com"
+             p:subject="验证账户">
+              <property name="text">
+                     <value>
+                            <![CDATA[
+    			亲，谢谢您注册PinEnjoy账户:
+    				请点击下方链接即可完成验证注册:
+    					http://localhost:8080/PinEnjoy/register/%s
+    			发送时间:%s
+    			有效期为:%s]]>
+                     </value>
+              </property>
+       </bean>
+
+</beans>

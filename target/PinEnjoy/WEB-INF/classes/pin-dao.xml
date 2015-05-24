@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+       <context:component-scan base-package="com.tianex.pinenjoy.dao"/>
+
+       <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+              <property name="driverClass" value="com.mysql.jdbc.Driver" />
+              <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/pin" />
+              <property name="user" value="root" />
+              <property name="password" value="root" />
+              <property name="minPoolSize"><value>5</value></property>
+              <property name="maxPoolSize"><value>30</value></property>
+              <property name="initialPoolSize"><value>10</value></property>
+              <property name="maxIdleTime"><value>60</value></property>
+              <property name="acquireIncrement"><value>30</value></property>
+              <property name="maxStatements"><value>0</value></property>
+              <property name="idleConnectionTestPeriod"><value>60</value></property>
+              <property name="acquireRetryAttempts"><value>30</value></property>
+              <property name="breakAfterAcquireFailure"><value>true</value></property>
+              <property name="testConnectionOnCheckout"><value>true</value></property>
+       </bean>
+
+       <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
+             p:dataSource-ref="dataSource">
+              <property name="packagesToScan">
+                     <list>
+                            <value>com.tianex.pinenjoy.domain</value>
+                     </list>
+              </property>
+              <property name="hibernateProperties">
+                     <props>
+                            <prop key="hibernate.dialect">
+                                   org.hibernate.dialect.MySQLDialect
+                            </prop>
+                            <prop key="hibernate.show_sql">true</prop>
+                     </props>
+              </property>
+       </bean>
+
+       <bean id="hibernateTemplate" class="org.springframework.orm.hibernate4.HibernateTemplate"
+             p:sessionFactory-ref="sessionFactory"/>
+
+</beans>
