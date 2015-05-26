@@ -16,10 +16,20 @@ public class GuestServiceImpl implements GuestService {
 
     private GuestDao guestDao;
 
+    /**
+     * 根据用户名获取所有访问其主页的访客实例
+     * @param accountNickname
+     * @return
+     */
     public List<Guest> findAllByAccountNickname(String accountNickname) {
         return guestDao.findAllByAccountNickname(accountNickname);
     }
 
+    /**
+     * 将当前访客记录到当前主页用户
+     * @param currentAccount
+     * @param homeAccount
+     */
     public void logGuestSuccess(Account currentAccount, Account homeAccount) {
         Guest guest = new Guest();
         guest.setGuestId(NumberUtils.generateUUID());

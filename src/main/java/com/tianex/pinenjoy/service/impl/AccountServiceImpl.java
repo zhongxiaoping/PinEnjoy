@@ -42,18 +42,38 @@ public class AccountServiceImpl implements AccountService {
         return accountDao.loadAll();
     }
 
+    /**
+     * 根据邮箱查询获取用户实例
+     * @param accountEmail
+     * @return
+     */
     public Account findAccountByEmail(String accountEmail) {
         return accountDao.findAccountByEmail(accountEmail);
     }
 
+    /**
+     * 根据用户名查询获取用户实例
+     * @param accountNickname
+     * @return
+     */
     public Account findAccountByUsername(String accountNickname) {
         return accountDao.findAccountByUsername(accountNickname);
     }
 
+    /**
+     * 根据用户Id查询获取用户实例
+     * @param accountId
+     * @return
+     */
     public Account findAccountByAccountId(String accountId) {
         return accountDao.findAccountByAccountId(accountId);
     }
 
+    /**
+     * 根据用户名查询获取其所拥有的资源
+     * @param accountNickname
+     * @return
+     */
     public Set<String> findResourcesByUsername(String accountNickname) {
         Account account = findAccountByUsername(accountNickname);
         if (account == null) {
@@ -63,6 +83,11 @@ public class AccountServiceImpl implements AccountService {
         return roleService.findResourcesByRoleId(account.getAccountRoleIds());
     }
 
+    /**
+     * 根据用户名查询获取其所拥有的权限
+     * @param accountNickname
+     * @return
+     */
     public Set<String> findPermissionsByUsername(String accountNickname) {
         Account account = findAccountByUsername(accountNickname);
         if (account == null) {
@@ -72,7 +97,11 @@ public class AccountServiceImpl implements AccountService {
         return roleService.findPermissionsByRoleId(account.getAccountRoleIds());
     }
 
-    @Override
+    /**
+     * 根据用户名查询获取其所拥有的角色
+     * @param accountNickname
+     * @return
+     */
     public Set<String> findRolesByUsername(String accountNickname) {
         Account account = findAccountByUsername(accountNickname);
         if (account == null) {
@@ -86,6 +115,7 @@ public class AccountServiceImpl implements AccountService {
      * 创建账户，将用户资料(密码)进行加密
      * 并发送验证账户的邮件给注册用户
      * @param account
+     * @throws Exception
      */
     public void createAccount(Account account) throws Exception {
         account.setAccountRegisterTime(new Timestamp(System.currentTimeMillis()));

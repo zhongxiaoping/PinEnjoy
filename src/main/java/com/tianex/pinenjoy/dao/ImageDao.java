@@ -26,12 +26,12 @@ public class ImageDao extends BaseDao<Image> {
         return super.pagedQuery(PAGEQUERY_ACCOUNTNICKNAME, pageNo, pageSize, accountNickname);
     }
 
-    public Page<Image> pageQueryAllForLatest(int pageNo, int pageSize, String accountNickname) {
-        return super.pagedQuery(PAGEQUERY_ALL_LATEST, pageNo, pageSize, accountNickname);
+    public Page<Image> pageQueryAllForLatest(int pageNo, int pageSize) {
+        return super.pagedQuery(PAGEQUERY_ALL_LATEST, pageNo, pageSize);
     }
 
-    public Page<Image> pageQueryAllForHot(int pageNo, int pageSize, String accountNickname) {
-        return super.pagedQuery(PAGEQUERY_ALL_HOT, pageNo, pageSize, accountNickname);
+    public Page<Image> pageQueryAllForHot(int pageNo, int pageSize) {
+        return super.pagedQuery(PAGEQUERY_ALL_HOT, pageNo, pageSize);
     }
 
     public Page<Image> pageQueryForLatest(int pageNo, int pageSize, String accountNickname) {

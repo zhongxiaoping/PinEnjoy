@@ -107,6 +107,7 @@ public class ImageController {
         }
 
         Account account = (Account) request.getSession().getAttribute(Constant.CURRENT_ACCOUNT);
+
         String location = Constant.USER_IMAGE_LOCATION + "/" + imageFile.getOriginalFilename();
 
         jmsTemplate.send("pp.uploadImage.queue", new MessageCreator() {
