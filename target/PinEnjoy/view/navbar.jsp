@@ -6,10 +6,10 @@
 %>
 <html>
 <head>
-
-    <link rel="stylesheet" href="../static/css/bootstrap.css"/>
-    <script type="text/javascript" src="../static/js/jquery-2.1.3.min.js"></script>
-    <script type="text/javascript" src="../static/js/bootstrap.js"></script>
+    <base href="<%=basePath%>">
+    <link rel="stylesheet" href="static/css/bootstrap.css"/>
+    <script type="text/javascript" src="static/js/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript" src="static/js/bootstrap.js"></script>
 </head>
 <body>
 
@@ -62,7 +62,7 @@
             <c:when test="${currentAccount != null }">
               <div class="navbar-header">
                 <a class="navbar-brand" href="home/${currentAccount.accountId }">
-                  <img alt="${currentAccount.username }" src="${currentAccount.thumb }">
+                  <img alt="${currentAccount.accountNickname }" src="${currentAccount.accountThumb }" style="width:30px;height:30px">
                 </a>
               </div>
               <li class="dropdown">

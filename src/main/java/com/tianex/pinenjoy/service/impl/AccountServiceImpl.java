@@ -88,10 +88,8 @@ public class AccountServiceImpl implements AccountService {
      * @param account
      */
     public void createAccount(Account account) throws Exception {
-        account = new Account();
         account.setAccountRegisterTime(new Timestamp(System.currentTimeMillis()));
         account.setAccountIsLock(true);
-        account.setAccountPassword("123456");
         account.setAccountId(NumberUtils.generateUUID());
 
         String encryptPassword = AESUtils.parseByte2HexStr(

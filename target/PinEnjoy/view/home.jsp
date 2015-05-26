@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="static/css/bootstrap.css"/>
     <script type="text/javascript" src="static/js/jquery-2.1.3.min.js"></script>
     <script type="text/javascript" src="static/js/bootstrap.js"></script>
-    <title>${homeAccount.username }的主页</title>
+    <title>${homeAccount.accountNickname }的主页</title>
     <style type="text/css">
       .wrap {
         margin-top:60px;
@@ -103,18 +103,18 @@
           </div>
         </div>
         <div class="_thumb">
-          <img src="${homeAccount.thumb }" alt="ffff" class="img-rounded"/>
+          <img src="${homeAccount.accountThumb }" class="img-rounded" style="width:30px;height:30px;"/>
         </div>
         <div class="_user">
-          <span class="glyphicon glyphicon-user" aria-hidden="true" id="_username"> ${homeAccount.username }</span>
+          <span class="glyphicon glyphicon-user" aria-hidden="true" id="_username"> ${homeAccount.accountNickname }</span>
           <span class="glyphicon glyphicon-map-marker" aria-hidden="true"> 在线</span>
-          <span class="glyphicon glyphicon-sound-7-1" aria-hidden="true"> ${homeAccount.sex }</span>
+          <span class="glyphicon glyphicon-sound-7-1" aria-hidden="true"> ${homeAccount.accountSex }</span>
           <div style="margin-top:10px;margin-bottom:10px;">
             <span class="glyphicon glyphicon-check" aria-hidden="true"> 邮箱</span>
-            ${homeAccount.email }
+            ${homeAccount.accountEmail }
           </div>
           <div>
-            粉丝 <span class="badge">${homeAccount.fans }</span>
+            粉丝 <span class="badge">${homeAccount.accountFansCount }</span>
           </div>
         </div>
         <div>
@@ -129,7 +129,7 @@
               </div>
               <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                 <div class="panel-body">
-                  ${homeAccount.introduction }
+                  ${homeAccount.accountResume }
                 </div>
               </div>
             </div>
@@ -146,11 +146,11 @@
                   <c:forEach var="guest" items="${visitedGuest }">
                     <div class="media">
                       <div class="media-left media-middle">
-                        <img class="media-object" src="${guest.thumb }" style="width:30px;height:30px;">
+                        <img class="media-object" src="${guest.guestAccountThumb }" style="width:30px;height:30px;">
                       </div>
                       <div class="media-body">
-                        <h4 class="media-heading">${guest.username }</h4>
-                          ${guest.lastVisitedTime }
+                        <h4 class="media-heading">${guest.guestAccountNickname }</h4>
+                          ${guest.guestLastVisitedTime }
                       </div>
                     </div>
                   </c:forEach>
@@ -323,6 +323,8 @@
         </div>
       </div>
     </div>
+
+    <jsp:include page="bottom.jsp"/>
 
 
     <script type="text/javascript">

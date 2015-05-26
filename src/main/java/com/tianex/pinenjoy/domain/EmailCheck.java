@@ -43,7 +43,7 @@ public class EmailCheck implements Serializable {
     }
 
     public void setEmailCheckAccountNickname(String emailCheckAccountNickname) {
-        emailCheckAccountNickname = emailCheckAccountNickname;
+        this.emailCheckAccountNickname = emailCheckAccountNickname;
     }
 
     @Column(name = "emailCheck_code")
@@ -61,7 +61,7 @@ public class EmailCheck implements Serializable {
     }
 
     public void setEmailCheckGenerateTime(Timestamp emailCheckGenerateTime) {
-        emailCheckGenerateTime = emailCheckGenerateTime;
+        this.emailCheckGenerateTime = emailCheckGenerateTime;
     }
 
     @Override

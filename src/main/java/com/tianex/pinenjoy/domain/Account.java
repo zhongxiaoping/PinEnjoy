@@ -57,7 +57,7 @@ public class Account implements Serializable {
     }
 
     public void setAccountNickname(String accountNickname) {
-        accountNickname = accountNickname;
+        this.accountNickname = accountNickname;
     }
 
     @Column(name = "account_password")
@@ -66,7 +66,7 @@ public class Account implements Serializable {
     }
 
     public void setAccountPassword(String accountPassword) {
-        accountPassword = accountPassword;
+        this.accountPassword = accountPassword;
     }
 
     @Column(name = "account_email")
@@ -75,7 +75,7 @@ public class Account implements Serializable {
     }
 
     public void setAccountEmail(String accountEmail) {
-        accountEmail = accountEmail;
+        this.accountEmail = accountEmail;
     }
 
     @Column(name = "account_birthday")
@@ -93,7 +93,7 @@ public class Account implements Serializable {
     }
 
     public void setAccountResume(String accountResume) {
-        accountResume = accountResume;
+        this.accountResume = accountResume;
     }
 
     @Column(name = "account_sex")
@@ -102,7 +102,7 @@ public class Account implements Serializable {
     }
 
     public void setAccountSex(String accountSex) {
-        accountSex = accountSex;
+        this.accountSex = accountSex;
     }
 
     @Column(name = "account_thumb")
@@ -111,7 +111,7 @@ public class Account implements Serializable {
     }
 
     public void setAccountThumb(String accountThumb) {
-        accountThumb = accountThumb;
+        this.accountThumb = accountThumb;
     }
 
     @Column(name = "account_registerTime")
@@ -120,7 +120,7 @@ public class Account implements Serializable {
     }
 
     public void setAccountRegisterTime(Timestamp accountRegisterTime) {
-        accountRegisterTime = accountRegisterTime;
+        this.accountRegisterTime = accountRegisterTime;
     }
 
     @Column(name = "account_lastLoginTime")
@@ -129,7 +129,7 @@ public class Account implements Serializable {
     }
 
     public void setAccountLastLoginTime(Timestamp accountLastLoginTime) {
-        accountLastLoginTime = accountLastLoginTime;
+        this.accountLastLoginTime = accountLastLoginTime;
     }
 
     @Column(name = "account_isLock")
@@ -138,7 +138,7 @@ public class Account implements Serializable {
     }
 
     public void setAccountIsLock(boolean accountIsLock) {
-        accountIsLock = accountIsLock;
+        this.accountIsLock = accountIsLock;
     }
 
     @Column(name = "account_fansCount")
@@ -147,7 +147,7 @@ public class Account implements Serializable {
     }
 
     public void setAccountFansCount(long accountFansCount) {
-        accountFansCount = accountFansCount;
+        this.accountFansCount = accountFansCount;
     }
 
     @Column(name = "account_subscribeImageIds")
@@ -156,7 +156,7 @@ public class Account implements Serializable {
     }
 
     public void setAccountSubscribeImageIds(String accountSubscribeImageIds) {
-        accountSubscribeImageIds = accountSubscribeImageIds;
+        this.accountSubscribeImageIds = accountSubscribeImageIds;
     }
 
     @Column(name = "account_collectImageIds")
@@ -165,7 +165,7 @@ public class Account implements Serializable {
     }
 
     public void setAccountCollectImageIds(String accountCollectImageIds) {
-        accountCollectImageIds = accountCollectImageIds;
+        this.accountCollectImageIds = accountCollectImageIds;
     }
 
     @Column(name = "account_subscribeIds")
@@ -174,7 +174,7 @@ public class Account implements Serializable {
     }
 
     public void setAccountSubscribeIds(String accountSubscribeIds) {
-        accountSubscribeIds = accountSubscribeIds;
+        this.accountSubscribeIds = accountSubscribeIds;
     }
 
     @Column(name = "account_publishIds")
@@ -183,7 +183,7 @@ public class Account implements Serializable {
     }
 
     public void setAccountPublishIds(String accountPublishIds) {
-        accountPublishIds = accountPublishIds;
+        this.accountPublishIds = accountPublishIds;
     }
 
     @Column(name = "account_roleIds")
@@ -192,7 +192,7 @@ public class Account implements Serializable {
     }
 
     public void setAccountRoleIds(String accountRoleIds) {
-        accountRoleIds = accountRoleIds;
+        this.accountRoleIds = accountRoleIds;
     }
 
     @Override

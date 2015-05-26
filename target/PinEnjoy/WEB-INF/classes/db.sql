@@ -9,6 +9,15 @@ CREATE TABLE t_emailCheck (
 
 create index idx_t_emailCheck_emailCheck_id on t_emailCheck(emailCheck_id);
 
+DROP TABLE IF EXISTS t_guest;
+CREATE TABLE t_guest (
+  guest_id VARCHAR(32) NOT NULL,
+  guest_lastVisitedTime DATETIME NOT NULL,
+  guest_accountThumb VARCHAR(1024),
+  guest_guestAccountNickname VARCHAR(198) NOT NULL,
+  guest_homeAccountNickname VARCHAR(198) NOT NULL,
+  PRIMARY KEY (guest_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 drop table if exists t_account;
 CREATE TABLE t_account (

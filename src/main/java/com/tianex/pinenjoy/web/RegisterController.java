@@ -45,15 +45,6 @@ public class RegisterController {
     @ResponseBody
     public String register(@RequestParam("thumbFile") final MultipartFile thumbFile, Account account,
                            HttpServletRequest request) {
-        /*Account account = new Account();
-        account.setAccountBirthday(currentAccount.getAccountBirthday());
-        account.setAccountNickname(request.getParameter("accountNickname"));
-        account.setAccountEmail(request.getParameter("accountEmail"));
-        account.setAccountPassword(request.getParameter("accountPassword"));
-        account.setAccountIsLock(true);
-        account.setAccountSex(request.getParameter("accountSex"));
-        account.setAccountPassword(request.getParameter("accountPassword"));*/
-
         if (thumbFile.isEmpty()) {
             return "register";
         }
