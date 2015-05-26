@@ -42,11 +42,12 @@
 
     <div class="_main">
        <div class="_searchResult">
+           <p id="_searchContent">${searchContent}</p>
            <p class="help-block">PinEnjoy为您找到相关结果约${sumOfSearch }个</p>
        </div>
        <div class="_content">
-         <div class="media">
-           <div>
+         <div id="_searchImageContent">
+           <%--<div class="media">
               <div class="media-left media-middle _imageContent">
                 <a href="#">
                   <img class="media-object" src="static/image/sys/logo.png" alt="xxx">
@@ -56,7 +57,7 @@
                 <h4 class="media-heading">Middle aligned media</h4>
                   我知道我知道我知道我知道我知道我知道我知道我知道我知道我知道我知道我知道我知道我知道我知道
               </div>
-           </div>
+           </div>--%>
            <div class="_searchNav">
              <nav>
                <ul class="pager">
@@ -102,7 +103,32 @@
     <jsp:include page="bottom.jsp"/>
 
     <script type="text/javascript">
+      $(function() {
+        getJSONData();
+      });
 
+      function getJSONData() {
+        var $searchContent = $("#_searchContent").text();
+
+        $.getJSON($searchContent + "/" + pn + "/tosearch", function(data) {
+          var $_searchImageContent = $("#_searchImageContent");
+          $_searchImageContent.empty();
+
+          for (var i = 1; i <= 12; i++) {
+            $_searchImageContent.append('<div class="media _imagetent">')
+                    .append('</div>');
+          }
+
+          for (var j = 0; j < 12; j++) {
+            $("._imagetent").eq(j).append('<div class="media-left media-middle _imageContent"> <a href="' + data[j].image_id + '/detail">')
+                    .append('<img class="media-object" src="' +  data[j].image_location
+                    +'">').append('</p></div>')
+                    .append('<div class="media-body"><h4 class="media-heading">' + data[j].image_title
+                    + '</h4>' + data[j].image_description).append('</div></div>');
+            }
+
+        })
+      }
 
     </script>
 

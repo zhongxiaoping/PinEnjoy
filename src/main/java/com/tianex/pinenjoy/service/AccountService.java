@@ -7,7 +7,7 @@ import java.util.Set;
 
 public interface AccountService {
 
-    public void createAccount(Account account);
+    public void createAccount(Account account) throws Exception;
     public void deleteAccount(Account account);
     public void updateAccount(Account account);
 
@@ -15,8 +15,9 @@ public interface AccountService {
     public Account findAccountByEmail(String accountEmail);
     public Account findAccountByUsername(String accountNickname);
     public Account findAccountByAccountId(String accountId);
-    public Set<String> findRolesByUsername(String accountNickname);
+    public Set<String> findResourcesByUsername(String accountNickname);
     public Set<String> findPermissionsByUsername(String accountNickname);
+    public Set<String> findRolesByUsername(String accountNickname);
 
     public void collectSuccess(Account account, String imageId);
     public void unCollectSuccess(Account account, String imageId);

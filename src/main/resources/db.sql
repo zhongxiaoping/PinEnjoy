@@ -74,9 +74,15 @@ INSERT INTO t_image VALUES (6, '马', '千里马，动漫是啊，凸(艹皿艹 )', '人文', 1,
 INSERT INTO t_image VALUES (7, '山城', '公分修毛，喜洋洋惠爱玲', '人文', 1, 0, 0, 0, 0, 0, 'static/image/user/img3.jpg',
                               now(), TRUE, '黄家驹', FALSE, NULL);
 INSERT INTO t_image VALUES (8, '昆明', '迪士尼，冰雪奇缘，美高美', '人文', 1, 0, 0, 0, 0, 0, 'static/image/user/img4.jpg',
-                              now(), TRUE, '黄家驹', FALSE, NULL);                              
-                           
-
+                              now(), TRUE, '黄家驹', FALSE, NULL);
+INSERT INTO t_image VALUES (9, '北京', '徐州城外断桥残雪', '人文', 1, 0, 0, 0, 0, 0, 'static/image/user/img4.jpg',
+                            now(), TRUE, '黄家驹', FALSE, NULL);
+INSERT INTO t_image VALUES (10, '昆明', '迪士尼，冰雪奇缘，美高美', '人文', 1, 0, 0, 0, 0, 0, 'static/image/user/img4.jpg',
+                            now(), TRUE, '黄家驹', FALSE, NULL);
+INSERT INTO t_image VALUES (11, 'dfasf', '迪士尼，冰雪奇缘，美高美', '人文', 1, 0, 0, 0, 0, 0, 'static/image/user/img4.jpg',
+                            now(), TRUE, '黄家驹', FALSE, NULL);
+INSERT INTO t_image VALUES (12, '昆明', '迪士尼，冰雪奇缘，美高美', '人文', 1, 0, 0, 0, 0, 0, 'static/image/user/img4.jpg',
+                            now(), TRUE, '黄家驹', FALSE, NULL);
 drop table if exists t_cataloge;
 CREATE TABLE t_cataloge (
   cataloge_id VARCHAR(32) NOT NULL,
@@ -93,7 +99,7 @@ INSERT INTO t_cataloge VALUES (4, '静物');
 drop table if exists t_role;
 create table t_role (
   role_id VARCHAR(32) NOT NULL,
-  role_role varchar(127),
+  role_label varchar(127),
   role_description varchar(127),
   role_resourceIds varchar(127),
   role_available BOOLEAN DEFAULT FALSE,

@@ -140,7 +140,7 @@ public class BaseDao<E> {
         query.setMaxResults(pageSize);
         List<E> list = query.setFirstResult(startIndex).list();
 
-        return new Page<E>(pageNo, pageSize, startIndex, list);
+        return new Page<E>(pageSize, pageNo, startIndex, list);
     }
 
     /**

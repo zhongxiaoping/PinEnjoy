@@ -27,6 +27,11 @@ public class ImageServiceImpl implements ImageService {
         imageDao.update(image);
     }
 
+    @Override
+    public List<Image> findAll() {
+        return imageDao.findAll();
+    }
+
     public Image findImageByImageId(String imageId) {
         return imageDao.findImageByImageId(imageId);
     }

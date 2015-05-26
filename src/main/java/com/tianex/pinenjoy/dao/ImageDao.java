@@ -46,4 +46,7 @@ public class ImageDao extends BaseDao<Image> {
         return super.get(imageId);
     }
 
+    public List<Image> findAll() {
+        return super.loadAll();
+    }
 }

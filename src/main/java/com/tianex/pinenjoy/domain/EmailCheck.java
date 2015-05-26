@@ -21,8 +21,10 @@ public class EmailCheck implements Serializable {
     public EmailCheck() {
     }
 
-    public EmailCheck(String emailCheckCode) {
-        emailCheckCode = emailCheckCode;
+    public EmailCheck(String emailCheckId, String emailCheckCode, String emailCheckAccountNickname) {
+        this.emailCheckId = emailCheckId;
+        this.emailCheckCode = emailCheckCode;
+        this.emailCheckAccountNickname = emailCheckAccountNickname;
     }
 
     @Id

@@ -12,6 +12,7 @@ public interface ImageService {
     public void deleteImage(Image image);
     public void update(Image image);
 
+    public List<Image> findAll();
     public Image findImageByImageId(String imageId);
 
     public Page<Image> pageQueryAll(int pageNo, int pageSize);

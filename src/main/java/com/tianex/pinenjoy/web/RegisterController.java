@@ -3,6 +3,7 @@ package com.tianex.pinenjoy.web;
 import com.tianex.pinenjoy.core.Constant;
 import com.tianex.pinenjoy.domain.Account;
 import com.tianex.pinenjoy.domain.EmailCheck;
+import com.tianex.pinenjoy.domain.Image;
 import com.tianex.pinenjoy.service.AccountService;
 import com.tianex.pinenjoy.service.EmailCheckService;
 import com.tianex.pinenjoy.util.DateUtils;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.annotation.Resource;
 import javax.jms.JMSException;
@@ -27,24 +29,12 @@ import java.sql.Date;
  * @author TianEx
  */
 @Controller
-@RequestMapping("/account")
+@RequestMapping
 public class RegisterController {
 
     private AccountService accountService;
     private EmailCheckService emailCheckService;
     private JmsTemplate jmsTemplate;
-
-    @ModelAttribute("account")
-    public Account initAccount() {
-        Account account = new Account();
-        account.setAccountId(NumberUtils.generateUUID());
-        account.setAccountBirthday(new Date(System.currentTimeMillis()));
-        account.setAccountResume("第一次哟！！！");
-        account.setAccountSex("保密");
-        account.setAccountIsLock(true);
-        account.setAccountThumb(Constant.USER_IMAGE_LOCATION + "logo.jpg");
-        return account;
-    }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String showRegisterForm() {
@@ -52,8 +42,18 @@ public class RegisterController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String register(@ModelAttribute("account") Account account,
-                           @RequestParam("thumbFile") final MultipartFile thumbFile, HttpServletRequest request) {
+    @ResponseBody
+    public String register(@RequestParam("thumbFile") final MultipartFile thumbFile, Account account,
+                           HttpServletRequest request) {
+        /*Account account = new Account();
+        account.setAccountBirthday(currentAccount.getAccountBirthday());
+        account.setAccountNickname(request.getParameter("accountNickname"));
+        account.setAccountEmail(request.getParameter("accountEmail"));
+        account.setAccountPassword(request.getParameter("accountPassword"));
+        account.setAccountIsLock(true);
+        account.setAccountSex(request.getParameter("accountSex"));
+        account.setAccountPassword(request.getParameter("accountPassword"));*/
+
         if (thumbFile.isEmpty()) {
             return "register";
         }
@@ -67,9 +67,15 @@ public class RegisterController {
         });
 
         account.setAccountThumb(location);
-        accountService.createAccount(account);
 
-        return "redirect:/login";
+        try {
+            accountService.createAccount(account);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+
+        return "success";
     }
 
     @RequestMapping("/register/{emailCheck}")

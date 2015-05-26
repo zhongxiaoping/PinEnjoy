@@ -1,8 +1,7 @@
 body{
-	/* font-family: 'Open Sans', sans-serif; */
+	/*font-family: 'Open Sans', sans-serif; */
 	background:#F0EFEE;
 }
-/*---start-wrap----*/
 .wrap{
 	width:80%;
 	margin:0 auto;
@@ -15,7 +14,7 @@ body{
 }
 #tiles {
   list-style-type: none;
-  position: relative; /** Needed to ensure items are laid out relative to this container **/
+  position: relative; 
   margin: 0;
   padding: 0;
 }
@@ -96,14 +95,6 @@ body{
 	border-top: 1px solid rgba(183, 181, 181, 0.36);
 	padding: 4% 0 2%;
 }
-.rateit{
-	float:left;
-	margin: 0.18em 0 0 1em;
-}
-.post-share{
-	float:right;
-	margin-right:1.5em;
-}
 .download span{
 	background:url(../image/sys/download.png) no-repeat 0px 0px;
 	height:26px;
@@ -117,60 +108,7 @@ body{
 .download span:hover{
 	background:url(../image/sys/download_h.png) no-repeat 0px 0px;
 }
-.rateit span{
-	height:18px;
-	width:76px;
-	background:url(../image/sys/start-rate.png) no-repeat 0px 0px; 
-	display:inline-block;
-}
-.rateit span:hover{
-	background:url(../image/sys/start-rateh.png) no-repeat 0px 0px; 
-}
 
-/**
- * Grid item text
- */
-
-/* footer {
-  text-align: center;
-
-}
-
-footer a {
-  color: #435DC5;
-  text-decoration: none;
-}
-
-*
- * Progress bar for imagesLoaded
-
-.progress-bar {
-  background-color: #0BC20B;
-  height: 2px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 0;
-  box-shadow: 0 1px 3px rgba(11, 194, 11, 0.2);
-  -webkit-transition: width 0.3s ease-out;
-     -moz-transition: width 0.3s ease-out;
-       -o-transition: width 0.3s ease-out;
-          transition: width 0.3s ease-out;
-}
-
-*
- * Placerholder css
-
-.wookmark-placeholder {
-          border-radius: 2px;
-     -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
-  background-color: #eee;
-  border: 1px solid #dedede;
-  z-index: -1;
-}
- */
 @media only screen and (max-width:640px) and (min-width:480px) {
 	#main {
 		margin-top: 7em;

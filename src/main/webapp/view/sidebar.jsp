@@ -37,7 +37,7 @@
           <div class="modal-body">
             <form>
               <div class="form-group">
-                <input type="hidden" id="currentUsername" value="${currentAccount.username }"/>
+                <input type="hidden" id="currentUsername" value="${currentAccount.accountNickname }"/>
                 <input type="hidden" id="sessionId" value="${pageContext.session.id}"/>
               </div>
               <div class="form-group">
@@ -71,7 +71,7 @@
     <script type="text/javascript">
       $(function() {
         $("#_uploadFile").uploadify({
-          'uploader' : 'image/upload',
+          'uploader' : '<%=basePath%>/image/upload',
           'height' : 27,
           'width' : 50,
           'buttonText' : '浏 览',
@@ -94,24 +94,14 @@
           'successTimeout' : 30,//表示文件上传完成后等待服务器响应的时间。不超过该时间，那么将认为上传成功。默认是30，表示30秒。
           'uploadLimit' : 999,
           'onUploadStart' : function(file) {
-            var username = $('#currentUsername').val();
-            var title = $('#image_title').val();
-            var description = $('#image_description').val();
-            var autoDelete = $('#autoDelete').val();
-            var cataloge = $("#imageOfCataloge").find("option:selected").val();
-
-            if(cataloge.replace(/\s/g,'') == '') {
-              alert("名称不能为空！");
-              return false;
-            }
             $('#_uploadFile').uploadify("settings", "formData", {
-              'username' : $('#currentUsername').val(),
+              'imageAccountNickname' : $('#currentUsername').val(),
               'jsessionid' : $("#sessionId").val(),
-              'title':$('#image_title').val(),
-              'describe' : $('#image_description').val(),
-              'cataloge' : $("#imageOfCataloge").find("option:selected").val(),
-              'autoDelete' : document.getElementById("autoDelete").checked,
-              'autoDeleteTime' : ''
+              'imageTitle':$('#image_title').val(),
+              'imageDescription' : $('#image_description').val(),
+              'imageCatalogeName' : $("#imageOfCataloge").find("option:selected").val(),
+              'imageIsAutoDelete' : document.getElementById("autoDelete").checked,
+              'imageAutoDeleteTime' : ''
             });
             $("#stopUpload").removeAttr("disabled");
           },
@@ -120,7 +110,6 @@
             //alert(data + "----" + response);
             $("#stopUpload").attr("disabled",true);
           }
-
         });
       });
     </script>

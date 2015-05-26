@@ -203,7 +203,6 @@ public class Account implements Serializable {
         Account account = (Account) o;
 
         return !(accountId != null ? !accountId.equals(account.accountId) : account.accountId != null);
-
     }
 
     @Override

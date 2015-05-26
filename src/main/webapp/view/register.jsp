@@ -24,11 +24,11 @@
         width:40%;
         margin-top: 45px;
       }
-      .main ._content {
+      .main .content {
         margin-bottom: 20px;
         text-align: center;
       }
-      ._calendar {
+      .calendar {
         text-align: center;
       }
     </style>
@@ -38,17 +38,18 @@
     <jsp:include page="navbar.jsp"/>
 
     <div class="main">
-      <div class="_content">
+      <div class="content">
         <h2>加入PinEnjoy</h2>
         <p>东半球最好的图片社交网站！</p>
       </div>
       <div>
-        <form id="signup" class="form-horizontal">
+        <form id="_signup" class="form-horizontal">
           <div class="form-group">
-            <label for="username" class="col-sm-2 control-label">用户名</label>
+            <label for="_accountNickname" class="col-sm-2 control-label">用户名</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="username" name="username" placeholder="用户名">
+              <input type="text" class="form-control" id="_accountNickname" placeholder="用户名">
             </div>
+            <input type="hidden" id="_sessionId" value="${pageContext.session.id}"/>
           </div>
           <div class="form-group">
             <label for="_thumb" class="col-sm-2 control-label">上传头像</label>
@@ -58,49 +59,45 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="username" class="col-sm-2 control-label">密码</label>
+            <label for="_accountPassword" class="col-sm-2 control-label">密码</label>
             <div class="col-sm-10">
-              <input type="password" class="form-control" id="password" name="password" placeholder="密码">
+              <input type="password" class="form-control" id="_accountPassword">
             </div>
           </div>
           <div class="form-group">
-            <label for="confirm_password" class="col-sm-2 control-label">确认密码</label>
+            <label for="_confirm_password" class="col-sm-2 control-label">确认密码</label>
             <div class="col-sm-10">
-              <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="确认密码">
+              <input type="password" class="form-control" id="_confirm_password" placeholder="确认密码">
             </div>
           </div>
           <div class="form-group">
-            <label for="email" class="col-sm-2 control-label">邮箱</label>
+            <label for="_accountEmail" class="col-sm-2 control-label">邮箱</label>
             <div class="col-sm-10">
-              <input type="email" class="form-control" id="email" name="email" placeholder="邮箱">
+              <input type="email" class="form-control" id="_accountEmail" placeholder="邮箱">
             </div>
           </div>
-          <div class="form-group _calendar">
-            <label for="_calendar" class="col-sm-2 control-label">出生日</label>
+          <div class="form-group calendar">
+            <label for="_accountBirthday" class="col-sm-2 control-label">出生日</label>
             <div class="col-sm-10">
-              <input class="laydate-icon" id="_calendar" value="1993-6-30">
+              <input type="text" class="laydate-icon" id="_accountBirthday" value="1993-6-30">
             </div>
           </div>
           <div class="form-group">
-            <label for="accountSex" class="col-sm-2 control-label">性别</label>
+            <label for="_accountSex" class="col-sm-2 control-label">性别</label>
             <div class="col-sm-10">
-              <input type="radio" name="accountSex" id="accountSex" value="男">男
+              <input type="radio" name="accountSex" id="_accountSex" value="男">男
               <input type="radio" name="accountSex" value="女">女
               <input type="radio" name="accountSex" value="保密">保密
             </div>
           </div>
           <div class="form-group">
-            <label for="accountResume" class="col-sm-2 control-label">自我介绍</label>
+            <label for="_accountResume" class="col-sm-2 control-label">自我介绍</label>
             <div class="col-sm-10">
-              <textarea class="form-control" rows="3" id="accountResume"></textarea>
+              <textarea class="form-control" rows="3" id="_accountResume"></textarea>
             </div>
           </div>
           <div class="form-group" style="text-align: center;">
-            <input id="read" name="read" type="checkbox" />
-            <label for="read">已阅读用户手册</label>
-          </div>
-          <div class="form-group" style="text-align: center;">
-            <button type="button" class="btn btn-primary" onclick="$('#_thumb').uploadify('upload','*')" data-loading-text="提交中...">
+            <button type="button" class="btn btn-primary" onclick="$('#_thumb').uploadify('upload','*')">
               提交
             </button>
           </div>
@@ -113,17 +110,17 @@
     <script type="text/javascript">
       !function() {
         laydate.skin('yahui');
-        laydate({elem: '#_calendar'});
+        laydate({elem: '#_accountBirthday'});
       }();
 
       /*$('#_register').on('click', function () {
-        var $btn = $(this).button('loading')
+        var $btn = $(this).button('loading');
         $btn.button('reset')
       });*/
 
       $(function() {
         $("#_thumb").uploadify({
-          'uploader' : 'account/register',
+          'uploader' : 'register',
           'height' : 27,
           'width' : 50,
           'buttonText' : '浏 览',
@@ -146,18 +143,31 @@
           'successTimeout' : 30,
           'uploadLimit' : 999,
           'onUploadStart' : function(file) {
+            var accountNickname = $('#_accountNickname').val(),
+                accountEmail = $('#_accountEmail').val(),
+                accountPassword = $('#_accountPassword').val(),
+                jsessionid = $('#_sessionId').val(),
+                accountSex = $("input[name='accountSex']:checked").val(),
+                accountResume = $('#_accountResume').val(),
+                accountBirthday = $('#_accountBirthday').val();
+            alert(accountNickname);
+
             $('#_thumb').uploadify("settings", "formData", {
-              'accountNickname' : $('#username').val(),
-              'accountEmail':$('#email').val(),
-              'accountPassword' : $('#password').val(),
-              'accountSex' : $("input[name='accountSex']:checked").val(),
-              'accountResume':$('#accountResume').val(),
-              'accountBirthday':$('#_calendar').val()
+              'accountNickname' : accountNickname,
+              'accountEmail': accountEmail,
+              'jsessionid' : jsessionid,
+              'accountSex' : accountSex,
+              'accountResume': accountResume,
+              'accountBirthday': accountBirthday,
+              'accountPassword' : accountPassword
             });
           },
           'onUploadSuccess' : function(file, data, response) {
             //alert(file.name + " upload success !");
             alert(data + "----" + response);
+            if (response == "success") {
+              location.href = "login";
+            }
           }
         });
 
@@ -167,34 +177,26 @@
           }
         }),
 
-        $("#signup").validate({
+        $("#_signup").validate({
           rules: {
-            username: {
+            _accountNickname: {
               required: true,
               stringCheck: true,
               byteRangeLength: [4, 15]
             },
-            password: {
+            _accountPassword: {
               required: true,
               minlength: 6,
               maxlength: 24
             },
-            confirm_password: {
+            _confirm_password: {
               required: true,
               minlength: 5,
-              equalTo: "#password"
+              equalTo: "#_accountPassword"
             },
-            email: {
+            _accountEmail: {
               required: true,
               email: true
-            },
-            read: {
-              required: true
-            },
-            messages: {
-              read: {
-                required: "请先阅读注册条约"
-              }
             },
 
             errorElement: "em",//设置错误信息存放标签
@@ -226,7 +228,6 @@
           }
           return this.optional(element) || ( length >= param[0] && length <= param[1] );
         }, "请确保输入的值在4-15个字节之间(一个中文字算2个字节)");
-
       });
     </script>
 

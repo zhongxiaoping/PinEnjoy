@@ -16,19 +16,9 @@
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
-          <c:choose>
-            <c:when test="${previousPath != null }">
-              <button type="button" class="btn btn-default btn-lg" style="height:50px;margin-right:100px;border:none;">
-                <span></span> 返回
-              </button>
-            </c:when>
-            <c:otherwise>
-              <a class="navbar-brand" href="#">
-                <img alt="Brand" src="static/image/sys/logo.png" style="width:95px;margin-right:20px;margin-left: 20px;">
-              </a>
-            </c:otherwise>
-          </c:choose>
-
+          <a class="navbar-brand" href="#">
+            <img alt="Brand" src="static/image/sys/logo.png" style="width:95px;margin-right:20px;margin-left: 20px;">
+          </a>
         </div>
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -51,7 +41,7 @@
                 <li><a href="#">广场</a></li>
                 <li class="divider"></li>
                 <c:forEach var="cataloge" items="${cataloges }">
-                  <li><a href="#">cataloge.catalogeName</a></li>
+                  <li><a href="#">${cataloge.catalogeName }</a></li>
                 </c:forEach>
                 <li class="divider"></li>
                 <li><a href="#">关于</a></li>
@@ -88,7 +78,7 @@
             </c:when>
             <c:otherwise>
             <li style="margin-right:15px;"><button type="button" class="btn btn-default navbar-btn" onclick="location.href='login'"> 登录</button></li>
-            <li><button type="button" class="btn btn-default navbar-btn" onclick="location.href='account/register'"> 注册</button>
+            <li><button type="button" class="btn btn-default navbar-btn" onclick="location.href='register'"> 注册</button>
               </c:otherwise>
               </c:choose>
           </ul>

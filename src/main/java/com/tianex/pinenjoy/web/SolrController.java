@@ -21,7 +21,6 @@ import java.util.List;
 @Controller
 public class SolrController {
 
-    private CatalogeService catalogeService;
     private ImageService imageService;
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
@@ -65,9 +64,14 @@ public class SolrController {
         return images;
     }
 
-    @Resource
-    public void setCatalogeService(CatalogeService catalogeService) {
-        this.catalogeService = catalogeService;
+    @RequestMapping(value = "/{searchContent}/{pageNo}/tosearch")
+    @ResponseBody
+    public SolrDocumentList xx(@PathVariable String searchContent, @PathVariable int pageNo)
+            throws IOException, SolrServerException {
+        SolrDocumentList solrDocumentList = SolrUtils.solr(searchContent);
+        solrDocumentList.getNumFound();
+
+        return solrDocumentList;
     }
 
     @Resource

@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -24,22 +25,25 @@ public class IndexController {
     private CatalogeService catalogeService;
 
     @RequestMapping("/")
-    public String toIndex() {
-        return "redirect:/index_1";
-    }
-
-    @RequestMapping(value = "/index_{pageNo}", method = RequestMethod.GET)
-    public String index(@PathVariable int pageNo, Model model, HttpServletRequest request) {
+    public String toIndex(Model model, HttpServletRequest request) {
         Account currentAccount = (Account) request.getSession().getAttribute(Constant.CURRENT_ACCOUNT);
         model.addAttribute("currentAccount", currentAccount);
+
+        Page<Image> imagePage = imageService.pageQueryAll(1, 10);
+        model.addAttribute("currentImages", imagePage.getData());
 
         List<Cataloge> cataloges = catalogeService.findAll();
         model.addAttribute("cataloges", cataloges);
 
-        Page<Image> pageOfImages = imageService.pageQueryAll(pageNo, Page.DEFAULT_PAGE_SIZE);
-        model.addAttribute("currentImages", pageOfImages.getData());
-
         return "index";
+    }
+
+    @RequestMapping(value = "/index/asy", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Image> index() {
+        List<Image> images = imageService.findAll();
+
+        return images;
     }
 
     @Resource
