@@ -38,10 +38,9 @@ public class HomeController {
     @RequestMapping("/home/{accountId}")
     public String home(@PathVariable String accountId, HttpServletRequest request, Model model) {
         Account currentAccount = (Account) request.getSession().getAttribute(Constant.CURRENT_ACCOUNT);
-
         Account homeAccount = (Account) accountService.findAccountByAccountId(accountId);
 
-        if (homeAccount == null) {
+        if (homeAccount == null || accountId == null) {
             return "404.jsp";
         }
 
@@ -53,11 +52,17 @@ public class HomeController {
             guestService.logGuestSuccess(currentAccount, homeAccount);
         }
 
-        List<Guest> visitedGuest = guestService.findAllByAccountNickname(homeAccount.getAccountNickname());
-        model.addAttribute("visitedGuest", visitedGuest);
+        Page<Guest> guestAccounts = guestService.pageQueryByAccountNickname(1, 6, homeAccount.getAccountNickname());
+        model.addAttribute("guestAccounts", guestAccounts.getData());
 
-        Page<Image> allImages = imageService.pageQueryByUsername(homeAccount.getAccountNickname(), 1, 16);
-        model.addAttribute("allImages", allImages.getData());
+        List<Image> collectImages = imageService.findCollectionByAccount(homeAccount, 12);
+        model.addAttribute("collectImages", collectImages);
+
+        Image recommendImage = imageService.findRecommendedByImage(collectImages.get(0), 1).get(0);
+        model.addAttribute("recommendImage", recommendImage);
+
+        Page<Image> dynamicImage = imageService.pageQueryForLatest(1, 1 ,homeAccount.getAccountNickname());
+        model.addAttribute("dynamicImage", dynamicImage.getData().get(0));
 
         List<Cataloge> cataloges = catalogeService.findAll();
         model.addAttribute("cataloges", cataloges);
@@ -66,11 +71,12 @@ public class HomeController {
     }
 
     @RequestMapping("/homeImage/{imageId}")
-    public String home(@PathVariable String imageId, Model model) {
+    public String toHome(@PathVariable String imageId, Model model) {
         Image image = imageService.findImageByImageId(imageId);
         String username = image.getImageAccountNickname();
         Account homeAccount = accountService.findAccountByUsername(username);
         model.addAttribute("homeAccount", homeAccount);
+
         return "home";
     }
 

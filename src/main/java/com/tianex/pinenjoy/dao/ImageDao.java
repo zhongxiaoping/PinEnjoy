@@ -16,7 +16,7 @@ public class ImageDao extends BaseDao<Image> {
     public static final String PAGEQUERY_ALL_LATEST = "from Image i order by i.imageUploadTime DESC";
     public static final String PAGEQUERY_HOT = "from Image i where i.imageAccountNickname=? order by i.imageScore DESC";
     public static final String PAGEQUERY_ALL_HOT = "from Image i order by i.imageScore DESC";
-
+    public static final String PAGEQUERY_ALL_CATALOGE = "from Image i where i.imageCatalogeName=?";
 
     public Page<Image> pageQueryAll(int pageNo, int pageSize) {
         return super.pagedQuery(PAGEQUERY_ALL, pageNo, pageSize);
@@ -48,5 +48,9 @@ public class ImageDao extends BaseDao<Image> {
 
     public List<Image> findAll() {
         return super.loadAll();
+    }
+
+    public Page<Image> pageQueryForCataloge(String catalogeName, int pageNo, int pageSize) {
+        return  super.pagedQuery(PAGEQUERY_ALL_CATALOGE, 1, pageSize, catalogeName);
     }
 }

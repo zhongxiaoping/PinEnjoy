@@ -8,22 +8,26 @@ import java.util.List;
 
 public interface ImageService {
 
-    public void createImage(Image image);
-    public void deleteImage(Image image);
-    public void update(Image image);
+    void createImage(Image image);
+    void deleteImage(Image image);
+    void update(Image image);
 
-    public List<Image> findAll();
-    public Image findImageByImageId(String imageId);
+    List<Image> findAll();
+    Image findImageByImageId(String imageId);
 
-    public Page<Image> pageQueryByUsername(String accountNickname, int pageNo, int pageSize);
-    public Page<Image> pageQueryForLatest(int pageNo, int pageSize, String accountNickname);
-    public Page<Image> pageQueryForHot(int pageNo, int pageSize, String accountNickname);
+    Page<Image> pageQueryByUsername(String accountNickname, int pageNo, int pageSize);
+    Page<Image> pageQueryForLatest(int pageNo, int pageSize, String accountNickname);
+    Page<Image> pageQueryForHot(int pageNo, int pageSize, String accountNickname);
 
-    public Page<Image> pageQueryAll(int pageNo, int pageSize);
-    public Page<Image> pageQueryAllForLatest(int pageNo, int pageSize);
-    public Page<Image> pageQueryAllForHot(int pageNo, int pageSize);
+    Page<Image> pageQueryAll(int pageNo, int pageSize);
+    Page<Image> pageQueryAllForLatest(int pageNo, int pageSize);
+    Page<Image> pageQueryAllForHot(int pageNo, int pageSize);
 
-    public void downloadImageSuccess(Image image);
-    public void uploadImageSuccess(String location, Account account, Image image);
+    void downloadImageSuccess(Image image);
+    void uploadImageSuccess(String location, Account account, Image image);
 
+    List<Image> findRecommendedByImage(Image image, int i);
+    Page<Image> pageQueryForCataloge(String catalogeName, int pageNo, int pageSize);
+
+    List<Image> findCollectionByAccount(Account homeAccount, int count);
 }

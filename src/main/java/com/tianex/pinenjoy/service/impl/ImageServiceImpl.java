@@ -12,6 +12,7 @@ import com.tianex.pinenjoy.util.NumberUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service("imageService")
@@ -143,6 +144,52 @@ public class ImageServiceImpl implements ImageService {
         createImage(image);
 
         accountService.updateAccount(account);
+    }
+
+    /**
+     * 获取系统对指定图片产生的指定数量的相关推荐图片
+     * @param image
+     * @param count
+     * @return
+     */
+    @Override
+    public List<Image> findRecommendedByImage(Image image, int count) {
+        String cataloge = image.getImageCatalogeName();
+        Page<Image> imagePage = this.pageQueryForCataloge(cataloge, 1, count);
+
+        return imagePage.getData();
+    }
+
+    @Override
+    public Page<Image> pageQueryForCataloge(String catalogeName, int pageNo, int pageSize) {
+        return imageDao.pageQueryForCataloge(catalogeName, pageNo, pageSize);
+    }
+
+    /**
+     * 查询获取指定数量指定用户收藏的图片
+     * @param homeAccount
+     * @param count 如果为0，则获取所有图片
+     * @return
+     */
+    @Override
+    public List<Image> findCollectionByAccount(Account homeAccount, int count) {
+        String collectionOfImages = homeAccount.getAccountCollectImageIds();
+        List<Image> images = new ArrayList<Image>();
+
+        if (count == 0) {
+            for (String imageId : collectionOfImages.split(",")) {
+                images.add(this.findImageByImageId(imageId));
+            }
+        } else {
+            while (count > 0) {
+                for (String imageId : collectionOfImages.split(",")) {
+                    images.add(this.findImageByImageId(imageId));
+                    count--;
+                }
+            }
+        }
+
+        return images;
     }
 
     @Resource

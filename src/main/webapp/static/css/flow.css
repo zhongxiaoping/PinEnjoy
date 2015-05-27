@@ -74,7 +74,7 @@ body{
 	height:12px;
 	width:12px;
 	display:inline-block;
-	background:url(../image/sys/cataloge.png) no-repeat 0px 0px;
+	background:url(static/image/sys/cataloge.png) no-repeat 0px 0px;
 	margin-right: 0.4em;
 	transition:0.5s all;
 	-webkit-transition:0.5s all;
@@ -96,7 +96,7 @@ body{
 	padding: 4% 0 2%;
 }
 .download span{
-	background:url(../image/sys/download.png) no-repeat 0px 0px;
+	background:url(static/image/sys/download.png) no-repeat 0px 0px;
 	height:26px;
 	width:26px;
 	display:inline-block;
@@ -105,8 +105,14 @@ body{
 	-moz-border-radius:30em;
 	-o-border-radius:30em;
 }
+.sidebar{
+	position:fixed;
+	bottom:10px;
+	right:15px;
+	text-align: center;
+}
 .download span:hover{
-	background:url(../image/sys/download_h.png) no-repeat 0px 0px;
+	background:url(static/image/sys/download_h.png) no-repeat 0px 0px;
 }
 
 @media only screen and (max-width:640px) and (min-width:480px) {

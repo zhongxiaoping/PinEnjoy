@@ -21,6 +21,7 @@ import javax.jms.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.util.List;
 
 @Controller
 @RequestMapping("/image")
@@ -58,10 +59,44 @@ public class ImageController {
         Image currentImage = imageService.findImageByImageId(imageId);
         model.addAttribute("currentImage", currentImage);
 
-        Account uploadAccount = accountService.findAccountByUsername(currentImage.getImageAccountNickname());
-        model.addAttribute("uploadAccount", uploadAccount);
+        Account imageAccount = accountService.findAccountByUsername(currentImage.getImageAccountNickname());
+        model.addAttribute("imageAccount", imageAccount);
+
+        Page<Image> otherImages = imageService.pageQueryByUsername(currentImage.getImageAccountNickname(), 1, 6);
+        model.addAttribute("otherImages", otherImages.getData());
+
+        List<Image> recommendedImages = imageService.findRecommendedByImage(
+                currentImage, 4);
+        model.addAttribute("recommendedImages", recommendedImages);
+
+        Page<Image> hotImages = imageService.pageQueryAllForHot(1, 12);
+        model.addAttribute("hotImages", hotImages.getData());
 
         return "detail";
+    }
+
+    @RequestMapping("/{homeAccountNickname}_{pageNo}/dynamic")
+    @ResponseBody
+    public Page<Image> getdynamicImages(@PathVariable String homeAccountNickname, @PathVariable int pageNo) {
+        Page<Image> dynamicImages = imageService.pageQueryForLatest(pageNo, 3, homeAccountNickname);
+
+        if (dynamicImages != null) {
+            return dynamicImages;
+        }
+
+        return null;
+    }
+
+    @RequestMapping("/{pageNo}/recommend")
+    @ResponseBody
+    public Page<Image> getRecommentImages(@PathVariable int pageNo) {
+        Page<Image> recommendImages = imageService.pageQueryAllForHot(pageNo, 3);
+
+        if (recommendImages == null) {
+            return null;
+        }
+
+        return recommendImages;
     }
 
     @RequestMapping(value = "/{imageId}/download", method = RequestMethod.GET)
@@ -132,17 +167,23 @@ public class ImageController {
      * @param imageId 被点赞的图片Id
      */
     @RequestMapping("/{imageId}/like")
-    public void doSupport(String imageId) {
+    @ResponseBody
+    public String doSupport(String imageId) {
         Image image = imageService.findImageByImageId(imageId);
         image.setImageLikeCount(image.getImageLikeCount() + 1);
         imageService.update(image);
+
+        return "点赞成功";
     }
 
     @RequestMapping("/{imageId}/dislike")
-    public void doNotSupport(String imageId) {
+    @ResponseBody
+    public String doNotSupport(String imageId) {
         Image image = imageService.findImageByImageId(imageId);
         image.setImageDislikeCount(image.getImageDislikeCount() + 1);
         imageService.update(image);
+
+        return "鄙视成功";
     }
 
     @Resource

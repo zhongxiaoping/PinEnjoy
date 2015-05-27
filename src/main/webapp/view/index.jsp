@@ -44,7 +44,11 @@
       </div>
     </div>
 
-    <jsp:include page="sidebar.jsp"></jsp:include>
+    <button type="button" class="btn btn-default sidebar" data-toggle="modal" data-target="#_uploadImage">
+        上传图片
+    </button>
+
+    <jsp:include page="uploadImage.jsp"></jsp:include>
 
     <script type="text/javascript" src="static/js/jquery.imagesloaded.js"></script>
     <script type="text/javascript" src="static/js/jquery.wookmark.js"></script>

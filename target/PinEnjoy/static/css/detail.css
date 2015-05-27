@@ -1,0 +1,138 @@
+.wrap {
+    margin: 35px 190px;
+}
+.mainContent {
+    width: 700px;
+    float: left;
+    margin-bottom: 30px;
+}
+.displayContent {
+    border: solid 1px #adadad;
+}
+.imageContent {
+    background-color: #adadad;
+    height: 500px;
+    padding: 0 35px;
+}
+.imageContent img {
+    width: 630px;
+    height: 500px;
+}
+.middleContent {
+    border-top: solid 1px #adadad;
+}
+.middleContent .middleContentLeft {
+    margin: 0 270px 0 35px;
+}
+.middleContent button {
+    border: none;
+}
+.descriptionContent {
+    border-top: solid 1px #adadad;
+    padding: 0 35px;
+}
+.descriptionContent .decriptionContentDown {
+    margin-bottom: 20px;
+}
+.resumeContent {
+    padding: 5px 20px;
+    margin-top: 30px;
+    border: solid 1px #adadad;
+}
+.storeContent {
+    margin-top: 30px;
+    border: solid 1px #adadad;
+    height: 70px;
+}
+.storeContent .storeContentLeft {
+    border-right: solid 1px #adadad;
+    width: 330px;
+    height: 70px;
+    float: left;
+}
+.storeContentLeft .storeContentI {
+    width: 30px;
+    height: 30px;
+    margin-top: 17px;
+    display: inline-block;
+}
+.storeContentLeft .storeContentB {
+    margin: 0px 10px 0 200px;
+    display: inline-block;
+}
+.storeContent .storeContentRight {
+    padding: 7px 100px;
+    float: right;
+}
+.sideContent {
+    width: 220px;
+    height: 400px;
+    float: right;
+    border: solid 1px #adadad;
+}
+.sideContent .sideContentTop {
+    padding: 7px 15px;
+}
+.sideContent .sideContentDown {
+    padding: 7px 15px;
+    margin-top: 310px;
+}
+.dropLayer {
+
+}
+.recommendsImage {
+    margin-top: 30px;
+}
+.recommendsImageContent {
+    margin-right: 20px;
+    width: 220px;
+    height: 290px;
+    border: solid 1px #adadad;
+    padding: 10px;
+    float: left;
+}
+.recommendsImageContent .recommendsImageUser {
+    height: 50px;
+}
+.recommendsImageContent .recommendsImageImg {
+    height: 185px;
+}
+.downLayer {
+    margin-top: 30px;
+}
+.hotImage {
+    margin-top: 30px;
+}
+.hotImageContent {
+    border: solid 1px #adadad;
+    width: 220px;
+    height: 300px;
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+.hotImageContent .hotImageImg {
+    height: 260px;
+}
+.hotImageContent .hotImageRating {
+    padding: 0 10px;
+}
+.hotImageRating .hotImageRatingContent {
+    float: left;
+}
+.hotImageRating .hotImageDownload {
+    float: right;
+}
+.hotImageDownload span {
+    background:url(static/image/sys/download.png) no-repeat 0px 0px;
+    height:26px;
+    width:26px;
+    display:inline-block;
+    border-radius:30em;
+    -webkit-border-radius:30em;
+    -moz-border-radius:30em;
+    -o-border-radius:30em;
+}
+.hotImageDownload span:hover {
+    background: url(static/image/sys/download_h.png) no-repeat 0px 0px;
+}

@@ -7,84 +7,135 @@
 <html>
 <head>
     <base href="<%=basePath%>">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="static/image/sys/thumb.png"/>
     <link rel="stylesheet" href="static/css/bootstrap.css"/>
+    <link rel="stylesheet" href="static/css/home.css">
     <script type="text/javascript" src="static/js/jquery-2.1.3.min.js"></script>
     <script type="text/javascript" src="static/js/bootstrap.js"></script>
     <title>${homeAccount.accountNickname }的主页</title>
     <style type="text/css">
       .wrap {
-        margin-top:60px;
-        margin-left:199px;
+        margin: 40px 250px 0 230px;
       }
-      ._sidebar {
-        width:250px;
-        height:600px;
-        border:1px solid gray;
-        float:left;
+      .leftContent {
+        float: right;
+        width: 220px;
       }
-      ._thumb {
-        width:20px;
-        height:20px;
-        padding:30px 0 30px 77px;
+      .userInfo {
+        border: solid 1px #adadad;
+        height: 250px;
       }
-      ._user {
-        padding:70px 0 30px 20px;
+      .bgInfo {
+        background: url("static/image/sys/bgInfo.jpg");
+        height: 110px;
       }
-      ._user span {
-        padding-right:10px;
+      .settingInfo {
+        border-bottom: solid 1px #adadad;
+        height: 27px;
       }
-      ._content {
-        margin-left:30px;
-        width:690px;
-        height:900px;
-        border:1px solid gray;
-        /* float:left; */
+      .settingInfo .leftSettingInfo {
+        float: left;
+      }
+      .settingInfo .rightSettingInfo {
+        float: right;
+      }
+      .userInfo img {
+        width: 70px;
+        height: 50px;
+        vertical-align: middle;
+      }
+      .userInfoContent {
+        margin-top: 8px;
+        margin-left: 30px;
+        text-align: center;
+      }
+      .userInfoContent div {
         display: inline-block;
+        margin-right: 12px;
+        padding-right: 12px;
       }
-      ._topcontent {
-        margin:30px 0 30px 35px;
+      .userInfoContent .userInfoSpilt {
+        border-right: solid 1px #adadad;
       }
-      ._topcontent button {
-        margin-left:15px;
+      .rightContent {
+        float: left;
+        width: 600px;
       }
-      ._main {
-        margin-left:25px;
-        border-top:1px solid gray;
+      .recommendInfo {
+        margin-top: 35px;
+        border: solid 1px #adadad;
+        height: 230px;
       }
-      ._imagecontent {
-        margin-top:18px;
+      .recommendTitle {
+        height: 25px;
+        border-bottom: solid 1px #adadad;
       }
-      ._imageround {
-        width:150px;
-        height:180px;
-        margin:5px 15px 15px 25px;
-        border:1px solid gray;
-        float:left;
-        padding-left:25px;
-        padding-top:15px;
+      .recommendImage {
+        height: 160px;
+      }
+      .recommendImage .recommendImageUser {
+        height: 45px;
+      }
+      .recommendImage img {
+        height: 90px;
+        width: 200px;
+      }
+      .recommendTool {
+        height: 35px;
+        border-top: solid 1px #adadad;
+      }
+      .recommendTool button {
+        border: none;
+        width: 116px;
+      }
+      .dynamicInfoContent {
+        margin-top: 30px;
+        border: solid 1px #adadad;
+        height: 210px;
+      }
+      .dynamicInfoContent .dynamicImage {
+        height: 160px;
+      }
+      .dynamicInfoContent .dynamicInfoTool {
+        border-top: solid 1px #adadad;
+      }
+      .dynamicInfoTool span {
+        margin-left: 55px;
+        margin-top: 10px;
+      }
+      .dynamicLoading {
+        margin-top: 15px;
+      }
+      .collectImageInfo {
+        border: solid 1px #adadad;
+        margin-top: 30px;
+        height: 300px;
+        padding: 5px 10px 15px 10px;
+      }
+      .collectImageInfo .collectImageInfoTop {
+        height: 30px;
+      }
+      .collectImageInfo .collectImageInfoImg {
+        height: 220px;
 
       }
-      ._imageround span {
-        margin-top:5px;
+      .collectImageInfoImg img {
+        width: 42px;
+        height: 42px;
       }
-      ._imageround p {
-        font-size: 1em;
-        margin-top:5px;
-        margin-bottom:5px;
+      .guestInfo {
+        border: solid 1px #adadad;
+        margin-top: 30px;
+        height: 300px;
       }
-      ._imageround img {
-        width:150px;
-        height:75px;
+      .guestInfo .guestInfoTop {
+        height: 30px;
+        padding: 5px;
       }
-      ._pager {
-        text-align: center;
-        clear:both;
-      }
-      ._user {
-        width: 500px;
-      }
-      ._user div {
-        margin-top: 15px;
+      .guestImg img {
+        width: 60px;
+        height: 60px;
       }
     </style>
 </head>
@@ -93,380 +144,180 @@
     <jsp:include page="navbar.jsp"/>
 
     <div class="wrap">
-      <div class="_sidebar">
-        <div style="height:40px;background-color:#f9f9f9;">
-          <div style="float:left;padding:10px 0 0 13px;">
-            <span class="glyphicon glyphicon-cog" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="设置"></span>
+      <div class="leftContent">
+        <div class="userInfo">
+          <div class="settingInfo">
+            <div class="leftSettingInfo">
+              <button type="button" class="btn btn-default" data-toggle="modal" data-target="#editProfile" style="border:none;">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+              </button>
+            </div>
+            <div class="rightSettingInfo">
+              <button type="button" class="btn btn-default" data-toggle="modal" data-target="#editProfile" style="border:none;">
+                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+              </button>
+            </div>
           </div>
-          <div style="float:right;padding:10px 13px 0 0;">
-            <span class="glyphicon glyphicon-edit" aria-hidden="true" data-toggle="tooltip" data-placement="right" title="编辑资料"></span>
+          <div style="clear: both;"></div>
+          <div class="bgInfo">
+          </div>
+          <img src="${homeAccount.accountThumb }" class="img-circle">
+          <div class="userInfoContent">
+            <div class="userInfoSpilt">
+              ${homeAccount.accountSubscribeCount }<p>关注</p>
+            </div>
+            <div class="userInfoSpilt">
+              ${homeAccount.accountFansCount }<p>粉丝</p>
+            </div>
+            <div>
+              ${homeAccount.accountUploadImageCount }<p>图片</p>
+            </div>
           </div>
         </div>
-        <div class="_thumb">
-          <img src="${homeAccount.accountThumb }" class="img-rounded" style="width:30px;height:30px;"/>
-        </div>
-        <div class="_user">
-          <span class="glyphicon glyphicon-user" aria-hidden="true" id="_username"> ${homeAccount.accountNickname }</span>
-          <span class="glyphicon glyphicon-map-marker" aria-hidden="true"> 在线</span>
-          <span class="glyphicon glyphicon-sound-7-1" aria-hidden="true"> ${homeAccount.accountSex }</span>
-          <div style="margin-top:10px;margin-bottom:10px;">
-            <span class="glyphicon glyphicon-check" aria-hidden="true"> 邮箱</span>
-            ${homeAccount.accountEmail }
+        <div class="collectImageInfo">
+          <div class="collectImageInfoTop">
+            <span>收藏的图片</span>
+            <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
           </div>
-          <div>
-            粉丝 <span class="badge">${homeAccount.accountFansCount }</span>
+          <div class="collectImageInfoImg">
+            <c:forEach var="image" items="${collectImages }">
+              <a href="image/${image.imageId }/detail"><img src="" class="img-rounded"></a>
+            </c:forEach>
           </div>
+          <button type="button" class="btn btn-default btn-block" location.href=''>
+            更多
+          </button>
         </div>
-        <div>
-          <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-            <div class="panel panel-default">
-              <div class="panel-heading" role="tab" id="headingOne">
-                <h4 class="panel-title">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    签名
-                  </a>
-                </h4>
+        <div class="guestInfo">
+          <div class="guestInfoTop">
+            <span>最近访客</span>
+            <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+          </div>
+          <c:forEach var="guest" items="${guestAccounts }">
+            <div class="media">
+              <div class="media-left media-middle guestImg">
+                <a href="#">
+                  <img class="media-object" src="${image.guestAccountThumb }">
+                </a>
               </div>
-              <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                <div class="panel-body">
-                  ${homeAccount.accountResume }
-                </div>
+              <div class="media-body">
+                <h4 class="media-heading">${image.guestAccountNickname }</h4>
               </div>
             </div>
-            <div class="panel panel-default">
-              <div class="panel-heading" role="tab" id="headingTwo">
-                <h4 class="panel-title">
-                  <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    访客
-                  </a>
-                </h4>
-              </div>
-              <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                <div class="panel-body">
-                  <c:forEach var="guest" items="${visitedGuest }">
-                    <div class="media">
-                      <div class="media-left media-middle">
-                        <img class="media-object" src="${guest.guestAccountThumb }" style="width:30px;height:30px;">
-                      </div>
-                      <div class="media-body">
-                        <h4 class="media-heading">${guest.guestAccountNickname }</h4>
-                          ${guest.guestLastVisitedTime }
-                      </div>
-                    </div>
-                  </c:forEach>
-                </div>
+          </c:forEach>
+        </div>
+      </div>
+      <div class="rightContent">
+        <button type="button" class="btn btn-default btn-lg btn-block" data-toggle="modal" data-target="#_uploadImage">
+          <span class="glyphicon glyphicon-circle-arrow-up" aria-hidden="true"></span> 上传图片
+        </button>
+        <div class="recommendInfo">
+          <div class="recommendTitle">
+            <h4><span class="glyphicon glyphicon-fire" aria-hidden="true"></span> Pin 每日推荐</h4>
+          </div>
+          <div class="recommendImage">
+            <div class="recommendImageUser">
+              <img src="${recommendImage.imageAccountThumb }">
+              ${recommendImage.imageDescription }
+            </div>
+            <img src="${recommendImage.imageLocation }" alt="">
+            <p class="help-block">上传于 ${recommendImage.imageTitle }</p>
+          </div>
+          <div class="recommendTool">
+            <button type="button" class="btn btn-default" aria-label="Left Align">
+              <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span> ${recommendImage.imageCollectCount }
+            </button>
+            <button type="button" class="btn btn-default" aria-label="Left Align">
+              <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span> ${recommendImage.imageShareCount }
+            </button>
+            <button type="button" class="btn btn-default" aria-label="Left Align">
+              <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> ${recommendImage.imageDownloadCount }
+            </button>
+            <button type="button" class="btn btn-default" aria-label="Left Align">
+              <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> ${recommendImage.imageLikeCount }
+            </button>
+            <button type="button" class="btn btn-default" aria-label="Left Align">
+              <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span> ${recommendImage.imageDislikeCount }
+            </button>
+          </div>
+        </div>
+        <div class="dynamicInfo">
+          <div class="dynamicInfoContent">
+            <div class="dynamicImage">
+              <img src="${dynamicImage.imageLocation }" alt="${dynamicImage.imageTitle }">
+              <div>
+                <h4>${dynamicImage.imageTitle }</h4>
+                ${dynamicImage.imageDescription }
               </div>
             </div>
+            <div class="dynamicInfoTool">
+               <span class="glyphicon glyphicon-bookmark" aria-hidden="true"> ${dynamicImage.imageCollectCount }</span>
+               <span class="glyphicon glyphicon-share-alt" aria-hidden="true"> ${dynamicImage.imageShareCount }</span>
+               <span class="glyphicon glyphicon-download-alt" aria-hidden="true"> ${dynamicImage.imageDownloadCount }</span>
+               <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"> ${dynamicImage.imageLikeCount }</span>
+               <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"> ${dynamicImage.imageDislikeCount }</span>
+            </div>
+          </div>
+          <div class="dynamicLoading">
+            <button type="button" class="btn btn-default btn-lg btn-block">
+              <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span> 更多我的动态
+            </button>
           </div>
         </div>
       </div>
+      <div style="clear: both;"></div>
+    </div>
 
-      <div class="_content">
-        <div class="_topcontent">
-          <button type="button" class="btn btn-default btn-lg" id="userCenter">
-            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> 用户中心
-          </button>
-          <button type="button" class="btn btn-default btn-lg" id="allImage">
-            <span class="glyphicon glyphicon-picture" aria-hidden="true"></span> 所有图片
-          </button>
-          <button type="button" class="btn btn-default btn-lg" id="collectImage">
-            <span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> 收藏图片
-          </button>
-          <button type="button" class="btn btn-default btn-lg" id="dynamicCenter">
-            <span class="glyphicon glyphicon-star" aria-hidden="true"></span> 动态中心
-          </button>
-        </div>
-        <div class="_main">
-          <div class="media" id="_dynamicCenter">
-            <div id="_dynamicContent0" style="display:none;">
-              <div class="media-left media-middle _mainText">
-                <img id="_dynamicLocation0" class="media-object" style="width:70px;height:70px;">
-                <button type="button" class="btn btn-default btn-lg" style="border:none;margin:8px 0 0 480px;height:90px;">
-                  <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> 详情
-                </button>
-              </div>
-              <div class="media-body" style="float:left;margin-bottom: 20px;">
-                <h4 class="media-heading" id="_dynamicTitle0"></h4>
-                <p id="_dynamicDescribe0"></p>
-                <span style="margin-right:300px;">上传于 <span id="_dynamicUploadTime0"></span></span>
-                <button type="button" class="btn btn-default" data-toggle="button" aria-pressed="false" autocomplete="off" style="border:none">
-                  收藏 <span class="badge" id="_dynamicCollect0"></span>
-                </button>
-                <button type="button" class="btn btn-default" aria-label="Left Align" style="border:none">
-                  <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-                  <span class="badge" id="_dynamicLike0"></span>
-                </button>
-                <button type="button" class="btn btn-default" aria-label="Left Align" style="border:none">
-                                    <span class="glyphicon glyphicon-share-alt" aria-hidden="true">
-                                    </span> <span class="badge" id="_dynamicShare0"></span>
-                </button>
-              </div>
+    <div class="modal fade" id="editProfile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">修改用户信息</h4>
+          </div>
+          <div class="modal-body">
+            <div class="input-group">
+              <span class="input-group-addon" id="basic-addon1">昵称</span>
+              <input type="text" class="form-control" placeholder="用户名" aria-describedby="basic-addon1">
             </div>
-            <div id="_dynamicContent1" style="display:none;">
-              <div class="media-left media-middle _mainText">
-                <img class="media-object" id="_dynamicLocation1" style="width:70px;height:70px;">
-                <button type="button" class="btn btn-default btn-lg" style="border:none;margin:8px 0 0 480px;height:90px;">
-                  <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> 详情
-                </button>
-              </div>
-              <div class="media-body" style="float:left;margin-bottom: 20px;">
-                <h4 class="media-heading" id="_dynamicTitle1"></h4>
-                <p id="_dynamicDescribe1"></p>
-                <span style="margin-right:300px;">上传于<span id="_dynamicUploadTime1"></span></span>
-                <button type="button" class="btn btn-default" data-toggle="button" aria-pressed="false" autocomplete="off" style="border:none">
-                  收藏 <span class="badge" id="_dynamicCollect1"></span>
-                </button>
-                <button type="button" class="btn btn-default" aria-label="Left Align" style="border:none">
-                  <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-                  <span class="badge" id="_dynamicLike1"></span>
-                </button>
-                <button type="button" class="btn btn-default" aria-label="Left Align" style="border:none">
-                                    <span class="glyphicon glyphicon-share-alt" aria-hidden="true">
-                                    </span> <span class="badge" id="_dynamicShare1"></span>
-                </button>
-              </div>
+            <div class="form-group">
+              <label for="thumbImage">选择图片</label>
+              <input type="file" id="thumbImage">
+              <p class="help-block">请选择要上传的图片作为头像</p>
             </div>
-            <div id="_dynamicContent2" style="display:none;">
-              <div class="media-left media-middle _mainText">
-                <img class="media-object" id="_dynamicLocation2" style="width:70px;height:70px;">
-                <button type="button" class="btn btn-default btn-lg" style="border:none;margin:8px 0 0 480px;height:90px;">
-                  <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> 详情
-                </button>
-              </div>
-              <div class="media-body" style="float:left;margin-bottom: 20px;">
-                <h4 class="media-heading" id="_dynamicTitle2"></h4>
-                <p id="_dynamicDescribe2"></p>
-                <span style="margin-right:300px;">上传于 <span id="_dynamicUploadTime2"></span></span>
-                <button type="button" class="btn btn-default" data-toggle="button" aria-pressed="false" autocomplete="off" style="border:none">
-                  收藏 <span class="badge" id="_dynamicCollect2"></span>
-                </button>
-                <button type="button" class="btn btn-default" aria-label="Left Align" style="border:none">
-                  <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-                  <span class="badge" id="_dynamicLike2"></span>
-                </button>
-                <button type="button" class="btn btn-default" aria-label="Left Align" style="border:none">
-                                    <span class="glyphicon glyphicon-share-alt" aria-hidden="true">
-                                    </span> <span class="badge" id="_dynamicShare2"></span>
-                </button>
-              </div>
+            <div class="input-group">
+              <span class="input-group-addon">邮箱</span>
+              <input type="text" class="form-control" placeholder="邮箱" aria-describedby="basic-addon1">
             </div>
-            <div id="_dynamicContent3" style="display:none;">
-              <div class="media-left media-middle _mainText">
-                <img class="media-object" id="_dynamicLocation3" style="width:70px;height:70px;">
-                <button type="button" class="btn btn-default btn-lg" style="border:none;margin:8px 0 0 480px;height:90px;">
-                  <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> 详情
-                </button>
-              </div>
-              <div class="media-body" style="float:left;margin-bottom: 20px;">
-                <h4 class="media-heading" id="_dynamicTitle3"></h4>
-                <p id="_dynamicDescribe3"></p>
-                <span style="margin-right:300px;">上传于 <span id="_dynamicUploadTime3"></span></span>
-                <button type="button" class="btn btn-default" data-toggle="button" aria-pressed="false" autocomplete="off" style="border:none">
-                  收藏 <span class="badge" id="_dynamicCollect3"></span>
-                </button>
-                <button type="button" class="btn btn-default" aria-label="Left Align" style="border:none">
-                  <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-                  <span class="badge" id="_dynamicLike3"></span>
-                </button>
-                <button type="button" class="btn btn-default" aria-label="Left Align" style="border:none">
-                                    <span class="glyphicon glyphicon-share-alt" aria-hidden="true">
-                                    </span> <span class="badge" id="_dynamicShare3"></span>
-                </button>
-              </div>
+            <div class="input-group">
+              <span class="input-group-addon">年龄</span>
+              <input type="text" class="form-control" placeholder="年龄" aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group">
+              <span class="input-group-addon">性别</span>
+              <input type="text" class="form-control" placeholder="性别" aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group">
+              <span class="input-group-addon">签名</span>
+              <input type="text" class="form-control" placeholder="个人简介" aria-describedby="basic-addon1">
             </div>
           </div>
-        </div>
-        <div style="display: none" id="_collectImage">
-
-        </div>
-        <div style="display:none;" id="_allImage">
-          <div class="_pager" style="margin-top: 500px;">
-            <nav>
-              <ul class="pagination pagination-lg" id="xxxx">
-                <li id="_prev"><a aria-label="Previous" ><span aria-hidden="true">&laquo;</span></a></li>
-                <li id="_next"><a aria-label="Next" ><span aria-hidden="true">&raquo;</span></a></li>
-              </ul>
-            </nav>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-primary">保存修改</button>
           </div>
-        </div>
-        <div class="_user" style="display: none" id="_userCenter">
-          <h4>修改用户信息：</h4>
-          <div class="input-group">
-            <span class="input-group-addon" id="basic-addon1">昵称</span>
-            <input type="text" class="form-control" placeholder="用户名" aria-describedby="basic-addon1">
-          </div>
-          <div class="form-group">
-            <label for="thumbImage">选择图片</label>
-            <input type="file" id="thumbImage">
-            <p class="help-block">请选择要上传的图片作为头像</p>
-          </div>
-          <div class="input-group">
-            <span class="input-group-addon">邮箱</span>
-            <input type="text" class="form-control" placeholder="邮箱" aria-describedby="basic-addon1">
-          </div>
-          <div class="input-group">
-            <span class="input-group-addon">年龄</span>
-            <input type="text" class="form-control" placeholder="年龄" aria-describedby="basic-addon1">
-          </div>
-          <div class="input-group">
-            <span class="input-group-addon">性别</span>
-            <input type="text" class="form-control" placeholder="性别" aria-describedby="basic-addon1">
-          </div>
-          <div class="input-group">
-            <span class="input-group-addon">签名</span>
-            <input type="text" class="form-control" placeholder="个人简介" aria-describedby="basic-addon1">
-          </div>
-          <button type="button" id="saveEdit" data-loading-text="保存中..." class="btn btn-primary" autocomplete="off"
-                  style="margin-top:20px;" onclick="saveEdit()">
-            保存修改
-          </button>
         </div>
       </div>
     </div>
 
+    <jsp:include page="uploadImage.jsp"/>
     <jsp:include page="bottom.jsp"/>
 
-
     <script type="text/javascript">
-      $(function() {
-        $('[data-toggle="tooltip"]').tooltip();
-        getPage();
+      $(function () {
 
-      })
-
-      function getJSONData(pn) {
-        var $username = $("#_username").text();
-
-        $.getJSON("image/taylor swift/all", function(data) {
-          var totalCount = data.totalCount;
-          var pageSize = data.pageSize;
-          var pageTotal = Math.ceil(totalCount / pageSize);
-          var startPage = data.start;
-          var endPage = startPage + pageSize - 1;
-
-          var $_allImageContent = $("#_allImage");
-          $_allImageContent.empty();
-
-          for (var i = 1; i <= pageSize; i++) {
-            $_allImageContent.append('<div class="_imagecontent">');
-            $_allImageContent.append('</div>');
-          }
-
-          var dataRoot = data.data;
-          if (pageTotal == 1) {
-            for (var j = 0; j < totalCount; j++) {
-              $("._imagecontent").eq(j).append('<div class="imageround"><img src="' + dataRoot[j].imageLocation + '"class="img-rounded">')
-                      .append('<span "glyphicon glyphicon-tags" aria-hidden="true">' +  dataRoot[j].imageCataloge
-                      +'</span>').append('<p>' + dataRoot[j].imageTitle
-                      + '</p>').append('<a href="image/' + dataRoot[j].imageId
-                      + '/detail" class="btn btn-default" role="button" style="margin-left:58px;">').append('详情</a></div>');
-            }
-          } else {
-            for (var j = startPage, k = 0; j < endPage, k < pageSize; j++, k++) {
-              if (j == totalCount) {
-                break;
-              }
-              $("._imagecontent").eq(j).append('<div class="imageround"><img src="' + dataRoot[j].imageLocation + '"class="img-rounded">')
-                      .append('<span "glyphicon glyphicon-tags" aria-hidden="true">' +  dataRoot[j].imageCataloge
-                      +'</span>').append('<p>' + dataRoot[j].imageTitle
-                      + '</p>').append('<a href="image/' + dataRoot[j].imageId
-                      + '/detail" class="btn btn-default" role="button" style="margin-left:58px;">').append('详情</a></div>');
-            }
-          }
-          //$(".page-count").text(pageTotal);
-        })
-      }
-
-      function getPage() {
-        var $username = $("#_username").text();
-
-        $.getJSON("image/taylor swift/all", function(data) {
-          var totalCount = data.totalCount;
-          var pageSize = data.pageSize;
-          var pageTotal = Math.ceil(totalCount / pageSize);
-          pn = 1;
-
-          var $_prevContent = $("#xxxx");
-          $_prevContent.empty();
-
-          for (var k = 1; k <= pageTotal; k++) {
-            if (k == 1) {
-              $_prevContent.append('<li><a id="firstPage page-jump">'+ k + '</a></li>');
-            }
-            $_prevContent.append('<li><a id="page-jump">'+ k + '</a></li>');
-          }
-
-          $('#next').click(function() {
-            if (pn == pageTotal) {
-              alert("后面没有了");
-              pn = pageTotal;
-            } else {
-              pn++;
-              gotoPage(pn);
-            }
-          });
-          $("#prev").click(function() {
-            if (pn == 1) {
-              alert("前面没有了");
-              pn = 1;
-            } else {
-              pn--;
-              gotoPage(pn);
-            }
-          });
-          $("#page-jump").click(function(){
-            if($("#page-jump").text()  <= pageTotal && $("#page-jump").text() != ''){
-              pn = $("#page-jump").text()
-              gotoPage(pn);
-            }else{
-              alert("您输入的页码有误！");
-              $("#page-jump").text('').focus();
-            }
-          })
-          $("#firstPage").trigger("click");
-
-        });
-      }
-
-      function gotoPage(pn) {
-        alert(pn);
-        //$(".current-page").text(pn);
-        getJSONData(pn)
-      }
-
-      function saveEdit() {
-        ////logic....
-      }
-
-      $('#saveEdit').on('click', function () {
-        var $btn = $(this).button('loading')
-        // business logic...
-        $btn.button('reset')
       });
-      $('#userCenter').on('click', function () {
-        $('#_collectImage').css('display','none');
-        $('#_allImage').css('display','none');
-        $('#_dynamicCenter').css('display','none');
-        $("#_userCenter").css('display','block');
-      });
-      $('#allImage').on('click', function () {
-        $('#_collectImage').css('display','none');
-        $('#_dynamicCenter').css('display','none');
-        $("#_userCenter").css('display','none');
-        $('#_allImage').css('display','block');
-      });
-      $('#dynamicCenter').on('click', function () {
-        $('#_collectImage').css('display','none');
-        $("#_userCenter").css('display','none');
-        $('#_allImage').css('display','none');
-        $('#_dynamicCenter').css('display','block');
-      });
-      $('#collectImage').on('click', function () {
-        $("#_userCenter").css('display','none');
-        $('#_allImage').css('display','none');
-        $('#_dynamicCenter').css('display','none');
-        $('#_collectImage').css('display','block');
-      });
+
     </script>
 
 </body>

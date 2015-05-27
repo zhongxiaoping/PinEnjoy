@@ -1,5 +1,6 @@
 package com.tianex.pinenjoy.service.impl;
 
+import com.tianex.pinenjoy.core.Page;
 import com.tianex.pinenjoy.dao.GuestDao;
 import com.tianex.pinenjoy.domain.Account;
 import com.tianex.pinenjoy.domain.Guest;
@@ -39,6 +40,11 @@ public class GuestServiceImpl implements GuestService {
         guest.setHomeAccountNickname(homeAccount.getAccountNickname());
 
         guestDao.save(guest);
+    }
+
+    @Override
+    public Page<Guest> pageQueryByAccountNickname(int pageNo, int pageSize, String accountNickname) {
+        return guestDao.pageQueryByAccountNickname(pageNo, pageSize, accountNickname);
     }
 
     @Resource

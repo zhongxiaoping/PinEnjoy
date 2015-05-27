@@ -31,6 +31,7 @@ public class Image implements Serializable {
     private boolean imageChecked;
 
     private String imageAccountNickname;
+    private String imageAccountThumb;
 
     private boolean imageIsAutoDelete;
     private Timestamp imageAutoDeleteTime;
@@ -182,6 +183,15 @@ public class Image implements Serializable {
 
     public void setImageAutoDeleteTime(Timestamp imageAutoDeleteTime) {
         this.imageAutoDeleteTime = imageAutoDeleteTime;
+    }
+
+    @Column(name = "image_accountThumb")
+    public String getImageAccountThumb() {
+        return imageAccountThumb;
+    }
+
+    public void setImageAccountThumb(String imageAccountThumb) {
+        this.imageAccountThumb = imageAccountThumb;
     }
 
     @Override

@@ -10,74 +10,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/x-icon" href="static/image/sys/thumb.png"/>
     <link rel="stylesheet" href="static/css/bootstrap.css"/>
-    <link rel="stylesheet" href="static/css/reset.css">
+    <link rel="stylesheet" href="static/css/detail.css">
     <script type="text/javascript" src="static/js/jquery-2.1.3.min.js"></script>
     <script type="text/javascript" src="static/js/bootstrap.js"></script>
     <title>详情页</title>
-    <style type="text/css">
-      .wrap {
-        margin: 35px 180px;
-      }
-      .mainContent {
-        width: 700px;
-        float: left;
-      }
-      .displayContent {
-        border: solid 1px #adadad;
-      }
-      .imageContent {
-        background-color: #adadad;
-        height: 500px;
-        padding: 0 35px;
-      }
-      .middleContent {
-        border-top: solid 1px #adadad;
-      }
-      .middleContent .middleContentLeft {
-        margin: 0 250px 0 35px;
-      }
-      .middleContent button {
-        border: none;
-      }
-      .descriptionContent {
-        border-top: solid 1px #adadad;
-      }
-      .resumeContent {
-        margin-top: 30px;
-        border: solid 1px #adadad;
-      }
-      .storeContent {
-        margin-top: 30px;
-        border: solid 1px #adadad;
-        height: 70px;
-      }
-      .storeContent .storeContentLeft {
-        border-right: solid 1px #adadad;
-        width: 330px;
-        height: 70px;
-        float: left;
-      }
-      .storeContent .storeContentRight {
-        padding: 20px 100px;
-        float: right;
-      }
-      .sideContent {
-        width: 250px;
-        height: 400px;
-        float: right;
-        border: solid 1px #adadad;
-      }
-      .sideContent .sideContentTop {
-        padding: 7px 15px;
-      }
-      .sideContent .sideContentDown {
-        padding: 7px 15px;
-        margin-top: 310px;
-      }
-      .dropLayer {
-        margin-top: 30px;
-      }
-    </style>
 </head>
 <body>
 
@@ -90,47 +26,47 @@
             <div class="imageContent">
                <img src="${currentImage.imageLocation }" title="${currentImage.imageTitle }">
             </div>
+            <input hidden="hidden" id="currentId" value="${currentImage.imageId }"/>
             <div class="middleContent">
               <span class="middleContentLeft">
-                <button type="button" class="btn btn-default" aria-label="Left Align" onclick="like('like')">
+                <button type="button" class="btn btn-default" aria-label="Left Align" id="_likeAsy">
                   <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
                 </button>
-                <button type="button" class="btn btn-default" aria-label="Left Align" onclick="like('dislike');">
+                <button type="button" class="btn btn-default" aria-label="Left Align" id="_disLikeAsy">
                   <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
                 </button>
               </span>
-              <button type="button" class="btn btn-default" aria-label="Left Align" onclick="image/${currentImage.imageId}/download">
+              <c:if test="${currentImage.imageIsAutoDelete }">
+                <button type="button" class="btn btn-default" aria-label="Left Align">
+                  <span class="glyphicon glyphicon-time" aria-hidden="true"> 阅后即焚</span>
+                </button>
+              </c:if>
+              <button type="button" class="btn btn-default" aria-label="Left Align" id="_download">
                 <span class="glyphicon glyphicon-save" aria-hidden="true"> 下载</span>
               </button>
               <button type="button" class="btn btn-default" aria-label="Left Align">
                 <span class="glyphicon glyphicon-share-alt" aria-hidden="true"> 分享</span>
               </button>
-              <button type="button" class="btn btn-default" aria-label="Left Align">
-                <span class="glyphicon glyphicon-time" aria-hidden="true"> 阅后即焚</span>
-              </button>
-              <c:if test="${currentImage.imageIsAutoDelete }">
-                <span class="glyphicon glyphicon-hourglass" aria-hidden="true"> 阅后即焚</span>
-              </c:if>
             </div>
             <div class="descriptionContent">
-              <div>
-                ${currentImage.imageTitle }
-              </div>
-              <div>
-                ${currentImage.imageUploadTime }
-              </div>
-              <div>
+              <h4>${currentImage.imageTitle }</h4>
+              <p class="help-block">上传于 ${currentImage.imageUploadTime }</p>
+              <div class="decriptionContentDown">
                 ${currentImage.imageDescription }
               </div>
             </div>
           </div>
           <div class="storeContent">
             <div class="storeContentLeft">
-              <a href="home/{imageAccount.accountId }"><img src="${imageAccount.accountThumb }"></a>
-              ${imageAccount.accountNickname }xxxxxxxxx
-              <button type="button" class="btn btn-info" aria-label="Left Align">
-                <span class="glyphicon glyphicon-star" aria-hidden="true"> 关注</span>
-              </button>
+              <div class="storeContentI">
+                <a href="home/{imageAccount.accountId }"><img src="${imageAccount.accountThumb }" class="img-circle"></a>
+                ${imageAccount.accountNickname }
+              </div>
+              <div class="storeContentB">
+                <button type="button" class="btn btn-info" aria-label="Left Align" id="_focus">
+                  <span class="glyphicon glyphicon-star" aria-hidden="true"> 关注</span>
+                </button>
+              </div>
             </div>
             <div class="storeContentRight">
               <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#generatePin">
@@ -139,58 +75,78 @@
             </div>
           </div>
           <div class="resumeContent">
-            <img src="${imageAccount.accountThumb }">
             <div class="ds-thread" data-thread-key="Ping" data-title="请替换成文章的标题" data-url="请替换成文章的网址"></div>
           </div>
         </div>
         <div class="sideContent">
            <div>
              <div class="sideContentTop">
-                cxxxx
+                <c:forEach var="image" items="${otherImages}">
+                  <a href="image/${image.imageId }/detail"><img src="image.imageLocation" class="img-rounded"></a>
+                </c:forEach>
              </div>
              <div class="sideContentDown">
-              <button type="button" class="btn btn-default btn-block"> 更多</button>
+                <button type="button" class="btn btn-default btn-block" location.href='home/${imageAccount.accountId }'>
+                  更多
+                </button>
              </div>
            </div>
         </div>
         <div style="clear: both"/>
         <div class="dropLayer">
           <h3>相关推荐</h3>
-          <div>
-            <ul>
+          <div class="recommendsImage">
             <c:forEach items="${recommendedImages }" var="image">
-              <li onclick="location.href='image/${image.imageId}/detail';">
-                <img src="${image.imageLocation }" alt="${image.imageTitle }">
-                <div class="post-info">
-                  <div class="post-basic-info">
-                      <h3><a href="#">${image.imageTitle }</a></h3>
-                      <span><a href="#"><label></label>${image.imageCatalogeName }</a></span>
-                      <p>${image.imageDescription }</p>
+              <div class="recommendsImageContent">
+                <div class="recommendsImageUser">
+                  ${image.imageAccountNickname } 上传
+                </div>
+                <div class="recommendsImageImg">
+                  <img src="${image.imageLocation }">
+                </div>
+                <div>
+                  <button type="button" class="btn btn-default btn-block" location.href="image/${image.imageId }/detail">
+                    详细
+                  </button>
+                </div>
+              </div>
+            </c:forEach>
+          </div>
+          <div style="clear: both;"></div>
+        </div>
+        <div class="downLayer">
+          <h3>Pin热单</h3>
+          <div class="hotImage">
+            <c:forEach var="image" items="${hotImages }">
+              <div class="hotImageContent">
+                <div class="hotImageImg">
+                  <a href="image/${image.imageId }/detail"><img src="${image.imageLocation }"></a>
+                </div>
+                <div class="hotImageRating">
+                  <div class="hotImageRatingContent">
+
                   </div>
-                  <div class="post-info-rate-share">
-                      <div id="function_rate"></div>
-                      <div class="download">
-                        <a href="image/${image.imageId }/download"><span></span></a>
-                      </div>
+                  <div class="hotImageDownload">
+                    <a href="image/${image.imageId }/download"><span></span></a>
                   </div>
                 </div>
-              </li>
+                <div style="clear: both;"></div>
+              </div>
             </c:forEach>
-            </ul>
           </div>
+          <div style="clear: both"></div>
         </div>
       </div>
     </div>
-
     <div class="modal fade" id="generatePin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            <h4 class="modal-title" id="myModalLabel">${currentImage.imageTitle }的详细参数</h4>
           </div>
           <div class="modal-body">
-            ...
+                heheheeheheehheehehehhe
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -199,7 +155,6 @@
         </div>
       </div>
     </div>
-
 
     <jsp:include page="bottom.jsp"/>
 
@@ -215,14 +170,37 @@
 
       });
 
-      function like(data) {
-        if (data == 'dislike') {
-
-        } else if (data == 'like') {
-
-        }
-      }
-
+      $('#_download').click(function() {
+        $.get('image/' + $('#currentId').val() + '/download', function(result){
+          alert(result);
+        });
+      });
+      $('#_likeAsy').click(function() {
+        $.get('image/' + $('#currentId').val() + '/like', function(result){
+          $('#_likeAsy').css('disabled', 'disabled');
+          alert(result);
+        });
+      });
+      $('#_disLikeAsy').click(function() {
+        $.get('image/' + $('#currentId').val() + '/dislike', function(result){
+          $('#_disLikeAsy').css('disabled', 'disabled');
+          alert(result);
+        });
+      });
+      $('#_focus').click(function() {
+        $.get($('account/' + '#currentId').val() + '/subscribe', function(result) {
+          $('#currentId span').innerHTML('已关注');
+          $('#currentId').css('id', '_unfocus');
+          alert(result);
+        })
+      });
+      $('#_unfocus').click(function() {
+        $.get($('account/' + '#currentId').val() + '/unsubscribe', function(result) {
+          $('#currentId span').innerHTML('关注');
+          $('#currentId').css('id', '_focus');
+          alert(result);
+        })
+      });
     </script>
 
 </body>

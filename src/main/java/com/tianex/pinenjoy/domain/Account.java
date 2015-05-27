@@ -28,13 +28,13 @@ public class Account implements Serializable {
     private Timestamp accountLastLoginTime;
 
     private boolean accountIsLock;
+
     private long accountFansCount;
+    private long accountUploadImageCount;
+    private long accountSubscribeCount;
 
-    private String accountSubscribeImageIds;
     private String accountCollectImageIds;
-
-    private String accountSubscribeIds;
-    private String accountPublishIds;
+    private String accountSubcribeIds;
 
     private String accountRoleIds;
 
@@ -150,15 +150,6 @@ public class Account implements Serializable {
         this.accountFansCount = accountFansCount;
     }
 
-    @Column(name = "account_subscribeImageIds")
-    public String getAccountSubscribeImageIds() {
-        return accountSubscribeImageIds;
-    }
-
-    public void setAccountSubscribeImageIds(String accountSubscribeImageIds) {
-        this.accountSubscribeImageIds = accountSubscribeImageIds;
-    }
-
     @Column(name = "account_collectImageIds")
     public String getAccountCollectImageIds() {
         return accountCollectImageIds;
@@ -168,23 +159,33 @@ public class Account implements Serializable {
         this.accountCollectImageIds = accountCollectImageIds;
     }
 
+    @Column(name = "account_uploadImageCount")
+    public long getAccountUploadImageCount() {
+        return accountUploadImageCount;
+    }
+
+    public void setAccountUploadImageCount(long accountUploadImageCount) {
+        this.accountUploadImageCount = accountUploadImageCount;
+    }
+
+    @Column(name = "account_subscribeCount")
+    public long getAccountSubscribeCount() {
+        return accountSubscribeCount;
+    }
+
+    public void setAccountSubscribeCount(long accountSubscribeCount) {
+        this.accountSubscribeCount = accountSubscribeCount;
+    }
+
     @Column(name = "account_subscribeIds")
-    public String getAccountSubscribeIds() {
-        return accountSubscribeIds;
+    public String getAccountSubcribeIds() {
+        return accountSubcribeIds;
     }
 
-    public void setAccountSubscribeIds(String accountSubscribeIds) {
-        this.accountSubscribeIds = accountSubscribeIds;
+    public void setAccountSubcribeIds(String accountSubcribeIds) {
+        this.accountSubcribeIds = accountSubcribeIds;
     }
 
-    @Column(name = "account_publishIds")
-    public String getAccountPublishIds() {
-        return accountPublishIds;
-    }
-
-    public void setAccountPublishIds(String accountPublishIds) {
-        this.accountPublishIds = accountPublishIds;
-    }
 
     @Column(name = "account_roleIds")
     public String getAccountRoleIds() {
@@ -217,20 +218,19 @@ public class Account implements Serializable {
                 ", accountNickname='" + accountNickname + '\'' +
                 ", accountEmail='" + accountEmail + '\'' +
                 ", accountPassword='" + accountPassword + '\'' +
-                ", accountAge=" + accountBirthday +
                 ", accountSex='" + accountSex + '\'' +
                 ", accountResume='" + accountResume + '\'' +
                 ", accountThumb='" + accountThumb + '\'' +
+                ", accountBirthday=" + accountBirthday +
                 ", accountRegisterTime=" + accountRegisterTime +
                 ", accountLastLoginTime=" + accountLastLoginTime +
                 ", accountIsLock=" + accountIsLock +
                 ", accountFansCount=" + accountFansCount +
-                ", accountSubscribeImageIds='" + accountSubscribeImageIds + '\'' +
+                ", accountUploadImageCount=" + accountUploadImageCount +
+                ", accountSubscribeCount=" + accountSubscribeCount +
                 ", accountCollectImageIds='" + accountCollectImageIds + '\'' +
-                ", accountSubscribeIds='" + accountSubscribeIds + '\'' +
-                ", accountPublishIds='" + accountPublishIds + '\'' +
+                ", accountSubcribeIds='" + accountSubcribeIds + '\'' +
                 ", accountRoleIds='" + accountRoleIds + '\'' +
                 '}';
     }
-
 }

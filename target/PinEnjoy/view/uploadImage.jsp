@@ -12,22 +12,10 @@
     <script type="text/javascript" src="static/js/jquery-2.1.3.min.js"></script>
     <script type="text/javascript" src="static/js/jquery.uploadify.min.js"></script>
     <script type="text/javascript" src="static/js/bootstrap.js"></script>
-    <style type="text/css">
-      .sidebar{
-        position:fixed;
-        bottom:10px;
-        right:15px;
-        text-align: center;
-      }
-    </style>
 </head>
 <body>
 
-    <button type="button" class="btn btn-default sidebar" data-toggle="modal" data-target="#myModal">
-      上传图片
-    </button>
-
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="_uploadImage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">

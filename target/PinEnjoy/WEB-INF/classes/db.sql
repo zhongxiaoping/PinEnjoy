@@ -33,10 +33,10 @@ CREATE TABLE t_account (
   account_lastLoginTime DATETIME,
   account_isLock BOOLEAN DEFAULT TRUE,
   account_fansCount INT UNSIGNED,
-  account_subscribeImageIds varchar(1024),
+  account_uploadImageCount INT UNSIGNED,
   account_collectImageIds varchar(1024),
+  account_subscribeCount INT UNSIGNED,
   account_subscribeIds VARCHAR(1024),
-  account_publishIds VARCHAR(1024),
   account_roleIds VARCHAR(1024),
   PRIMARY KEY (account_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -60,6 +60,7 @@ CREATE TABLE t_image (
   image_uploadTime DATETIME NOT NULL,
   image_checked BOOLEAN DEFAULT FALSE,
   image_accountNickname VARCHAR(198) NOT NULL,
+  image_accountThumb VARCHAR(1024),
   image_isAutoDelete BOOLEAN DEFAULT FALSE,
   image_autoDeleteTime DATETIME,
   PRIMARY KEY (image_id)
@@ -69,29 +70,29 @@ create index idx_t_image_image_id on t_image(image_id);
 create index idx_t_image_image_accountNickname on t_image(image_accountNickname);
 
 INSERT INTO t_image VALUES (1, '师大瑶湖', '江西师范大学位于江西省南昌市瑶湖紫阳大道99号，是...', '人文', 1, 0, 0, 0, 0, 0, 'static/image/user/jxnormal.jpg',
-                              now(), TRUE, 'taylor swift', FALSE, NULL);
+                              now(), TRUE, 'taylor swift', '', FALSE, NULL);
 INSERT INTO t_image VALUES (2, '我爱我家', '家居设计， 时尚， 时尚， 醉时尚！', '设计', 1, 0, 0, 0, 0, 0, 'static/image/user/pic1.jpg',
-                              now(), TRUE, 'taylor swift', FALSE, NULL);
+                              now(), TRUE, 'taylor swift', '', FALSE, NULL);
 INSERT INTO t_image VALUES (3, '沙发', '中国制造，美美哒！', '设计', 1, 0, 0, 0, 0, 0, 'static/image/user/pic3.jpg',
-                              now(), TRUE, 'taylor swift', FALSE, NULL);
+                              now(), TRUE, 'taylor swift', '', FALSE, NULL);
 INSERT INTO t_image VALUES (4, '呀呀呀', '合影， 星星， 删', '狂欢', 1, 0, 0, 0, 0, 0, 'static/image/user/p4.jpg',
-                              now(), TRUE, 'taylor swift', FALSE, NULL);     
+                              now(), TRUE, 'taylor swift', '', FALSE, NULL);
 INSERT INTO t_image VALUES (5, '梦', '真真的，佳佳的', '人文', 1, 0, 0, 0, 0, 0, 'static/image/user/img1.jpg',
-                              now(), TRUE, '黄家驹', FALSE, NULL);
+                              now(), TRUE, '黄家驹', '', FALSE, NULL);
 INSERT INTO t_image VALUES (6, '马', '千里马，动漫是啊，凸(艹皿艹 )', '人文', 1, 0, 0, 0, 0, 0, 'static/image/user/img2.jpg',
-                              now(), TRUE, '黄家驹', FALSE, NULL);
+                              now(), TRUE, '黄家驹', '', FALSE, NULL);
 INSERT INTO t_image VALUES (7, '山城', '公分修毛，喜洋洋惠爱玲', '人文', 1, 0, 0, 0, 0, 0, 'static/image/user/img3.jpg',
-                              now(), TRUE, '黄家驹', FALSE, NULL);
+                              now(), TRUE, '黄家驹', '', FALSE, NULL);
 INSERT INTO t_image VALUES (8, '昆明', '迪士尼，冰雪奇缘，美高美', '人文', 1, 0, 0, 0, 0, 0, 'static/image/user/img4.jpg',
-                              now(), TRUE, '黄家驹', FALSE, NULL);
+                              now(), TRUE, '黄家驹', '', FALSE, NULL);
 INSERT INTO t_image VALUES (9, '北京', '徐州城外断桥残雪', '人文', 1, 0, 0, 0, 0, 0, 'static/image/user/img4.jpg',
-                            now(), TRUE, '黄家驹', FALSE, NULL);
+                            now(), TRUE, '黄家驹', '', FALSE, NULL);
 INSERT INTO t_image VALUES (10, '昆明', '迪士尼，冰雪奇缘，美高美', '人文', 1, 0, 0, 0, 0, 0, 'static/image/user/img4.jpg',
-                            now(), TRUE, '黄家驹', FALSE, NULL);
+                            now(), TRUE, '黄家驹', '', FALSE, NULL);
 INSERT INTO t_image VALUES (11, 'dfasf', '迪士尼，冰雪奇缘，美高美', '人文', 1, 0, 0, 0, 0, 0, 'static/image/user/img4.jpg',
-                            now(), TRUE, '黄家驹', FALSE, NULL);
+                            now(), TRUE, '黄家驹', '', FALSE, NULL);
 INSERT INTO t_image VALUES (12, '昆明', '迪士尼，冰雪奇缘，美高美', '人文', 1, 0, 0, 0, 0, 0, 'static/image/user/img4.jpg',
-                            now(), TRUE, '黄家驹', FALSE, NULL);
+                            now(), TRUE, '黄家驹', '', FALSE, NULL);
 drop table if exists t_cataloge;
 CREATE TABLE t_cataloge (
   cataloge_id VARCHAR(32) NOT NULL,
