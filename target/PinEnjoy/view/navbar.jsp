@@ -27,7 +27,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Ping</a>
+          <a class="navbar-brand" href="#">PinEnjoy</a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
@@ -40,10 +40,6 @@
                 <li><a href="#"></a></li>
                 <li><a href="#">广场</a></li>
                 <li class="divider"></li>
-                <c:forEach var="cataloge" items="${cataloges }">
-                  <li><a href="#">${cataloge.catalogeName }</a></li>
-                </c:forEach>
-                <li class="divider"></li>
                 <li><a href="#">关于</a></li>
               </ul>
             </li>
@@ -55,32 +51,29 @@
             <button type="submit" class="btn btn-default">搜索</button>
           </form>
           <ul class="nav navbar-nav navbar-right">
-            <c:if test="${sumOfSearch != null }">
-              <li><a href="#">找到约 ${sumOfSearch } 条结果 </a></li>
-            </c:if>
             <c:choose>
-            <c:when test="${currentAccount != null }">
-              <div class="navbar-header">
-                <a class="navbar-brand" href="home/${currentAccount.accountId }">
-                  <img alt="${currentAccount.accountNickname }" src="${currentAccount.accountThumb }" style="width:30px;height:30px">
-                </a>
-              </div>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                  <li><a href="#">Action</a></li>
-                  <li><a href="#">Another action</a></li>
-                  <li><a href="#">Something else here</a></li>
-                  <li class="divider"></li>
-                  <li><a href="#">Separated link</a></li>
-                </ul>
-              </li>
-            </c:when>
-            <c:otherwise>
-            <li style="margin-right:15px;"><button type="button" class="btn btn-default navbar-btn" onclick="location.href='login'"> 登录</button></li>
-            <li><button type="button" class="btn btn-default navbar-btn" onclick="location.href='register'"> 注册</button>
+              <c:when test="${currentAccount != null }">
+                <div class="navbar-header">
+                  <a class="navbar-brand" href="home/${currentAccount.accountId }">
+                    <img alt="${currentAccount.accountNickname }" src="${currentAccount.accountThumb }" style="width:30px;height:30px">
+                  </a>
+                </div>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">特色服务</a></li>
+                    <li><a href="#">男人的天堂</a></li>
+                    <li><a href="#">你懂得</a></li>
+                    <li class="divider"></li>
+                    <li><a href="logout">注销</a></li>
+                  </ul>
+                </li>
+              </c:when>
+              <c:otherwise>
+                <li style="margin-right:15px;"><button type="button" class="btn btn-default navbar-btn" onclick="location.href='login'"> 登录</button></li>
+                <li><button type="button" class="btn btn-default navbar-btn" onclick="location.href='register'"> 注册</button>
               </c:otherwise>
-              </c:choose>
+            </c:choose>
           </ul>
         </div>
       </div>

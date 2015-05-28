@@ -36,6 +36,7 @@ public class Page<E> implements Serializable {
         this.pageNo = pageNo;
         this.startIndex = startIndex;
         this.data = data;
+        this.totalCount = data.size();
     }
 
     /**

@@ -25,20 +25,11 @@
       .userInfo {
         border: solid 1px #adadad;
         height: 250px;
+        border-radius: 8px;
       }
       .bgInfo {
         background: url("static/image/sys/bgInfo.jpg");
         height: 110px;
-      }
-      .settingInfo {
-        border-bottom: solid 1px #adadad;
-        height: 27px;
-      }
-      .settingInfo .leftSettingInfo {
-        float: left;
-      }
-      .settingInfo .rightSettingInfo {
-        float: right;
       }
       .userInfo img {
         width: 70px;
@@ -66,20 +57,26 @@
         margin-top: 35px;
         border: solid 1px #adadad;
         height: 230px;
+        border-radius: 8px;
       }
       .recommendTitle {
         height: 25px;
+        line-height: 25px;
+        padding-left: 10px;
         border-bottom: solid 1px #adadad;
       }
       .recommendImage {
         height: 160px;
+        padding: 10px;
       }
       .recommendImage .recommendImageUser {
-        height: 45px;
+        height: 50px;
+
       }
-      .recommendImage img {
-        height: 90px;
-        width: 200px;
+      .recommendImageUser img {
+        height: 25px;
+        width: 25px;
+
       }
       .recommendTool {
         height: 35px;
@@ -89,13 +86,27 @@
         border: none;
         width: 116px;
       }
+      .dynamicInfo {
+
+      }
       .dynamicInfoContent {
         margin-top: 30px;
         border: solid 1px #adadad;
         height: 210px;
+        border-radius: 8px;
+        padding: 15px;
       }
       .dynamicInfoContent .dynamicImage {
         height: 160px;
+        float: left;
+        margin-right: 20px;
+      }
+      .dynamicInfoContent .dynamicImageDescription {
+        float: left;
+      }
+      .dynamicImage img {
+        height: 150px;
+        width: 170px;
       }
       .dynamicInfoContent .dynamicInfoTool {
         border-top: solid 1px #adadad;
@@ -112,6 +123,7 @@
         margin-top: 30px;
         height: 300px;
         padding: 5px 10px 15px 10px;
+        border-radius: 8px;
       }
       .collectImageInfo .collectImageInfoTop {
         height: 30px;
@@ -128,6 +140,7 @@
         border: solid 1px #adadad;
         margin-top: 30px;
         height: 300px;
+        border-radius: 8px;
       }
       .guestInfo .guestInfoTop {
         height: 30px;
@@ -146,25 +159,15 @@
     <div class="wrap">
       <div class="leftContent">
         <div class="userInfo">
-          <div class="settingInfo">
-            <div class="leftSettingInfo">
-              <button type="button" class="btn btn-default" data-toggle="modal" data-target="#editProfile" style="border:none;">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </button>
-            </div>
-            <div class="rightSettingInfo">
-              <button type="button" class="btn btn-default" data-toggle="modal" data-target="#editProfile" style="border:none;">
-                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-              </button>
-            </div>
-          </div>
-          <div style="clear: both;"></div>
           <div class="bgInfo">
           </div>
           <img src="${homeAccount.accountThumb }" class="img-circle">
           <div class="userInfoContent">
             <div class="userInfoSpilt">
               ${homeAccount.accountSubscribeCount }<p>关注</p>
+            </div>
+            <div id="userNickname">
+
             </div>
             <div class="userInfoSpilt">
               ${homeAccount.accountFansCount }<p>粉丝</p>
@@ -180,9 +183,16 @@
             <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
           </div>
           <div class="collectImageInfoImg">
-            <c:forEach var="image" items="${collectImages }">
-              <a href="image/${image.imageId }/detail"><img src="" class="img-rounded"></a>
-            </c:forEach>
+            <c:choose>
+              <c:when test="${collectImages != null }">
+                <c:forEach var="image" items="${collectImages }">
+                  <a href="image/${image.imageId }/detail"><img src="" class="img-rounded"></a>
+                </c:forEach>
+              </c:when>
+              <c:otherwise>
+                您没有收藏的图片
+              </c:otherwise>
+            </c:choose>
           </div>
           <button type="button" class="btn btn-default btn-block" location.href=''>
             更多
@@ -217,11 +227,15 @@
           </div>
           <div class="recommendImage">
             <div class="recommendImageUser">
-              <img src="${recommendImage.imageAccountThumb }">
-              ${recommendImage.imageDescription }
+              <div style="float: left;margin-right: 7px">
+                <img src="${recommendImage.imageAccountThumb }" class="img-circle">
+              </div>
+              <div class="help-block" style="float: left;">
+                <a><span>${recommendImage.imageAccountNickname }</span></a>
+                上传于 ${recommendImage.imageUploadTime}
+              </div>
             </div>
             <img src="${recommendImage.imageLocation }" alt="">
-            <p class="help-block">上传于 ${recommendImage.imageTitle }</p>
           </div>
           <div class="recommendTool">
             <button type="button" class="btn btn-default" aria-label="Left Align">
@@ -242,14 +256,18 @@
           </div>
         </div>
         <div class="dynamicInfo">
-          <div class="dynamicInfoContent">
-            <div class="dynamicImage">
-              <img src="${dynamicImage.imageLocation }" alt="${dynamicImage.imageTitle }">
-              <div>
-                <h4>${dynamicImage.imageTitle }</h4>
-                ${dynamicImage.imageDescription }
+          <div id="moreDynamicContent">
+            <div class="dynamicInfoContent">
+              <div class="dynamicImage">
+                <img src="${dynamicImage.imageLocation }" alt="${dynamicImage.imageTitle }" class="img-rounded">
+              </div>  
+              <div class="dynamicImageDescription">
+                <a href="image/${dynamicImage.imageId }/detail"><h4>${dynamicImage.imageTitle }</h4></a>
+                <p>${dynamicImage.imageDescription }</p>
+                <p class="help-block">上传于 ${dynamicImage.imageUploadTime }</p>
               </div>
             </div>
+            <div style="clear: both;"></div>
             <div class="dynamicInfoTool">
                <span class="glyphicon glyphicon-bookmark" aria-hidden="true"> ${dynamicImage.imageCollectCount }</span>
                <span class="glyphicon glyphicon-share-alt" aria-hidden="true"> ${dynamicImage.imageShareCount }</span>
@@ -259,7 +277,7 @@
             </div>
           </div>
           <div class="dynamicLoading">
-            <button type="button" class="btn btn-default btn-lg btn-block">
+            <button type="button" class="btn btn-default btn-lg btn-block" id="moreDynamic">
               <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span> 更多我的动态
             </button>
           </div>
@@ -310,14 +328,43 @@
       </div>
     </div>
 
-    <jsp:include page="uploadImage.jsp"/>
     <jsp:include page="bottom.jsp"/>
+    <jsp:include page="uploadImage.jsp"/>
 
     <script type="text/javascript">
       $(function () {
 
-      });
 
+      var dynamicPageNo = 1;
+      var homeAccountNickname = $('#userNickname').text();
+      $('#moreDynamic').click(function() {
+        $.getJSON('image/tianyiming-1/dynamic', function(data) {
+          var dataRoot = data.data;
+          var totalCount = data.totalCount;
+
+          if (totalCount == 0) {
+            alert('已经没有了...');
+          } else {
+            for (var i = 0; i < totalCount; i++) {
+              $('#moreDynamicContent').append('<div class="dynamicInfoContent">' + '<div>' + '<div class="dynamicImage">'
+              + '<img src="' + dataRoot[i].imageLocation + '" alt="' + dataRoot[i].imageTitle + '" class="img-rounded">' + '</div>'
+              + '<div class="dynamicImageDescription">' + '<a href="image/' + dataRoot[i].imageId + '/detail">' + '<h4>' + dataRoot[i].imageTitle + '</h4></a>'
+              + '<p>' + dataRoot[i].imageDescription + '</p>' + '<p class="help-block">' + '上传于 ' + dataRoot[i].imageUploadTime + '</p>'
+              + '</div></div>' + '<div style="clear: both;"></div>' + '<div class="dynamicInfoTool">'
+              + '<span class="glyphicon glyphicon-bookmark" aria-hidden="true">' + dataRoot[i].imageCollectCount + '</span>'
+              + '<span class="glyphicon glyphicon-share-alt" aria-hidden="true">' + dataRoot[i].imageShareCount + '</span>'
+              + '<span class="glyphicon glyphicon-download-alt" aria-hidden="true">' + dataRoot[i].imageDownloadCount + '</span>'
+              + '<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true">' + dataRoot[i].imageLikeCount + '</span>'
+              + '<span class="glyphicon glyphicon-thumbs-down" aria-hidden="true">' + dataRoot[i].imageDislikeCount + '</span>'
+              + '</div></div>');
+
+            }
+          }
+          dynamicPageNo++;
+        });
+
+      });
+      });
     </script>
 
 </body>

@@ -180,49 +180,56 @@ public class AccountServiceImpl implements AccountService {
     /**
      * 订阅用户服务，被订阅的用户粉丝数加1，订阅用户添加id
      * @param currentAccount
-     * @param accountId
+     * @param accountId 被订阅用户Id
      */
     public void subscribeSuccess(Account currentAccount, String accountId) {
         Account _account = accountDao.get(accountId);
-        String publishIds = _account.getAccountPublishIds();
         _account.setAccountFansCount(_account.getAccountFansCount() + 1);
 
+        String publishIds = _account.getAccountPublishIds();
         publishIds = (publishIds == null) ?
-                currentAccount.getAccountId() : publishIds.concat("," + _account.getAccountId());
+                publishIds : publishIds.concat("," + currentAccount.getAccountId());
         _account.setAccountPublishIds(publishIds);
 
         accountDao.update(_account);
 
-        currentAccount.setAccountSubscribeIds(_account.getAccountId());
+        String subscribeId = currentAccount.getAccountSubcribeIds();
+        subscribeId = (subscribeId == null) ?
+                accountId : subscribeId.concat("," + accountId);
+        currentAccount.setAccountSubcribeIds(subscribeId);
+        currentAccount.setAccountFansCount(currentAccount.getAccountSubscribeCount() + 1);
         accountDao.update(currentAccount);
     }
 
     /**
      * 取消订阅指定用户,指定用户粉丝数减1，订阅用户删除id
      * @param currentAccount
-     * @param accountId
+     * @param accountId 被订阅用户
      */
     public void unsubscribeSuccess(Account currentAccount, String accountId) {
-        String subscribeIds = currentAccount.getAccountSubscribeIds();
-
-        if (subscribeIds.contains(",")) {
-            subscribeIds.replace("," + accountId, "");
-        } else {
-            subscribeIds = null;
-        }
-        currentAccount.setAccountSubscribeIds(subscribeIds);
-        accountDao.update(currentAccount);
-
         Account _account = accountDao.get(accountId);
-        _account.setAccountFansCount(_account.getAccountFansCount() + 1);
-        String publishIds = currentAccount.getAccountPublishIds();
+        _account.setAccountFansCount(_account.getAccountFansCount() - 1);
 
-        if (publishIds.contains(",")) {
-            publishIds.replace("," + currentAccount.getAccountId(), "");
-        } else {
+        String publishIds = _account.getAccountPublishIds();
+        if (!publishIds.contains(",")) {
             publishIds = null;
+        } else {
+            publishIds = publishIds.replace("," + currentAccount.getAccountId(), "");
         }
+        _account.setAccountPublishIds(publishIds);
+
         accountDao.update(_account);
+
+        String subscribeId = currentAccount.getAccountSubcribeIds();
+        if (!subscribeId.contains(",")) {
+            subscribeId = null;
+        } else {
+            subscribeId = subscribeId.replace("," + accountId, "");
+        }
+        currentAccount.setAccountSubcribeIds(subscribeId);
+        currentAccount.setAccountFansCount(currentAccount.getAccountSubscribeCount() - 1);
+
+        accountDao.update(currentAccount);
     }
 
     @Resource

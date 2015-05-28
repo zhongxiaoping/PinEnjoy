@@ -35,6 +35,7 @@ public class Account implements Serializable {
 
     private String accountCollectImageIds;
     private String accountSubcribeIds;
+    private String accountPublishIds;
 
     private String accountRoleIds;
 
@@ -180,6 +181,15 @@ public class Account implements Serializable {
     @Column(name = "account_subscribeIds")
     public String getAccountSubcribeIds() {
         return accountSubcribeIds;
+    }
+
+    @Column(name = "account_publishIds")
+    public String getAccountPublishIds() {
+        return accountPublishIds;
+    }
+
+    public void setAccountPublishIds(String accountPublishIds) {
+        this.accountPublishIds = accountPublishIds;
     }
 
     public void setAccountSubcribeIds(String accountSubcribeIds) {

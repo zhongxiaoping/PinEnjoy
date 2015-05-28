@@ -76,6 +76,10 @@
           });
         }
 
+        function intoDetail(data) {
+            location.href = "image/" + data + "/detail";
+        }
+
         function onScroll() {
           var winHeight = window.innerHeight ? window.innerHeight : $window.height(),
               closeToBottom = ($window.scrollTop() + winHeight > $document.height() - 100);
@@ -83,7 +87,7 @@
             $.ajax({url:"index/asy", dataType:"json", success:function(data) {
               $.each(data, function(i, item) {
                 $("#tiles").append(
-                        "<li onclick='location.href='image/" + item.imageId + "/detail';'>" +
+                        "<li onclick='intoDetail(" + item.imageId +")'>" +
                         "<img src='" + item.imageLocation + "' width='200' height='200'>" +
                         "<div class='post-info'>" + "<div class='post-basic-info'>" +
                         "<h3><a href='#'>" + item.imageTitle + "</a></h3>" +

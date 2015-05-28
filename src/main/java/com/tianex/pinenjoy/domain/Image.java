@@ -39,7 +39,6 @@ public class Image implements Serializable {
     public Image() {
     }
 
-
     @Id
     @Column(name = "image_id")
     public String getImageId() {

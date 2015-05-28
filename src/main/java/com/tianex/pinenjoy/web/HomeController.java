@@ -37,8 +37,8 @@ public class HomeController {
      */
     @RequestMapping("/home/{accountId}")
     public String home(@PathVariable String accountId, HttpServletRequest request, Model model) {
-        Account currentAccount = (Account) request.getSession().getAttribute(Constant.CURRENT_ACCOUNT);
         Account homeAccount = (Account) accountService.findAccountByAccountId(accountId);
+        Account currentAccount = (Account) request.getSession().getAttribute(Constant.CURRENT_ACCOUNT);
 
         if (homeAccount == null || accountId == null) {
             return "404.jsp";
@@ -58,11 +58,16 @@ public class HomeController {
         List<Image> collectImages = imageService.findCollectionByAccount(homeAccount, 12);
         model.addAttribute("collectImages", collectImages);
 
-        Image recommendImage = imageService.findRecommendedByImage(collectImages.get(0), 1).get(0);
-        model.addAttribute("recommendImage", recommendImage);
+        Page<Image> recommendImages = imageService.pageQueryAllForHot(1, 1);
+        model.addAttribute("recommendImage", recommendImages.getData().get(0));
 
         Page<Image> dynamicImage = imageService.pageQueryForLatest(1, 1 ,homeAccount.getAccountNickname());
-        model.addAttribute("dynamicImage", dynamicImage.getData().get(0));
+        if (dynamicImage != null) {
+            model.addAttribute("dynamicImage", dynamicImage.getData().get(0));
+        } else {
+            model.addAttribute("dynamicImage", null);
+        }
+
 
         List<Cataloge> cataloges = catalogeService.findAll();
         model.addAttribute("cataloges", cataloges);

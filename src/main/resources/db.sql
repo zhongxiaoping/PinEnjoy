@@ -36,12 +36,28 @@ CREATE TABLE t_account (
   account_uploadImageCount INT UNSIGNED,
   account_collectImageIds varchar(1024),
   account_subscribeCount INT UNSIGNED,
+  account_publishIds VARCHAR(1024),
   account_subscribeIds VARCHAR(1024),
   account_roleIds VARCHAR(1024),
   PRIMARY KEY (account_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 create index idx_t_account_account_id on t_account(account_id);
+
+INSERT INTO t_account VALUES ('41ce5bb34c3f4d1fac3a7da8902356db', '黄家驹', 'D04F4BB993849D4697B35C7EE8D4D00C', 'tianex163@163.com', '1962-6-10', '大家好，我叫黄家驹，来自香港，beyond乐队成员，一个已经去世了22年了的男人，感谢PinEnjoy让我复活....',
+            '男', 'static/image/user/sky.jpg', '2015-05-28 22:49:12', NULL, FALSE, 1, 7, NULL, 0, NULL, NULL, NULL);
+INSERT INTO t_account VALUES ('522a39ce7d1f4b1b9c26e82f77ce1e42', '周杰伦', '4CAB42F6F5DC7901A9F2C102A1ED23EF', 'alibaba@163.com', '1979-1-18', '出生于台湾新北市，华语流行男歌手、词曲创作人、制作人、演员、MV及电影导演、编剧及监制....',
+                              '男', 'static/image/user/zjl.png', '2015-05-28 22:59:12', NULL, FALSE, 1, 4, NULL, 0, NULL, NULL, NULL);
+INSERT INTO t_account VALUES ('41ce5bb34c3f4d1fac3a7da8902356db', '泰勒斯威夫特', 'D04F4BB993849D4697B35C7EE8D4D00C', '2818087568@qq.com', '1989-12-13', '入选美国《时代》周刊“2014年度人物”的最终候选人,获颁第50届乡村音乐学院奖“最高荣誉”成就奖....',
+                              '女', 'static/image/user/taylorThumb.png', '2015-05-28 23:49:12', NULL, FALSE, 1, 6, NULL, 0, NULL, NULL, NULL);
+INSERT INTO t_account VALUES ('41ce5bb34c3f4d1fac3a7da8902386db', '伍佰', 'D04F4BB993849D4697B35C7EE8D4D00C', 'huawei@gmail.com', '1968-1-14', '长大后，他做过业务员、卖过保险、摆过地摊，但在一次偶然看到乐器行的征人启事，才成为了一名音乐人....',
+                              '男', 'static/image/user/wb.png', '2015-05-18 22:49:12', NULL, FALSE, 1, 2, NULL, 0, NULL, NULL, NULL);
+INSERT INTO t_account VALUES ('41ce5bb34c3f4d1fac3a7da8909256db', '约翰列侬', 'D04F4BB993849D4697B35C7EE8D4D00C', 'zte@163.com', '1940-10-9', '英国摇滚乐队“披头士”成员，摇滚音乐家，诗人，社会活动家, 入选《滚石》杂志评出的历史上最伟大的50位流行音乐家....',
+                              '男', 'static/image/user/lennon.png', '2015-04-28 22:49:12', NULL, FALSE, 1, 7, NULL, 0, NULL, NULL, NULL);
+INSERT INTO t_account VALUES ('41ce5bb44c3f4d1fac3a7da8902356db', '邵逸夫', 'D04F4BB993849D4697B35C7EE8D4D00C', 'dji@163.com', '1907-11-19', '香港电视广播有限公司荣誉主席，邵氏兄弟电影公司的创办人之一....',
+                              '男', 'static/image/user/syf.png', '2015-05-21 22:49:12', NULL, FALSE, 1, 7, NULL, 0, NULL, NULL, NULL);
+INSERT INTO t_account VALUES ('41ce5bb34c7f4d1fac3a7da8902366db', '李小文', 'D04F4BB993849D4697B35C7EE8D4D00C', 'lenovo@foxmail.com', '1947-03-02', 'Li-Strahler几何光学学派的创始人，成名作被列入国际光学工程协会“里程碑系列”，在国内外遥感界享有盛誉....',
+                              '男', 'static/image/user/lxw.png', '2015-05-20 22:49:12', NULL, FALSE, 1, 7, NULL, 0, NULL, NULL, NULL);
 
                                 
 drop table if exists t_image;
@@ -69,30 +85,43 @@ CREATE TABLE t_image (
 create index idx_t_image_image_id on t_image(image_id);
 create index idx_t_image_image_accountNickname on t_image(image_accountNickname);
 
-INSERT INTO t_image VALUES (1, '师大瑶湖', '江西师范大学位于江西省南昌市瑶湖紫阳大道99号，是...', '人文', 1, 0, 0, 0, 0, 0, 'static/image/user/jxnormal.jpg',
-                              now(), TRUE, 'taylor swift', '', FALSE, NULL);
-INSERT INTO t_image VALUES (2, '我爱我家', '家居设计， 时尚， 时尚， 醉时尚！', '设计', 1, 0, 0, 0, 0, 0, 'static/image/user/pic1.jpg',
-                              now(), TRUE, 'taylor swift', '', FALSE, NULL);
-INSERT INTO t_image VALUES (3, '沙发', '中国制造，美美哒！', '设计', 1, 0, 0, 0, 0, 0, 'static/image/user/pic3.jpg',
-                              now(), TRUE, 'taylor swift', '', FALSE, NULL);
-INSERT INTO t_image VALUES (4, '呀呀呀', '合影， 星星， 删', '狂欢', 1, 0, 0, 0, 0, 0, 'static/image/user/p4.jpg',
-                              now(), TRUE, 'taylor swift', '', FALSE, NULL);
-INSERT INTO t_image VALUES (5, '梦', '真真的，佳佳的', '人文', 1, 0, 0, 0, 0, 0, 'static/image/user/img1.jpg',
-                              now(), TRUE, '黄家驹', '', FALSE, NULL);
-INSERT INTO t_image VALUES (6, '马', '千里马，动漫是啊，凸(艹皿艹 )', '人文', 1, 0, 0, 0, 0, 0, 'static/image/user/img2.jpg',
-                              now(), TRUE, '黄家驹', '', FALSE, NULL);
-INSERT INTO t_image VALUES (7, '山城', '公分修毛，喜洋洋惠爱玲', '人文', 1, 0, 0, 0, 0, 0, 'static/image/user/img3.jpg',
-                              now(), TRUE, '黄家驹', '', FALSE, NULL);
-INSERT INTO t_image VALUES (8, '昆明', '迪士尼，冰雪奇缘，美高美', '人文', 1, 0, 0, 0, 0, 0, 'static/image/user/img4.jpg',
-                              now(), TRUE, '黄家驹', '', FALSE, NULL);
-INSERT INTO t_image VALUES (9, '北京', '徐州城外断桥残雪', '人文', 1, 0, 0, 0, 0, 0, 'static/image/user/img4.jpg',
-                            now(), TRUE, '黄家驹', '', FALSE, NULL);
-INSERT INTO t_image VALUES (10, '昆明', '迪士尼，冰雪奇缘，美高美', '人文', 1, 0, 0, 0, 0, 0, 'static/image/user/img4.jpg',
-                            now(), TRUE, '黄家驹', '', FALSE, NULL);
-INSERT INTO t_image VALUES (11, 'dfasf', '迪士尼，冰雪奇缘，美高美', '人文', 1, 0, 0, 0, 0, 0, 'static/image/user/img4.jpg',
-                            now(), TRUE, '黄家驹', '', FALSE, NULL);
-INSERT INTO t_image VALUES (12, '昆明', '迪士尼，冰雪奇缘，美高美', '人文', 1, 0, 0, 0, 0, 0, 'static/image/user/img4.jpg',
-                            now(), TRUE, '黄家驹', '', FALSE, NULL);
+INSERT INTO t_image VALUES ('c427d67ad9b946c2a4f13ade5ae2e43a', 'DJI Phantom 2 Vision 首发', '多旋翼控制系统及地面站系统，禅思系列高精工业云台，筋斗云系列多旋翼航拍飞行器，包含了高清数字图传的如来系列手持控制一体机',
+                            '科技', 100, 344, 23, 0, 56, 77, 'static/image/user/dji.png', '2015-05-20 22:49:12', TRUE, '李小文', 'static/image/user/lxw.png', FALSE, NULL);
+INSERT INTO t_image VALUES ('c415d67ad9b946c2a4f13ade5ae2e43a', '华为Mate7采用麒麟K925处理器', '采用6英寸跨界屏幕尺寸，不过为超窄边框设计，同时机身也更薄仅为7.9毫米，它采用了一体化机身设计，并使用了航空铝材质，握持感无疑会有很大改善',
+                            '科技', 88, 333, 13, 0, 16, 47, 'static/image/user/haiweimate.png', '2015-05-21 22:49:12', TRUE, '李小文', 'static/image/user/lxw.png', FALSE, NULL);
+INSERT INTO t_image VALUES ('c417d97ad9b946c2a4f13ade5ae2e43a', '联想IdeaPad Yoga', '联想Yoga系列包含Yoga13、Yoga11、Yoga11s三款产品',
+                            '科技', 77, 301, 13, 0, 10, 17, 'static/image/user/yoga.png', '2015-05-20 12:49:12', TRUE, '李小文', 'static/image/user/lxw.png', FALSE, NULL);
+INSERT INTO t_image VALUES ('c417d17ad9b946c2a4f13ade5ae2e43a', 'DJI Phantom 2 Vision 首发', '多旋翼控制系统及地面站系统，禅思系列高精工业云台，筋斗云系列多旋翼航拍飞行器，包含了高清数字图传的如来系列手持控制一体机',
+                            '科技', 100, 344, 23, 0, 56, 77, 'static/image/user/dji.png', '2015-05-20 22:49:12', TRUE, '李小文', 'static/image/user/lxw.png', FALSE, NULL);
+INSERT INTO t_image VALUES ('c417d61ad9b946c2a4f13ade5ae2e43a', 'DJI Phantom 2 Vision 首发', '多旋翼控制系统及地面站系统，禅思系列高精工业云台，筋斗云系列多旋翼航拍飞行器，包含了高清数字图传的如来系列手持控制一体机',
+                            '科技', 100, 344, 23, 0, 56, 77, 'static/image/user/dji.png', '2015-05-20 22:49:12', TRUE, '李小文', 'static/image/user/lxw.png', FALSE, NULL);
+INSERT INTO t_image VALUES ('c417d67ad9b146c2a4f13ade5ae2e43a', 'DJI Phantom 2 Vision 首发', '多旋翼控制系统及地面站系统，禅思系列高精工业云台，筋斗云系列多旋翼航拍飞行器，包含了高清数字图传的如来系列手持控制一体机',
+                            '科技', 100, 344, 23, 0, 56, 77, 'static/image/user/dji.png', '2015-05-20 22:49:12', TRUE, '李小文', 'static/image/user/lxw.png', FALSE, NULL);
+INSERT INTO t_image VALUES ('c417d67ad9b910c2a4f13ade5ae2e43a', 'DJI Phantom 2 Vision 首发', '多旋翼控制系统及地面站系统，禅思系列高精工业云台，筋斗云系列多旋翼航拍飞行器，包含了高清数字图传的如来系列手持控制一体机',
+                            '科技', 100, 344, 23, 0, 56, 77, 'static/image/user/dji.png', '2015-05-20 22:49:12', TRUE, '李小文', 'static/image/user/lxw.png', FALSE, NULL);
+INSERT INTO t_image VALUES ('c417d67ad9b946c1a4f13ade5ae2e43a', 'DJI Phantom 2 Vision 首发', '多旋翼控制系统及地面站系统，禅思系列高精工业云台，筋斗云系列多旋翼航拍飞行器，包含了高清数字图传的如来系列手持控制一体机',
+                            '科技', 100, 344, 23, 0, 56, 77, 'static/image/user/dji.png', '2015-05-20 22:49:12', TRUE, '李小文', 'static/image/user/lxw.png', FALSE, NULL);
+INSERT INTO t_image VALUES ('c417d67ad9b946c3a4f13ade5ae2e43a', 'DJI Phantom 2 Vision 首发', '多旋翼控制系统及地面站系统，禅思系列高精工业云台，筋斗云系列多旋翼航拍飞行器，包含了高清数字图传的如来系列手持控制一体机',
+                            '科技', 100, 344, 23, 0, 56, 77, 'static/image/user/dji.png', '2015-05-20 22:49:12', TRUE, '李小文', 'static/image/user/lxw.png', FALSE, NULL);
+INSERT INTO t_image VALUES ('c417d67ad9b946c2a5f13ade5ae2e43a', 'DJI Phantom 2 Vision 首发', '多旋翼控制系统及地面站系统，禅思系列高精工业云台，筋斗云系列多旋翼航拍飞行器，包含了高清数字图传的如来系列手持控制一体机',
+                            '科技', 100, 344, 23, 0, 56, 77, 'static/image/user/dji.png', '2015-05-20 22:49:12', TRUE, '李小文', 'static/image/user/lxw.png', FALSE, NULL);
+INSERT INTO t_image VALUES ('c417d65ad9b946c2a4f13ade5ae2e43a', 'DJI Phantom 2 Vision 首发', '多旋翼控制系统及地面站系统，禅思系列高精工业云台，筋斗云系列多旋翼航拍飞行器，包含了高清数字图传的如来系列手持控制一体机',
+                            '科技', 100, 344, 23, 0, 56, 77, 'static/image/user/dji.png', '2015-05-20 22:49:12', TRUE, '李小文', 'static/image/user/lxw.png', FALSE, NULL);
+INSERT INTO t_image VALUES ('c417d68ad9b946c2a4f13ade5ae2e43a', 'DJI Phantom 2 Vision 首发', '多旋翼控制系统及地面站系统，禅思系列高精工业云台，筋斗云系列多旋翼航拍飞行器，包含了高清数字图传的如来系列手持控制一体机',
+                            '科技', 100, 344, 23, 0, 56, 77, 'static/image/user/dji.png', '2015-05-20 22:49:12', TRUE, '李小文', 'static/image/user/lxw.png', FALSE, NULL);
+INSERT INTO t_image VALUES ('c417d67ad9b946c2a4f18ade5ae2e43a', 'DJI Phantom 2 Vision 首发', '多旋翼控制系统及地面站系统，禅思系列高精工业云台，筋斗云系列多旋翼航拍飞行器，包含了高清数字图传的如来系列手持控制一体机',
+                            '科技', 100, 344, 23, 0, 56, 77, 'static/image/user/dji.png', '2015-05-20 22:49:12', TRUE, '李小文', 'static/image/user/lxw.png', FALSE, NULL);
+INSERT INTO t_image VALUES ('c417d67ad9b946c2a4f98ade5ae2e43a', 'DJI Phantom 2 Vision 首发', '多旋翼控制系统及地面站系统，禅思系列高精工业云台，筋斗云系列多旋翼航拍飞行器，包含了高清数字图传的如来系列手持控制一体机',
+                            '科技', 100, 344, 23, 0, 56, 77, 'static/image/user/dji.png', '2015-05-20 22:49:12', TRUE, '李小文', 'static/image/user/lxw.png', FALSE, NULL);
+INSERT INTO t_image VALUES ('c417d67ad9b946c2a4f19ade5ae2e43a', 'DJI Phantom 2 Vision 首发', '多旋翼控制系统及地面站系统，禅思系列高精工业云台，筋斗云系列多旋翼航拍飞行器，包含了高清数字图传的如来系列手持控制一体机',
+                            '科技', 100, 344, 23, 0, 56, 77, 'static/image/user/dji.png', '2015-05-20 22:49:12', TRUE, '李小文', 'static/image/user/lxw.png', FALSE, NULL);
+INSERT INTO t_image VALUES ('c417d67ad9b946c2a4f10ade5ae2e43a', 'DJI Phantom 2 Vision 首发', '多旋翼控制系统及地面站系统，禅思系列高精工业云台，筋斗云系列多旋翼航拍飞行器，包含了高清数字图传的如来系列手持控制一体机',
+                            '科技', 100, 344, 23, 0, 56, 77, 'static/image/user/dji.png', '2015-05-20 22:49:12', TRUE, '李小文', 'static/image/user/lxw.png', FALSE, NULL);
+INSERT INTO t_image VALUES ('c117d67ad9b946c2a4f13ade5ae2e43a', 'DJI Phantom 2 Vision 首发', '多旋翼控制系统及地面站系统，禅思系列高精工业云台，筋斗云系列多旋翼航拍飞行器，包含了高清数字图传的如来系列手持控制一体机',
+                            '科技', 100, 344, 23, 0, 56, 77, 'static/image/user/dji.png', '2015-05-20 22:49:12', TRUE, '李小文', 'static/image/user/lxw.png', FALSE, NULL);
+INSERT INTO t_image VALUES ('c117d67ad9b946c2a4f13ade5ae2e43a', 'DJI Phantom 2 Vision 首发', '多旋翼控制系统及地面站系统，禅思系列高精工业云台，筋斗云系列多旋翼航拍飞行器，包含了高清数字图传的如来系列手持控制一体机',
+                            '科技', 100, 344, 23, 0, 56, 77, 'static/image/user/dji.png', '2015-05-20 22:49:12', TRUE, '李小文', 'static/image/user/lxw.png', FALSE, NULL);
+
 drop table if exists t_cataloge;
 CREATE TABLE t_cataloge (
   cataloge_id VARCHAR(32) NOT NULL,

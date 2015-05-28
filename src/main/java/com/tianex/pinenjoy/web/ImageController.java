@@ -75,16 +75,16 @@ public class ImageController {
         return "detail";
     }
 
-    @RequestMapping("/{homeAccountNickname}_{pageNo}/dynamic")
+    @RequestMapping("/{homeAccountNickname}-{pageNo}/dynamic")
     @ResponseBody
     public Page<Image> getdynamicImages(@PathVariable String homeAccountNickname, @PathVariable int pageNo) {
         Page<Image> dynamicImages = imageService.pageQueryForLatest(pageNo, 3, homeAccountNickname);
+System.out.println(dynamicImages);
+        /*if (dynamicImages.getData() == null || dynamicImages.getTotalCount() == 0) {
+            return null;
+        }*/
 
-        if (dynamicImages != null) {
-            return dynamicImages;
-        }
-
-        return null;
+        return dynamicImages;
     }
 
     @RequestMapping("/{pageNo}/recommend")

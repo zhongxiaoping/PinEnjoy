@@ -49,9 +49,11 @@ public class LoginController {
     }
 
     @RequestMapping("/logout")
-    public void logout() {
+    public String logout() {
         Subject currentAccount = SecurityUtils.getSubject();
         currentAccount.logout();
+
+        return "redirect:/index";
     }
 
     @Resource

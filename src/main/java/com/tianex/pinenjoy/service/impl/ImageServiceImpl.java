@@ -176,6 +176,10 @@ public class ImageServiceImpl implements ImageService {
         String collectionOfImages = homeAccount.getAccountCollectImageIds();
         List<Image> images = new ArrayList<Image>();
 
+        if (collectionOfImages == null) {
+            return null;
+        }
+
         if (count == 0) {
             for (String imageId : collectionOfImages.split(",")) {
                 images.add(this.findImageByImageId(imageId));
