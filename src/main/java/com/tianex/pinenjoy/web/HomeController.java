@@ -28,6 +28,14 @@ public class HomeController {
     private GuestService guestService;
     private CatalogeService catalogeService;
 
+    @RequestMapping("/hom/{accountId}")
+    @ResponseBody
+    public Account rome(@PathVariable String accountId, HttpServletRequest request, Model model) {
+        Account currentAccount = (Account) request.getSession().getAttribute(Constant.CURRENT_ACCOUNT);
+        System.out.println("--------------------------" + currentAccount);
+        return currentAccount;
+    }
+
     /**
      * 用户必须已经登录，否则返回登录页面(shiro)
      * @param accountId
@@ -67,7 +75,6 @@ public class HomeController {
         } else {
             model.addAttribute("dynamicImage", null);
         }
-
 
         List<Cataloge> cataloges = catalogeService.findAll();
         model.addAttribute("cataloges", cataloges);

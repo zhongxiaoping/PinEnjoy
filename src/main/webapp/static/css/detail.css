@@ -76,6 +76,21 @@
     padding: 20px;
     float: right;
 }
+.storeContentRight .LstoreContent {
+    float: left;
+}
+.LstoreContent img {
+    width: 30px;
+    height: 30px;
+    margin: 0 10px;
+}
+.storeContentRight .MstoreContent {
+    float: left;
+    margin-right: 7px;
+}
+.storeContentRight .RstoreContent {
+    float: right;
+}
 .sideContent {
     width: 220px;
     height: 400px;

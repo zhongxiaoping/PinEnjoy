@@ -84,7 +84,6 @@
           'successTimeout' : 30,//表示文件上传完成后等待服务器响应的时间。不超过该时间，那么将认为上传成功。默认是30，表示30秒。
           'uploadLimit' : 999,
           'onUploadStart' : function(file) {
-            alert($('#_accountNickname').val());
             $('#_uploadFile').uploadify("settings", "formData", {
               'imageAccountNickname' : $('#_accountNickname').val(),
               'jsessionid' : $("#_sessionId").val(),

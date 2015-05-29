@@ -5,45 +5,96 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
-       <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
-              <property name="securityManager" ref="securityManager"/>
-              <property name="loginUrl" value="/login"/>
-              <property name="successUrl" value="/index"/>
-              <property name="unauthorizedUrl" value="/unauthorized.jsp"/>
-              <property name="filters">
-                     <util:map>
-                            <entry key="authc" value-ref="formAuthenticationFilter"/>
-                     </util:map>
-              </property>
-              <property name="filterChainDefinitions">
-                     <value>
-                            /**=anon
-                     </value>
-              </property>
-       </bean>
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean"
+          p:securityManager-ref="securityManager"
+          p:loginUrl="/login"
+          p:successUrl="/"
+          p:unauthorizedUrl="unauthorized">
+        <property name="filters">
+            <util:map>
+                <entry key="authc" value-ref="formAuthenticationFilter"/>
+                <entry key="logout" value-ref="logout"/>
+            </util:map>
+        </property>
+        <property name="filterChainDefinitions">
+            <value>
+                /logout=logout
+                /image/**/download=authc
+                /**=anon
+            </value>
+        </property>
+    </bean>
 
-       <!--/login=anon
-                            /static/**=anon
-                            /logout=authc
-                            /authenticated=authc
-                            /image/*/download=user
-                            /image/upload=authc-->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager"
+          p:realm-ref="accountRealm"
+          p:sessionManager-ref="sessionManager"
+          p:cacheManager-ref="cacheManager"
+          p:rememberMeManager-ref="rememberMeManager"/>
 
-       <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
-              <property name="realm" ref="accountRealm"/>
-       </bean>
+    <bean id="accountRealm" class="com.tianex.pinenjoy.core.shiro.realm.AccountRealm"/>
 
-       <bean id="accountRealm" class="com.tianex.pinenjoy.core.shiro.realm.AccountRealm"/>
+    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager"
+          p:globalSessionTimeout="18000000"
+          p:deleteInvalidSessions="true"
+          p:sessionDAO-ref="sessionDAO"
+          p:sessionIdCookieEnabled="true"
+          p:sessionIdCookie-ref="sessionIdCookie"
+          p:sessionValidationSchedulerEnabled="true"
+          p:sessionValidationScheduler-ref="sessionValidationScheduler"/>
 
-       <bean id="logout" class="org.apache.shiro.web.filter.authc.LogoutFilter"
-             p:redirectUrl="/"/>
+    <bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO"
+          p:activeSessionsCacheName="shiro-activeSessionCache"
+          p:sessionIdGenerator-ref="sessionIdGenerator"/>
 
-       <bean id="formAuthenticationFilter" class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter"
-             p:usernameParam="id"
-             p:passwordParam="password"
-             p:rememberMeParam="rememberMe"
-             p:loginUrl="/login"/>
+    <bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>
 
-       <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+    <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie"
+          p:httpOnly="true"
+          p:maxAge="-1">
+        <constructor-arg value="JSESSIONID"/>
+    </bean>
 
+    <bean id="sessionValidationScheduler" class="org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler"
+          p:interval="3600000"
+          p:sessionManager-ref="sessionManager"/>
+
+    <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager"
+          p:cacheManagerConfigFile="classpath:ehcache.xml"/>
+
+    <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager"
+          p:cookie-ref="rememberMeCookie"/>
+
+    <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie"
+          p:httpOnly="true"
+          p:maxAge="2592000">
+        <constructor-arg value="rememberMe"/>
+    </bean>
+
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor"/>
+
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor"
+          p:securityManager-ref="securityManager"/>
+
+
+    <bean id="logout" class="org.apache.shiro.web.filter.authc.LogoutFilter"
+          p:redirectUrl="/"/>
+
+    <bean id="formAuthenticationFilter" class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter"
+          p:usernameParam="id"
+          p:passwordParam="password"
+          p:rememberMeParam="rememberMe"
+          p:loginUrl="/login"/>
+
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+    <!--<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean"
+          p:staticMethod="org.apache.shiro.SecurityUtils.setSecurityManager"
+          p:arguments-ref="securityManager"/>-->
+
+    <!-- <bean id="credentialsMatcher" class="com.pp.core.shiro.RetryLimitHashedCredentialsMatcher"
+          p:hashAlgorithmName="md5"
+          p:hashIterations="2"
+          p:storedCredentialsHexEncoded="true">
+        <constructor-arg ref="cacheManager"/>
+    </bean> -->
 </beans>

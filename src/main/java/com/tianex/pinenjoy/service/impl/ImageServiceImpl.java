@@ -141,7 +141,7 @@ public class ImageServiceImpl implements ImageService {
             image.setImageAutoDeleteTime(DateUtils.convertLongToTime(System.currentTimeMillis() + Constant.AUTO_DELETE_TIME));
         }
 
-        createImage(image);
+        this.createImage(image);
 
         accountService.updateAccount(account);
     }

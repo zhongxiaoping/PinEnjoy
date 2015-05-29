@@ -133,15 +133,17 @@ drop table if exists t_cataloge;
 CREATE TABLE t_cataloge (
   cataloge_id VARCHAR(32) NOT NULL,
   cataloge_name VARCHAR(1024) NOT NULL,
+  cataloge_thumb VARCHAR(1024),
+  cataloge_description VARCHAR(1024),
   PRIMARY KEY (cataloge_id)
 ) ENGINE=innoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO t_cataloge VALUES ('a417d67ad9b946c2a4f10ade5ae2e43a', '音乐');
-INSERT INTO t_cataloge VALUES ('a317d67ad9b946c2a4f10ade5ae2e43a', '科技');
-INSERT INTO t_cataloge VALUES ('a417d69ad9b946c2a4f10ade5ae2e43a', '风景');
-INSERT INTO t_cataloge VALUES ('a416d67ad9b946c2a4f10ade5ae2e43a', '人文');
-INSERT INTO t_cataloge VALUES ('a417d68ad9b946c2a4f10ade5ae2e93a', '美女');
-INSERT INTO t_cataloge VALUES ('a417d68ad9b946c2a4f10ade5ae2e43a', '其他');
+INSERT INTO t_cataloge VALUES ('a417d67ad9b946c2a4f10ade5ae2e43a', '音乐', 'static/image/user/musicThumb.png', '音乐是反映人类现实生活情感的一种艺术');
+INSERT INTO t_cataloge VALUES ('a317d67ad9b946c2a4f10ade5ae2e43a', '科技', 'static/image/user/techThumb.png', '科技是指科学与技术的融合而形成的概念');
+INSERT INTO t_cataloge VALUES ('a417d69ad9b946c2a4f10ade5ae2e43a', '风景', 'static/image/user/lookThumb.png', '供观赏的自然风光、景物，包括自然景观和人文景观');
+INSERT INTO t_cataloge VALUES ('a416d67ad9b946c2a4f10ade5ae2e43a', '人文', 'static/image/user/culThumb.png', '人文就是人类文化中的先进部分和核心部分，即先进的价值观及其规范');
+INSERT INTO t_cataloge VALUES ('a417d68ad9b946c2a4f10ade5ae2e93a', '美女', 'static/image/user/beautyThumb.png', '中国古代关于美女的形容词和诗词歌赋众多，形成了丰富的美学资料');
+INSERT INTO t_cataloge VALUES ('a417d68ad9b946c2a4f10ade5ae2e43a', '其他', 'static/image/user/otherThumb.png', '');
 
 
 drop table if exists t_role;

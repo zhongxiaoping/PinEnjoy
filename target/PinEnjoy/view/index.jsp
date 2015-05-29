@@ -48,7 +48,7 @@
         上传图片
     </button>
 
-    <jsp:include page="uploadImage.jsp"></jsp:include>
+    <jsp:include page="uploadImage.jsp"/>
 
     <script type="text/javascript" src="static/js/jquery.imagesloaded.js"></script>
     <script type="text/javascript" src="static/js/jquery.wookmark.js"></script>

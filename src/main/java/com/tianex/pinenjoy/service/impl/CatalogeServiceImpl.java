@@ -29,6 +29,11 @@ public class CatalogeServiceImpl implements CatalogeService {
         return catalogeDao.loadAll();
     }
 
+    @Override
+    public Cataloge findCatalogeByCatalogeName(String imageCatalogeName) {
+        return catalogeDao.findCatalogeByCatalogeName(imageCatalogeName);
+    }
+
     @Resource
     public void setCatalogeDao(CatalogeDao catalogeDao) {
         this.catalogeDao = catalogeDao;

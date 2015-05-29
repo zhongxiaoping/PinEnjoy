@@ -14,6 +14,7 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -36,19 +37,22 @@ public class AccountRealm extends AuthorizingRealm {
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
         simpleAuthorizationInfo.addRoles(roleList);
         simpleAuthorizationInfo.addStringPermissions(permissionList);
+
         return simpleAuthorizationInfo;
     }
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken)
             throws AuthenticationException {
-        UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
-        String accountId = (String) token.getUsername();
-        String password = new String(token.getPassword());
+
+        String accountId = (String) authenticationToken.getPrincipal();
         Account currentAccount = findAccount(accountId);
 
         if (currentAccount == null) {
-            return null;
+            throw new UnknownAccountException();//没找到帐号
+        }
+        if (Boolean.TRUE.equals(currentAccount.getAccountIsLock())) {
+            throw new LockedAccountException(); //帐号锁定
         }
 
         String passwordForAccount = null;
@@ -58,17 +62,16 @@ public class AccountRealm extends AuthorizingRealm {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (!password.equals(passwordForAccount)) {
-            return null;
-        }
 
-        AuthenticationInfo authcInfo = new SimpleAuthenticationInfo(
+        //交给AuthenticatingRealm使用CredentialsMatcher进行密码匹配，可以在此判断或自定义实现
+        SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
                 currentAccount.getAccountNickname(),
                 passwordForAccount,
                 this.getName());
+
         this.setSession(Constant.CURRENT_ACCOUNT, currentAccount);
 
-        return authcInfo;
+        return authenticationInfo;
     }
 
     private Account findAccount(String accountId) {

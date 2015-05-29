@@ -26,7 +26,7 @@
             <div class="imageContent">
                <img src="${currentImage.imageLocation }" title="${currentImage.imageTitle }">
             </div>
-            <input hidden="hidden" id="currentId" value="${currentImage.imageId }"/>
+            <input hidden="hidden" id="currentId" value="${currentImage.imageId}"/>
             <div class="middleContent">
               <span class="middleContentLeft">
                 <button type="button" class="btn btn-default" aria-label="Left Align" id="_likeAsy">
@@ -41,12 +41,12 @@
                   <span class="glyphicon glyphicon-time" aria-hidden="true"> 阅后即焚</span>
                 </button>
               </c:if>
-              <button type="button" class="btn btn-default" aria-label="Left Align" id="_download">
+              <a type="button" class="btn btn-default" style="border:none;" href="image/${currentImage.imageId}/download">
                 <span class="glyphicon glyphicon-save" aria-hidden="true"> 下载</span>
-              </button>
+              </a>
               <button type="button" class="btn btn-default" aria-label="Left Align">
                 <span class="glyphicon glyphicon-share-alt" aria-hidden="true"> 分享</span>
-              </button>
+              <button type="button" class="btn btn-default" aria-label="Left Align">
             </div>
             <div class="descriptionContent">
               <h4>${currentImage.imageTitle }</h4>
@@ -71,9 +71,17 @@
               </div>
             </div>
             <div class="storeContentRight">
-              <button type="button" class="btn btn-info" data-toggle="modal" data-target="#generatePin">
-                <span class="glyphicon glyphicon-list-alt" aria-hidden="true"> 生成Pin报告</span>
-              </button>
+              <div class="LstoreContent">
+                <img src="${currentCataloge.catalogeThumb }" class="img-circle">
+              </div>
+              <div class="MstoreContent">
+                <a href="home/{imageAccount.accountId }">${currentCataloge.catalogeName }</a>
+              </div>
+              <div class="RstoreContent">
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#generatePin">
+                  <span class="glyphicon glyphicon-list-alt" aria-hidden="true"> Pin</span>
+                </button>
+              </div>
             </div>
             <div style="clear: both;"></div>
           </div>
@@ -146,14 +154,14 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">${currentImage.imageTitle }的详细参数</h4>
+            <h4 class="modal-title" id="myModalLabel">${currentCataloge.catalogeName }</h4>
           </div>
           <div class="modal-body">
-                heheheeheheehheehehehhe
+            ${currentCataloge.catalogeDescription }
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-primary">保存修改</button>
           </div>
         </div>
       </div>
@@ -173,34 +181,26 @@
 
       });
 
-      $('#_download').click(function() {
-        $.get('image/' + $('#currentId').val() + '/download', function(result){
-          alert(result);
-        });
-      });
       $('#_likeAsy').click(function() {
-        alert($('#currentId').val());
         $.get('image/' + $('#currentId').val() + '/like', function(result){
-          $('#_likeAsy').css('disabled', 'disabled');
           alert(result);
         });
       });
       $('#_disLikeAsy').click(function() {
         $.get('image/' + $('#currentId').val() + '/dislike', function(result){
-          $('#_disLikeAsy').css('disabled', 'disabled');
           alert(result);
         });
       });
       $('#_focus').click(function() {
-        $.get($('account/' + $('#currentId')).val() + '/subscribe', function(result) {
-          $('#currentId span').innerHTML('已关注');
+        $.get('account/' + $('#currentId').val() + '/subscribe', function(result) {
+          $('#_focus').text('已关注');
           $('#currentId').css('id', '_unfocus');
           alert(result);
         })
       });
       $('#_unfocus').click(function() {
         $.get($('account/' + '#currentId').val() + '/unsubscribe', function(result) {
-          $('#currentId span').innerHTML('关注');
+          $('#_focus').text('关注');
           $('#currentId').css('id', '_focus');
           alert(result);
         })

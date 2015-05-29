@@ -92,7 +92,7 @@
       .dynamicInfoContent {
         margin-top: 30px;
         border: solid 1px #adadad;
-        height: 210px;
+        height: auto;
         border-radius: 8px;
         padding: 15px;
       }
@@ -139,8 +139,9 @@
       .guestInfo {
         border: solid 1px #adadad;
         margin-top: 30px;
-        height: 300px;
+        height: auto;
         border-radius: 8px;
+        padding: 3px 3px 25px 13px;
       }
       .guestInfo .guestInfoTop {
         height: 30px;
@@ -166,8 +167,8 @@
             <div class="userInfoSpilt">
               ${homeAccount.accountSubscribeCount }<p>关注</p>
             </div>
-            <div id="userNickname">
-
+            <div id="userNickname" hidden="hidden">
+              ${homeAccount.accountNickname }
             </div>
             <div class="userInfoSpilt">
               ${homeAccount.accountFansCount }<p>粉丝</p>
@@ -260,20 +261,20 @@
             <div class="dynamicInfoContent">
               <div class="dynamicImage">
                 <img src="${dynamicImage.imageLocation }" alt="${dynamicImage.imageTitle }" class="img-rounded">
-              </div>  
+              </div>
               <div class="dynamicImageDescription">
                 <a href="image/${dynamicImage.imageId }/detail"><h4>${dynamicImage.imageTitle }</h4></a>
                 <p>${dynamicImage.imageDescription }</p>
                 <p class="help-block">上传于 ${dynamicImage.imageUploadTime }</p>
               </div>
-            </div>
-            <div style="clear: both;"></div>
-            <div class="dynamicInfoTool">
-               <span class="glyphicon glyphicon-bookmark" aria-hidden="true"> ${dynamicImage.imageCollectCount }</span>
-               <span class="glyphicon glyphicon-share-alt" aria-hidden="true"> ${dynamicImage.imageShareCount }</span>
-               <span class="glyphicon glyphicon-download-alt" aria-hidden="true"> ${dynamicImage.imageDownloadCount }</span>
-               <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"> ${dynamicImage.imageLikeCount }</span>
-               <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"> ${dynamicImage.imageDislikeCount }</span>
+              <div style="clear: both;"></div>
+              <div class="dynamicInfoTool">
+                 <span class="glyphicon glyphicon-bookmark" aria-hidden="true"> ${dynamicImage.imageCollectCount }</span>
+                 <span class="glyphicon glyphicon-share-alt" aria-hidden="true"> ${dynamicImage.imageShareCount }</span>
+                 <span class="glyphicon glyphicon-download-alt" aria-hidden="true"> ${dynamicImage.imageDownloadCount }</span>
+                 <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"> ${dynamicImage.imageLikeCount }</span>
+                 <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"> ${dynamicImage.imageDislikeCount }</span>
+              </div>
             </div>
           </div>
           <div class="dynamicLoading">
@@ -336,7 +337,6 @@
         var dynamicPageNo = 1;
         var homeAccountNickname = $('#userNickname').text();
         $('#moreDynamic').click(function() {
-          alert(homeAccountNickname);
           $.getJSON('image/' + homeAccountNickname + '-' + dynamicPageNo + '/dynamic', function(data) {
             var dataRoot = data.data;
             var totalCount = data.totalCount;
@@ -350,11 +350,11 @@
                 + '<div class="dynamicImageDescription">' + '<a href="image/' + dataRoot[i].imageId + '/detail">' + '<h4>' + dataRoot[i].imageTitle + '</h4></a>'
                 + '<p>' + dataRoot[i].imageDescription + '</p>' + '<p class="help-block">' + '上传于 ' + dataRoot[i].imageUploadTime + '</p>'
                 + '</div></div>' + '<div style="clear: both;"></div>' + '<div class="dynamicInfoTool">'
-                + '<span class="glyphicon glyphicon-bookmark" aria-hidden="true">' + dataRoot[i].imageCollectCount + '</span>'
-                + '<span class="glyphicon glyphicon-share-alt" aria-hidden="true">' + dataRoot[i].imageShareCount + '</span>'
-                + '<span class="glyphicon glyphicon-download-alt" aria-hidden="true">' + dataRoot[i].imageDownloadCount + '</span>'
-                + '<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true">' + dataRoot[i].imageLikeCount + '</span>'
-                + '<span class="glyphicon glyphicon-thumbs-down" aria-hidden="true">' + dataRoot[i].imageDislikeCount + '</span>'
+                + '<span class="glyphicon glyphicon-bookmark" aria-hidden="true"> ' + dataRoot[i].imageCollectCount + '</span>'
+                + '<span class="glyphicon glyphicon-share-alt" aria-hidden="true"> ' + dataRoot[i].imageShareCount + '</span>'
+                + '<span class="glyphicon glyphicon-download-alt" aria-hidden="true"> ' + dataRoot[i].imageDownloadCount + '</span>'
+                + '<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"> ' + dataRoot[i].imageLikeCount + '</span>'
+                + '<span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"> ' + dataRoot[i].imageDislikeCount + '</span>'
                 + '</div></div>');
 
               }

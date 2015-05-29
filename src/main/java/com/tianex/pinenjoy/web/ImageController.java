@@ -3,8 +3,10 @@ package com.tianex.pinenjoy.web;
 import com.tianex.pinenjoy.core.Constant;
 import com.tianex.pinenjoy.core.Page;
 import com.tianex.pinenjoy.domain.Account;
+import com.tianex.pinenjoy.domain.Cataloge;
 import com.tianex.pinenjoy.domain.Image;
 import com.tianex.pinenjoy.service.AccountService;
+import com.tianex.pinenjoy.service.CatalogeService;
 import com.tianex.pinenjoy.service.ImageService;
 import com.tianex.pinenjoy.util.HttpUtils;
 import org.springframework.jms.core.JmsTemplate;
@@ -30,6 +32,7 @@ public class ImageController {
     private ImageService imageService;
     private JmsTemplate jmsTemplate;
     private AccountService accountService;
+    private CatalogeService catalogeService;
 
     @RequestMapping(value = "/{imageId}/collect", method = RequestMethod.GET)
     @ResponseBody
@@ -59,6 +62,9 @@ public class ImageController {
         Image currentImage = imageService.findImageByImageId(imageId);
         model.addAttribute("currentImage", currentImage);
 
+        Cataloge cataloge = catalogeService.findCatalogeByCatalogeName(currentImage.getImageCatalogeName());
+        model.addAttribute("currentCataloge", cataloge);
+
         Account imageAccount = accountService.findAccountByUsername(currentImage.getImageAccountNickname());
         model.addAttribute("imageAccount", imageAccount);
 
@@ -79,10 +85,6 @@ public class ImageController {
     @ResponseBody
     public Page<Image> getdynamicImages(@PathVariable String homeAccountNickname, @PathVariable int pageNo) {
         Page<Image> dynamicImages = imageService.pageQueryForLatest(pageNo, 3, homeAccountNickname);
-System.out.println(dynamicImages);
-        /*if (dynamicImages.getData() == null || dynamicImages.getTotalCount() == 0) {
-            return null;
-        }*/
 
         return dynamicImages;
     }
@@ -141,8 +143,8 @@ System.out.println(dynamicImages);
             return "请选择上传的图片！";
         }
 
-        Account account = (Account) request.getSession().getAttribute(Constant.CURRENT_ACCOUNT);
-
+        Account currentAccount = (Account) request.getSession().getAttribute(Constant.CURRENT_ACCOUNT);
+System.out.println(currentAccount);
         String location = Constant.USER_IMAGE_LOCATION + "/" + imageFile.getOriginalFilename();
 
         jmsTemplate.send("pp.uploadImage.queue", new MessageCreator() {
@@ -150,7 +152,7 @@ System.out.println(dynamicImages);
                 return session.createObjectMessage((Serializable) imageFile);
             }
         });
-        imageService.uploadImageSuccess(location, account, image);
+        imageService.uploadImageSuccess(location, currentAccount, image);
 
         return "上传成功！";
     }
@@ -158,7 +160,6 @@ System.out.println(dynamicImages);
     @RequestMapping("/{username}/all/{pageNo}")
     @ResponseBody
     public Page<Image> getImagesByJSON(@PathVariable String username, @PathVariable int pageNo) {
-        System.out.println(pageNo + username);
         return imageService.pageQueryByUsername(username, pageNo, Page.DEFAULT_PAGE_SIZE);
     }
 
@@ -168,8 +169,10 @@ System.out.println(dynamicImages);
      */
     @RequestMapping("/{imageId}/like")
     @ResponseBody
-    public String doSupport(String imageId) {
+    public String doSupport(@PathVariable String imageId) {
+        System.out.println(imageId);
         Image image = imageService.findImageByImageId(imageId);
+        System.out.println(imageId + "1+++" + image);
         image.setImageLikeCount(image.getImageLikeCount() + 1);
         imageService.update(image);
 
@@ -178,7 +181,7 @@ System.out.println(dynamicImages);
 
     @RequestMapping("/{imageId}/dislike")
     @ResponseBody
-    public String doNotSupport(String imageId) {
+    public String doNotSupport(@PathVariable String imageId) {
         Image image = imageService.findImageByImageId(imageId);
         image.setImageDislikeCount(image.getImageDislikeCount() + 1);
         imageService.update(image);
@@ -199,6 +202,11 @@ System.out.println(dynamicImages);
     @Resource
     public void setAccountService(AccountService accountService) {
         this.accountService = accountService;
+    }
+
+    @Resource
+    public void setCatalogeService(CatalogeService catalogeService) {
+        this.catalogeService = catalogeService;
     }
 
 }

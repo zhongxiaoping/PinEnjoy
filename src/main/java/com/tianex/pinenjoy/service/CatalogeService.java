@@ -6,10 +6,12 @@ import java.util.List;
 
 public interface CatalogeService {
 
-    public void createCataloge(Cataloge cataloge);
-    public void deleteCataloge(Cataloge cataloge);
-    public void updateCataloge(Cataloge cataloge);
+    void createCataloge(Cataloge cataloge);
+    void deleteCataloge(Cataloge cataloge);
+    void updateCataloge(Cataloge cataloge);
 
-    public List<Cataloge> findAll();
+    List<Cataloge> findAll();
+
+    Cataloge findCatalogeByCatalogeName(String imageCatalogeName);
 
 }

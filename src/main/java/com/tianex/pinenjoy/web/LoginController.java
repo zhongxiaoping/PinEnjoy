@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class LoginController {
@@ -24,7 +25,8 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(@RequestParam("id") String accountId, @RequestParam String password, Model model) {
+    public String login(@RequestParam("id") String accountId, @RequestParam String password,
+                        Model model, HttpServletRequest request) {
         UsernamePasswordToken token = new UsernamePasswordToken(accountId, password);
         token.setRememberMe(true);//默认记住用户
 

@@ -13,12 +13,27 @@ public class Cataloge implements Serializable {
 
     private String catalogeId;
     private String catalogeName;
+    private String catalogeThumb;
+    private String catalogeDescription;
 
     public Cataloge() {
     }
 
-    public Cataloge(String catalogeName) {
+    public Cataloge(String catalogeId, String catalogeName, String catalogeDescription, String catalogeThumb) {
+        this.catalogeId = catalogeId;
         this.catalogeName = catalogeName;
+        this.catalogeDescription = catalogeDescription;
+        this.catalogeThumb = catalogeThumb;
+    }
+
+    @Id
+    @Column(name = "cataloge_id")
+    public String getCatalogeId() {
+        return catalogeId;
+    }
+
+    public void setCatalogeId(String catalogeId) {
+        this.catalogeId = catalogeId;
     }
 
     @Column(name = "cataloge_name")
@@ -30,14 +45,22 @@ public class Cataloge implements Serializable {
         this.catalogeName = catalogeName;
     }
 
-    @Id
-    @Column(name = "cataloge_id")
-    public String getCatalogeId() {
-        return catalogeId;
+    @Column(name = "cataloge_thumb")
+    public String getCatalogeThumb() {
+        return catalogeThumb;
     }
 
-    public void setCatalogeId(String catalogeId) {
-        this.catalogeId = catalogeId;
+    public void setCatalogeThumb(String catalogeThumb) {
+        this.catalogeThumb = catalogeThumb;
+    }
+
+    @Column(name = "cataloge_description")
+    public String getCatalogeDescription() {
+        return catalogeDescription;
+    }
+
+    public void setCatalogeDescription(String catalogeDescription) {
+        this.catalogeDescription = catalogeDescription;
     }
 
     @Override
@@ -61,6 +84,8 @@ public class Cataloge implements Serializable {
         return "Cataloge{" +
                 "catalogeId='" + catalogeId + '\'' +
                 ", catalogeName='" + catalogeName + '\'' +
+                ", catalogeThumb='" + catalogeThumb + '\'' +
+                ", catalogeDescription='" + catalogeDescription + '\'' +
                 '}';
     }
 
