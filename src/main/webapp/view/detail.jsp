@@ -58,21 +58,24 @@
           </div>
           <div class="storeContent">
             <div class="storeContentLeft">
-              <div class="storeContentI">
-                <a href="home/{imageAccount.accountId }"><img src="${imageAccount.accountThumb }" class="img-circle"></a>
-                ${imageAccount.accountNickname }
+              <div class="storeContentL">
+                <img src="${imageAccount.accountThumb }" class="img-circle">
               </div>
-              <div class="storeContentB">
+              <div class="storeContentM">
+                <a href="home/{imageAccount.accountId }">${imageAccount.accountNickname }</a>
+              </div>
+              <div class="storeContentR">
                 <button type="button" class="btn btn-info" aria-label="Left Align" id="_focus">
-                  <span class="glyphicon glyphicon-star" aria-hidden="true"> 关注</span>
+                  <span class="glyphicon glyphicon-heart" aria-hidden="true"> 关注</span>
                 </button>
               </div>
             </div>
             <div class="storeContentRight">
-              <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#generatePin">
-                生成Pin报告
+              <button type="button" class="btn btn-info" data-toggle="modal" data-target="#generatePin">
+                <span class="glyphicon glyphicon-list-alt" aria-hidden="true"> 生成Pin报告</span>
               </button>
             </div>
+            <div style="clear: both;"></div>
           </div>
           <div class="resumeContent">
             <div class="ds-thread" data-thread-key="Ping" data-title="请替换成文章的标题" data-url="请替换成文章的网址"></div>
@@ -82,7 +85,7 @@
            <div>
              <div class="sideContentTop">
                 <c:forEach var="image" items="${otherImages}">
-                  <a href="image/${image.imageId }/detail"><img src="image.imageLocation" class="img-rounded"></a>
+                  <a href="image/${image.imageId }/detail"><img src="${image.imageLocation }" class="img-rounded"></a>
                 </c:forEach>
              </div>
              <div class="sideContentDown">
@@ -176,6 +179,7 @@
         });
       });
       $('#_likeAsy').click(function() {
+        alert($('#currentId').val());
         $.get('image/' + $('#currentId').val() + '/like', function(result){
           $('#_likeAsy').css('disabled', 'disabled');
           alert(result);
@@ -188,7 +192,7 @@
         });
       });
       $('#_focus').click(function() {
-        $.get($('account/' + '#currentId').val() + '/subscribe', function(result) {
+        $.get($('account/' + $('#currentId')).val() + '/subscribe', function(result) {
           $('#currentId span').innerHTML('已关注');
           $('#currentId').css('id', '_unfocus');
           alert(result);

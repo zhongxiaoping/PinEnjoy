@@ -70,6 +70,7 @@ public class AccountController {
     @ResponseBody
     public String doSubscribe(@PathVariable String accountId, HttpServletRequest request) {
         Account currentAccount = (Account) request.getSession().getAttribute(Constant.CURRENT_ACCOUNT);
+ System.out.println("-----------");
         accountService.subscribeSuccess(currentAccount, accountId);
 
         return "关注成功";

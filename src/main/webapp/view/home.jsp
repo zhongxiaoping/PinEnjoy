@@ -333,37 +333,35 @@
 
     <script type="text/javascript">
       $(function () {
+        var dynamicPageNo = 1;
+        var homeAccountNickname = $('#userNickname').text();
+        $('#moreDynamic').click(function() {
+          alert(homeAccountNickname);
+          $.getJSON('image/' + homeAccountNickname + '-' + dynamicPageNo + '/dynamic', function(data) {
+            var dataRoot = data.data;
+            var totalCount = data.totalCount;
 
+            if (totalCount == 0) {
+              alert('已经没有了...');
+            } else {
+              for (var i = 0; i < totalCount; i++) {
+                $('#moreDynamicContent').append('<div class="dynamicInfoContent">' + '<div>' + '<div class="dynamicImage">'
+                + '<img src="' + dataRoot[i].imageLocation + '" alt="' + dataRoot[i].imageTitle + '" class="img-rounded">' + '</div>'
+                + '<div class="dynamicImageDescription">' + '<a href="image/' + dataRoot[i].imageId + '/detail">' + '<h4>' + dataRoot[i].imageTitle + '</h4></a>'
+                + '<p>' + dataRoot[i].imageDescription + '</p>' + '<p class="help-block">' + '上传于 ' + dataRoot[i].imageUploadTime + '</p>'
+                + '</div></div>' + '<div style="clear: both;"></div>' + '<div class="dynamicInfoTool">'
+                + '<span class="glyphicon glyphicon-bookmark" aria-hidden="true">' + dataRoot[i].imageCollectCount + '</span>'
+                + '<span class="glyphicon glyphicon-share-alt" aria-hidden="true">' + dataRoot[i].imageShareCount + '</span>'
+                + '<span class="glyphicon glyphicon-download-alt" aria-hidden="true">' + dataRoot[i].imageDownloadCount + '</span>'
+                + '<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true">' + dataRoot[i].imageLikeCount + '</span>'
+                + '<span class="glyphicon glyphicon-thumbs-down" aria-hidden="true">' + dataRoot[i].imageDislikeCount + '</span>'
+                + '</div></div>');
 
-      var dynamicPageNo = 1;
-      var homeAccountNickname = $('#userNickname').text();
-      $('#moreDynamic').click(function() {
-        $.getJSON('image/tianyiming-1/dynamic', function(data) {
-          var dataRoot = data.data;
-          var totalCount = data.totalCount;
-
-          if (totalCount == 0) {
-            alert('已经没有了...');
-          } else {
-            for (var i = 0; i < totalCount; i++) {
-              $('#moreDynamicContent').append('<div class="dynamicInfoContent">' + '<div>' + '<div class="dynamicImage">'
-              + '<img src="' + dataRoot[i].imageLocation + '" alt="' + dataRoot[i].imageTitle + '" class="img-rounded">' + '</div>'
-              + '<div class="dynamicImageDescription">' + '<a href="image/' + dataRoot[i].imageId + '/detail">' + '<h4>' + dataRoot[i].imageTitle + '</h4></a>'
-              + '<p>' + dataRoot[i].imageDescription + '</p>' + '<p class="help-block">' + '上传于 ' + dataRoot[i].imageUploadTime + '</p>'
-              + '</div></div>' + '<div style="clear: both;"></div>' + '<div class="dynamicInfoTool">'
-              + '<span class="glyphicon glyphicon-bookmark" aria-hidden="true">' + dataRoot[i].imageCollectCount + '</span>'
-              + '<span class="glyphicon glyphicon-share-alt" aria-hidden="true">' + dataRoot[i].imageShareCount + '</span>'
-              + '<span class="glyphicon glyphicon-download-alt" aria-hidden="true">' + dataRoot[i].imageDownloadCount + '</span>'
-              + '<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true">' + dataRoot[i].imageLikeCount + '</span>'
-              + '<span class="glyphicon glyphicon-thumbs-down" aria-hidden="true">' + dataRoot[i].imageDislikeCount + '</span>'
-              + '</div></div>');
-
+              }
             }
-          }
-          dynamicPageNo++;
+            dynamicPageNo++;
+          });
         });
-
-      });
       });
     </script>
 

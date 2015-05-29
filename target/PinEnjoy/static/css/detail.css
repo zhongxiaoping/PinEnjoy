@@ -8,6 +8,7 @@
 }
 .displayContent {
     border: solid 1px #adadad;
+    border-radius: 8px;
 }
 .imageContent {
     background-color: #adadad;
@@ -38,10 +39,12 @@
     padding: 5px 20px;
     margin-top: 30px;
     border: solid 1px #adadad;
+    border-radius: 8px;
 }
 .storeContent {
     margin-top: 30px;
     border: solid 1px #adadad;
+    border-radius: 8px;
     height: 70px;
 }
 .storeContent .storeContentLeft {
@@ -49,19 +52,28 @@
     width: 330px;
     height: 70px;
     float: left;
+    padding: 20px;
 }
-.storeContentLeft .storeContentI {
+.storeContentLeft .storeContentL {
+    float: left;
+}
+.storeContentL img {
     width: 30px;
     height: 30px;
-    margin-top: 17px;
-    display: inline-block;
+    margin-right: 10px;
 }
-.storeContentLeft .storeContentB {
-    margin: 0px 10px 0 200px;
-    display: inline-block;
+.storeContentLeft .storeContentM {
+    float: left;
+    margin-right: 7px;
+}
+.storeContentLeft .storeContentR {
+    float: right;
+}
+.storeContentL img {
+    width: 30px; height: 30px;
 }
 .storeContent .storeContentRight {
-    padding: 7px 100px;
+    padding: 20px;
     float: right;
 }
 .sideContent {
@@ -69,6 +81,7 @@
     height: 400px;
     float: right;
     border: solid 1px #adadad;
+    border-radius: 8px;
 }
 .sideContent .sideContentTop {
     padding: 7px 15px;
@@ -89,6 +102,7 @@
     height: 290px;
     border: solid 1px #adadad;
     padding: 10px;
+    border-radius: 8px;
     float: left;
 }
 .recommendsImageContent .recommendsImageUser {
@@ -105,6 +119,7 @@
 }
 .hotImageContent {
     border: solid 1px #adadad;
+    border-radius: 8px;
     width: 220px;
     height: 300px;
     float: left;
@@ -124,7 +139,7 @@
     float: right;
 }
 .hotImageDownload span {
-    background:url(static/image/sys/download.png) no-repeat 0px 0px;
+    background:url(../image/sys/download.png) no-repeat 0px 0px;
     height:26px;
     width:26px;
     display:inline-block;
@@ -134,5 +149,5 @@
     -o-border-radius:30em;
 }
 .hotImageDownload span:hover {
-    background: url(static/image/sys/download_h.png) no-repeat 0px 0px;
+    background: url(../image/sys/download_h.png) no-repeat 0px 0px;
 }
