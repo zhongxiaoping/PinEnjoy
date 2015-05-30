@@ -7,11 +7,11 @@
     margin-bottom: 30px;
 }
 .displayContent {
-    border: solid 1px #adadad;
+    border: solid 1px #dedede;
     border-radius: 8px;
 }
 .imageContent {
-    background-color: #adadad;
+    background-color: #dedede;
     height: 500px;
     padding: 0 35px;
 }
@@ -20,7 +20,7 @@
     height: 500px;
 }
 .middleContent {
-    border-top: solid 1px #adadad;
+    border-top: solid 1px #dedede;
 }
 .middleContent .middleContentLeft {
     margin: 0 270px 0 35px;
@@ -29,7 +29,7 @@
     border: none;
 }
 .descriptionContent {
-    border-top: solid 1px #adadad;
+    border-top: solid 1px #dedede;
     padding: 0 35px;
 }
 .descriptionContent .decriptionContentDown {
@@ -38,17 +38,17 @@
 .resumeContent {
     padding: 5px 20px;
     margin-top: 30px;
-    border: solid 1px #adadad;
+    border: solid 1px #dedede;
     border-radius: 8px;
 }
 .storeContent {
     margin-top: 30px;
-    border: solid 1px #adadad;
+    border: solid 1px #dedede;
     border-radius: 8px;
     height: 70px;
 }
 .storeContent .storeContentLeft {
-    border-right: solid 1px #adadad;
+    border-right: solid 1px #dedede;
     width: 330px;
     height: 70px;
     float: left;
@@ -95,15 +95,20 @@
     width: 220px;
     height: 400px;
     float: right;
-    border: solid 1px #adadad;
+    border: solid 1px #dedede;
     border-radius: 8px;
 }
 .sideContent .sideContentTop {
     padding: 7px 15px;
+    height: 330px;
+}
+.sideContentTop img {
+    width: 40px;
+    height: 50px;
+    margin: 7px;
 }
 .sideContent .sideContentDown {
     padding: 7px 15px;
-    margin-top: 310px;
 }
 .dropLayer {
 
@@ -115,7 +120,7 @@
     margin-right: 20px;
     width: 220px;
     height: 290px;
-    border: solid 1px #adadad;
+    border: solid 1px #dedede;
     padding: 10px;
     border-radius: 8px;
     float: left;
@@ -126,6 +131,10 @@
 .recommendsImageContent .recommendsImageImg {
     height: 185px;
 }
+.recommendsImage img {
+    height: 180px;
+    width: 200px;
+}
 .downLayer {
     margin-top: 30px;
 }
@@ -133,16 +142,21 @@
     margin-top: 30px;
 }
 .hotImageContent {
-    border: solid 1px #adadad;
+    border: solid 1px #dedede;
     border-radius: 8px;
     width: 220px;
     height: 300px;
     float: left;
     margin-right: 20px;
     margin-bottom: 20px;
+    padding: 10px;
 }
 .hotImageContent .hotImageImg {
     height: 260px;
+}
+.hotImage img {
+    width: 200px;
+    height: 230px;
 }
 .hotImageContent .hotImageRating {
     padding: 0 10px;

@@ -20,6 +20,7 @@
             <value>
                 /logout=logout
                 /image/**/download=authc
+                /home=authc
                 /**=anon
             </value>
         </property>

@@ -28,14 +28,6 @@ public class HomeController {
     private GuestService guestService;
     private CatalogeService catalogeService;
 
-    @RequestMapping("/hom/{accountId}")
-    @ResponseBody
-    public Account rome(@PathVariable String accountId, HttpServletRequest request, Model model) {
-        Account currentAccount = (Account) request.getSession().getAttribute(Constant.CURRENT_ACCOUNT);
-        System.out.println("--------------------------" + currentAccount);
-        return currentAccount;
-    }
-
     /**
      * 用户必须已经登录，否则返回登录页面(shiro)
      * @param accountId
@@ -55,13 +47,19 @@ public class HomeController {
         model.addAttribute("currentAccount", currentAccount);
         model.addAttribute("homeAccount", homeAccount);
 
-        if (!currentAccount.getAccountId().equals(accountId)) {
-            //记录访客
-            guestService.logGuestSuccess(currentAccount, homeAccount);
+        if (currentAccount != null) {
+            if (!currentAccount.getAccountId().equals(accountId)) {
+                //记录访客
+                guestService.logGuestSuccess(currentAccount, homeAccount);
+            } else {
+                model.addAttribute("_delete", "true");
+            }
         }
 
-        Page<Guest> guestAccounts = guestService.pageQueryByAccountNickname(1, 6, homeAccount.getAccountNickname());
-        model.addAttribute("guestAccounts", guestAccounts.getData());
+        Page<Guest> guestAccounts = guestService.pageQueryByAccountNickname(1, 4, homeAccount.getAccountNickname());
+        if (guestAccounts != null) {
+            model.addAttribute("guestAccounts", guestAccounts.getData());
+        }
 
         List<Image> collectImages = imageService.findCollectionByAccount(homeAccount, 12);
         model.addAttribute("collectImages", collectImages);
@@ -70,7 +68,7 @@ public class HomeController {
         model.addAttribute("recommendImage", recommendImages.getData().get(0));
 
         Page<Image> dynamicImage = imageService.pageQueryForLatest(1, 1 ,homeAccount.getAccountNickname());
-        if (dynamicImage != null) {
+        if (dynamicImage.getData().size() != 0) {
             model.addAttribute("dynamicImage", dynamicImage.getData().get(0));
         } else {
             model.addAttribute("dynamicImage", null);

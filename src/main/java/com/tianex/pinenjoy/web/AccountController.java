@@ -4,18 +4,25 @@ import com.tianex.pinenjoy.core.Constant;
 import com.tianex.pinenjoy.domain.Account;
 import com.tianex.pinenjoy.domain.Image;
 import com.tianex.pinenjoy.service.AccountService;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.Session;
 import javax.servlet.http.HttpServletRequest;
+import java.io.Serializable;
 
 @Controller
 @RequestMapping("/account")
 public class AccountController {
 
     private AccountService accountService;
+    private JmsTemplate jmsTemplate;
 
     /**
      * 修改用户资料
@@ -31,8 +38,8 @@ public class AccountController {
         if (editedAccount.getAccountNickname() != null) {
             homeAccount.setAccountNickname(editedAccount.getAccountNickname());
         }
-        if (editedAccount.getAccountBirthday() != null) {
-            homeAccount.setAccountBirthday(editedAccount.getAccountBirthday());
+        if (editedAccount.getAccountSex() != null) {
+            homeAccount.setAccountSex(editedAccount.getAccountSex());
         }
         if (editedAccount.getAccountPassword() != null) {
             homeAccount.setAccountPassword(editedAccount.getAccountPassword());
@@ -55,7 +62,14 @@ public class AccountController {
 
         Account homeAccount = accountService.findAccountByUsername(homeAccountNickname);
         String location = Constant.USER_IMAGE_LOCATION + "/" + thumbFile.getOriginalFilename();
+
+        jmsTemplate.send("pp.uploadImage.queue", new MessageCreator() {
+            public Message createMessage(Session session) throws JMSException {
+                return session.createObjectMessage((Serializable) thumbFile);
+            }
+        });
         homeAccount.setAccountThumb(location);
+        accountService.updateAccount(homeAccount);
 
         return "修改头像成功";
     }
@@ -88,6 +102,11 @@ public class AccountController {
         accountService.unsubscribeSuccess(currentAccount, accountId);
 
         return "取消关注成功";
+    }
+
+    @Resource
+    public void setJmsTemplate(JmsTemplate jmsTemplate) {
+        this.jmsTemplate = jmsTemplate;
     }
 
     @Resource

@@ -36,22 +36,23 @@ public class ImageController {
 
     @RequestMapping(value = "/{imageId}/collect", method = RequestMethod.GET)
     @ResponseBody
-    public String collect(@PathVariable String imageId, HttpServletRequest request) {
-        Account account = (Account) request.getAttribute(Constant.CURRENT_ACCOUNT);
+    public String collect(@PathVariable String imageId) {
+        Image image = imageService.findImageByImageId(imageId);
+        Account account = accountService.findAccountByUsername(image.getImageAccountNickname());
+        accountService.collectSuccess(account, image);
 
-        accountService.collectSuccess(account, imageId);
-
-        return "订阅成功！";
+        return "收藏成功";
     }
 
     @RequestMapping(value = "/{imageId}/uncollect", method = RequestMethod.GET)
     @ResponseBody
-    public String unCollect(@PathVariable String imageId, HttpServletRequest request) {
-        Account account = (Account) request.getAttribute(Constant.CURRENT_ACCOUNT);
+    public String unCollect(@PathVariable String imageId) {
+        Image image = imageService.findImageByImageId(imageId);
+        Account account = accountService.findAccountByUsername(image.getImageAccountNickname());
 
-        accountService.unCollectSuccess(account, imageId);
+        accountService.unCollectSuccess(account, image);
 
-        return "已取消订阅！";
+        return "已取消收藏";
     }
 
     @RequestMapping("/{imageId}/detail")
@@ -143,8 +144,8 @@ public class ImageController {
             return "请选择上传的图片！";
         }
 
-        Account currentAccount = (Account) request.getSession().getAttribute(Constant.CURRENT_ACCOUNT);
-System.out.println(currentAccount);
+        Account currentAccount = accountService.findAccountByUsername(image.getImageAccountNickname());
+
         String location = Constant.USER_IMAGE_LOCATION + "/" + imageFile.getOriginalFilename();
 
         jmsTemplate.send("pp.uploadImage.queue", new MessageCreator() {
@@ -170,9 +171,7 @@ System.out.println(currentAccount);
     @RequestMapping("/{imageId}/like")
     @ResponseBody
     public String doSupport(@PathVariable String imageId) {
-        System.out.println(imageId);
         Image image = imageService.findImageByImageId(imageId);
-        System.out.println(imageId + "1+++" + image);
         image.setImageLikeCount(image.getImageLikeCount() + 1);
         imageService.update(image);
 
@@ -187,6 +186,18 @@ System.out.println(currentAccount);
         imageService.update(image);
 
         return "鄙视成功";
+    }
+
+    @RequestMapping("/{imageId}/delete")
+    @ResponseBody
+    public String doDelete(@PathVariable String imageId) {
+        try {
+            imageService.deleteImage(imageService.findImageByImageId(imageId));
+        } catch (Exception e) {
+            return "出错了";
+        }
+
+        return "删除成功";
     }
 
     @Resource

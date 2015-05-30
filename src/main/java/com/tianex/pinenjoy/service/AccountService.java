@@ -1,15 +1,16 @@
 package com.tianex.pinenjoy.service;
 
 import com.tianex.pinenjoy.domain.Account;
+import com.tianex.pinenjoy.domain.Image;
 
 import java.util.List;
 import java.util.Set;
 
 public interface AccountService {
 
-    public void createAccount(Account account) throws Exception;
-    public void deleteAccount(Account account);
-    public void updateAccount(Account account);
+    void createAccount(Account account) throws Exception;
+    void deleteAccount(Account account);
+    void updateAccount(Account account);
 
     public List<Account> findAll();
     public Account findAccountByEmail(String accountEmail);
@@ -19,8 +20,8 @@ public interface AccountService {
     public Set<String> findPermissionsByUsername(String accountNickname);
     public Set<String> findRolesByUsername(String accountNickname);
 
-    public void collectSuccess(Account account, String imageId);
-    public void unCollectSuccess(Account account, String imageId);
+    public void collectSuccess(Account account, Image image);
+    public void unCollectSuccess(Account account, Image image);
 
     public void subscribeSuccess(Account CurrentAccount, String accountId);
     public void unsubscribeSuccess(Account account, String accountId);

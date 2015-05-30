@@ -12,6 +12,7 @@ public interface GuestService {
 
     void logGuestSuccess(Account currentAccount, Account homeAccount);
 
+
     Page<Guest> pageQueryByAccountNickname(int pageNo, int pageSize, String accountNickname);
 
 }

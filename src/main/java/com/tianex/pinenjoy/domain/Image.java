@@ -1,5 +1,8 @@
 package com.tianex.pinenjoy.domain;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -8,6 +11,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "freqChangeRegion")
 @Table(name = "t_image")
 public class Image implements Serializable {
     private static final long serialVersionUID = 7886311010994984923L;

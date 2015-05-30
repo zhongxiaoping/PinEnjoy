@@ -5,7 +5,9 @@ import com.tianex.pinenjoy.dao.AccountDao;
 import com.tianex.pinenjoy.dao.EmailCheckDao;
 import com.tianex.pinenjoy.domain.Account;
 import com.tianex.pinenjoy.domain.EmailCheck;
+import com.tianex.pinenjoy.domain.Image;
 import com.tianex.pinenjoy.service.AccountService;
+import com.tianex.pinenjoy.service.ImageService;
 import com.tianex.pinenjoy.service.RoleService;
 import com.tianex.pinenjoy.util.AESUtils;
 import com.tianex.pinenjoy.util.DateUtils;
@@ -26,6 +28,7 @@ public class AccountServiceImpl implements AccountService {
     private AccountDao accountDao;
     private EmailCheckDao emailCheckDao;
     private RoleService roleService;
+    private ImageService imageService;
 
     private MailSender mailSender;
     private SimpleMailMessage completeRegisterCheck;
@@ -144,35 +147,44 @@ public class AccountServiceImpl implements AccountService {
     /**
      * 收藏指定Id的图片
      * @param currentAccount 当前用户
-     * @param imageId 指定图片Id
+     * @param image 指定图片
      */
-    public void collectSuccess(Account currentAccount, String imageId) {
+    @Override
+    public void collectSuccess(Account currentAccount, Image image) {
         String collectImageIds = currentAccount.getAccountCollectImageIds();
-        if (collectImageIds.contains(",")) {
-            collectImageIds.concat("," + imageId);
+
+        if (collectImageIds != null) {
+            if (collectImageIds.contains(",")) {
+                collectImageIds.concat("," + image.getImageId());
+            }
         } else {
-            collectImageIds = imageId;
+            collectImageIds = image.getImageId();
         }
         currentAccount.setAccountCollectImageIds(collectImageIds);
+        image.setImageCollectCount(image.getImageCollectCount() + 1);
 
+        imageService.update(image);
         accountDao.update(currentAccount);
     }
 
     /**
      * 取消收藏指定Id的图片
      * @param currentAccount
-     * @param imageId
+     * @param image
      */
-    public void unCollectSuccess(Account currentAccount, String imageId) {
+    public void unCollectSuccess(Account currentAccount, Image image) {
         String collectImageIds = currentAccount.getAccountCollectImageIds();
 
         if (collectImageIds.contains(",")) {
-            collectImageIds.replace("," + imageId, "");
+            collectImageIds.replace("," + image.getImageId(), "");
         } else {
             collectImageIds = null;
         }
 
         currentAccount.setAccountCollectImageIds(collectImageIds);
+        image.setImageCollectCount(image.getImageCollectCount() - 1);
+
+        imageService.update(image);
 
         accountDao.update(currentAccount);
     }
@@ -250,6 +262,11 @@ public class AccountServiceImpl implements AccountService {
     @Resource
     public void setCompleteRegisterCheck(SimpleMailMessage completeRegisterCheck) {
         this.completeRegisterCheck = completeRegisterCheck;
+    }
+
+    @Resource
+    public void setImageService(ImageService imageService) {
+        this.imageService = imageService;
     }
 
     @Resource

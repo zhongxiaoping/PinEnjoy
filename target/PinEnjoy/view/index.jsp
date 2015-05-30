@@ -23,7 +23,7 @@
           <ul id="tiles">
             <c:forEach items="${currentImages }" var="image">
               <li onclick="location.href='image/${image.imageId}/detail';">
-                <img src="${image.imageLocation }" width="200" height="200">
+                <img src="${image.imageLocation }">
                 <div class="post-info">
                   <div class="post-basic-info">
                     <h3><a href="#">${image.imageTitle }</a></h3>
@@ -87,10 +87,10 @@
             $.ajax({url:"index/asy", dataType:"json", success:function(data) {
               $.each(data, function(i, item) {
                 $("#tiles").append(
-                        "<li onclick='intoDetail(" + item.imageId +")'>" +
+                        "<li onclick='intoDetail(" + item.imageId +");'>" +
                         "<img src='" + item.imageLocation + "' width='200' height='200'>" +
                         "<div class='post-info'>" + "<div class='post-basic-info'>" +
-                        "<h3><a href='#'>" + item.imageTitle + "</a></h3>" +
+                        "<h3><a href='image/" + item.imageId + "/detail'>" + item.imageTitle + "</a></h3>" +
                         "<span><a href='#'><label></label>" + item.imageCatalogeName + "</a></span>" +
                         "<p>" + item.imageDescription + "</p>" + "</div>" +
                         "<div class='post-info-rate-share'>" + "<div id='function_rate'></div>" +

@@ -1,5 +1,8 @@
 package com.tianex.pinenjoy.domain;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -9,6 +12,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 @Entity
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Table(name = "t_account")
 public class Account implements Serializable {
     private static final long serialVersionUID = -1718018743979275416L;

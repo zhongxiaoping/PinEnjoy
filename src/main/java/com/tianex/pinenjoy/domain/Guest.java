@@ -1,5 +1,8 @@
 package com.tianex.pinenjoy.domain;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -8,6 +11,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "freqChangeRegion")
 @Table(name = "t_guest")
 public class Guest implements Serializable {
     private static final long serialVersionUID = -2482254577660374966L;
@@ -17,6 +21,7 @@ public class Guest implements Serializable {
     private String homeAccountNickname;
 
     private String guestAccountNickname;
+    private String guestAccountId;
     private String guestAccountThumb;
     private Timestamp guestLastVisitedTime;
 
@@ -72,6 +77,15 @@ public class Guest implements Serializable {
 
     public void setHomeAccountNickname(String homeAccountNickname) {
         this.homeAccountNickname = homeAccountNickname;
+    }
+
+    @Column(name = "guest_guestAccountId")
+    public String getGuestAccountId() {
+        return guestAccountId;
+    }
+
+    public void setGuestAccountId(String guestAccountId) {
+        this.guestAccountId = guestAccountId;
     }
 
     @Override

@@ -1,16 +1,13 @@
 body{
-	/*font-family: 'Open Sans', sans-serif; */
-	background:#F0EFEE;
+	font-family: 'Open Sans', sans-serif;
+	background-color: #F0EFEE;
 }
 .wrap{
 	width:80%;
 	margin:0 auto;
 }
-/**
- * Grid container
- */
 #main {
-	margin-top: 7em;
+	margin-top: 6em;
 }
 #tiles {
   list-style-type: none;
@@ -21,9 +18,6 @@ body{
 #tiles li:hover img{
 	opacity:0.8;
 }
-/**
- * Grid items
- */
 #tiles li {
  	width: 280px;
 	background-color: #ffffff;

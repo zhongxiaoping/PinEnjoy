@@ -2,6 +2,7 @@ package com.tianex.pinenjoy.service.impl;
 
 import com.tianex.pinenjoy.core.Constant;
 import com.tianex.pinenjoy.core.Page;
+import com.tianex.pinenjoy.dao.AccountDao;
 import com.tianex.pinenjoy.dao.ImageDao;
 import com.tianex.pinenjoy.domain.Account;
 import com.tianex.pinenjoy.domain.Image;
@@ -19,8 +20,8 @@ import java.util.List;
 public class ImageServiceImpl implements ImageService {
 
     private ImageDao imageDao;
-
-    private AccountService accountService;
+    private AccountDao accountDao;
+    //private AccountService accountService;
 
     public void createImage(Image image) {
         imageDao.save(image);
@@ -122,8 +123,8 @@ public class ImageServiceImpl implements ImageService {
         image.setImageDownloadCount(image.getImageDownloadCount() + 1);
         imageDao.update(image);
 
-        Account account = accountService.findAccountByUsername(image.getImageAccountNickname());
-        accountService.updateAccount(account);
+        Account account = accountDao.findAccountByUsername(image.getImageAccountNickname());
+        accountDao.update(account);
     }
 
     /**
@@ -143,7 +144,7 @@ public class ImageServiceImpl implements ImageService {
 
         this.createImage(image);
 
-        accountService.updateAccount(account);
+        accountDao.update(account);
     }
 
     /**
@@ -202,7 +203,7 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Resource
-    public void setAccountService(AccountService accountService) {
-        this.accountService = accountService;
+    public void setAccountDao(AccountDao accountDao) {
+        this.accountDao = accountDao;
     }
 }

@@ -34,6 +34,7 @@ public class GuestServiceImpl implements GuestService {
     public void logGuestSuccess(Account currentAccount, Account homeAccount) {
         Guest guest = new Guest();
         guest.setGuestId(NumberUtils.generateUUID());
+        guest.setGuestAccountId(currentAccount.getAccountId());
         guest.setGuestAccountNickname(currentAccount.getAccountNickname());
         guest.setGuestAccountThumb(currentAccount.getAccountThumb());
         guest.setGuestLastVisitedTime(DateUtils.getNowByTimestamp());

@@ -25,6 +25,11 @@
           <div class="displayContent">
             <div class="imageContent">
                <img src="${currentImage.imageLocation }" title="${currentImage.imageTitle }">
+               <c:if test="${_delete != null}">
+                  <button type="button" class="btn btn-default" style="border:none;" id="_delete">
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                  </button>
+               </c:if>
             </div>
             <input hidden="hidden" id="currentId" value="${currentImage.imageId}"/>
             <div class="middleContent">
@@ -62,7 +67,7 @@
                 <img src="${imageAccount.accountThumb }" class="img-circle">
               </div>
               <div class="storeContentM">
-                <a href="home/{imageAccount.accountId }">${imageAccount.accountNickname }</a>
+                <a href="home/${imageAccount.accountId }">${imageAccount.accountNickname }</a>
               </div>
               <div class="storeContentR">
                 <button type="button" class="btn btn-info" aria-label="Left Align" id="_focus">
@@ -90,18 +95,16 @@
           </div>
         </div>
         <div class="sideContent">
-           <div>
-             <div class="sideContentTop">
-                <c:forEach var="image" items="${otherImages}">
-                  <a href="image/${image.imageId }/detail"><img src="${image.imageLocation }" class="img-rounded"></a>
-                </c:forEach>
-             </div>
-             <div class="sideContentDown">
-                <button type="button" class="btn btn-default btn-block" location.href='home/${imageAccount.accountId }'>
-                  更多
-                </button>
-             </div>
-           </div>
+          <div class="sideContentTop">
+            <c:forEach var="image" items="${otherImages }">
+              <a href="image/${image.imageId }/detail"><img src="${image.imageLocation }" class="img-rounded"></a>
+            </c:forEach>
+          </div>
+          <div class="sideContentDown">
+            <button type="button" class="btn btn-default btn-block" location.href='home/${imageAccount.accountId }'>
+             更多
+            </button>
+          </div>
         </div>
         <div style="clear: both"/>
         <div class="dropLayer">
@@ -181,6 +184,12 @@
 
       });
 
+      $('#_delete').click(function () {
+        $.get('image/' + $('#currentId').val() + '/delete', function(result){
+          alert(result);
+        });
+      });
+
       $('#_likeAsy').click(function() {
         $.get('image/' + $('#currentId').val() + '/like', function(result){
           alert(result);
@@ -196,14 +205,14 @@
           $('#_focus').text('已关注');
           $('#currentId').css('id', '_unfocus');
           alert(result);
-        })
+        });
       });
       $('#_unfocus').click(function() {
         $.get($('account/' + '#currentId').val() + '/unsubscribe', function(result) {
           $('#_focus').text('关注');
           $('#currentId').css('id', '_focus');
           alert(result);
-        })
+        });
       });
     </script>
 
